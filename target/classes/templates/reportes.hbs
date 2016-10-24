@@ -1,0 +1,80 @@
+{{#partial "title"}}
+<title>{{title}}</title>
+{{/partial}}
+{{#partial "content"}}
+<div class="ui main container">
+    <div class="ui center aligned inverted segment">
+
+		<div class="ui circular center aligned segment">
+			
+			<div class="ui clearing massive divider"></div>
+	        <button id="nuevo" class="circular massive yellow fluid ui button">REPORTES</button>
+	        <div class="ui clearing divider"></div>
+	        
+	        <div class="ui checkbox">
+			  <input type="checkbox" name="example">
+			  <label>Hora Fecha</label>
+			</div>
+			
+			<div class="ui checkbox">
+			  <input type="checkbox" name="example">
+			  <label>Cantidad De Mujeres</label>
+			</div>
+			
+			<div class="ui checkbox">
+			  <input type="checkbox" name="example">
+			  <label>Cantidad De Hombres</label>
+			</div>
+			
+			<div class="ui checkbox">
+			  <input type="checkbox" name="example">
+			  <label>Cantidad Personas Seleccionadas</label>
+			</div>		
+				  
+		</div>  
+        
+        <table id ="reportes" class="ui center aligned celled structured table">
+            <thead>
+	        	<tr>
+    	            <th class="ascending" colspan="1">#</th>
+            	    <th colspan="1">Hora Fecha</th>
+            	    <th colspan="1">Mujeres</th>
+                	<th rowspan="1">Hombres</th>
+                	<th rowspan="1">Seleccionados</th>
+            	</tr>
+            </thead>
+            
+            <tbody>
+            	{{#each reportes}}
+	            <tr>
+    	            <td>{{this.id}}</td>
+            	    <td>{{this.hora_fecha}}</td>
+            	    <td>{{this.cant_mujeres}}</td>
+            	    <td>{{this.cant_hombres}}</td>
+            	    <td>{{this.cant_personas_seleccionadas}}</td>
+                    <td class="center aligned">
+                        <button id="edit" class="ui edit icon button">
+                            <i class="write icon"></i>
+                        </button>
+                        <button id="delete" class="ui delete icon button">
+                            <i class="trash icon"></i>
+                        </button>
+                        <button id="delete" class="ui shuffle icon button">
+                            <i class="shuffle icon"></i>
+                        </button>
+                        <button id="upload" class="ui circular icon button" type="file">
+                            <i class="icon settings"></i>
+                        </button>
+                    </td>
+    	        </tr>
+    	        {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+</script>
+
+{{/partial}}
+{{> layout.hbs}}

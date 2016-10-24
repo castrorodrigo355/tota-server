@@ -1,0 +1,104 @@
+{{#partial "title"}}
+<title>{{title}}</title>
+{{/partial}}
+{{#partial "content"}}
+<div class="ui main container">
+    <div class="ui center aligned inverted segment">
+        <h2 class="ui center aligned">
+  			TELEVISORES
+		</h2>
+		
+		<div class="ui clearing divider"></div>
+        <button id="nuevoModal" class="circular blue fluid ui button">Nuevo Televisor</button>
+        <div class="ui clearing divider"></div>
+		
+        <table class="ui center aligned celled structured table">
+            <thead>
+	        	<tr>
+    	            <th class="ascending" colspan="1">#</th>
+        	        <th colspan="1">Direccion IP</th>
+                	<th rowspan="1">Acciones</th>
+            	</tr>
+            </thead>
+            <tbody>
+            	{{#each televisores}}
+	            <tr>
+    	            <td>{{this.id}}</td>
+            	    <td>{{this.ip_dir}}</td>
+                	<td class="center aligned">
+                        <button id="edit" class="ui icon button">
+                            <i class="write icon"></i>
+                        </button>
+                        <button id="delete" class="ui delete icon button">
+                            <i class="trash icon"></i>
+                        </button>
+                        <button id="delete" class="ui shuffle icon button">
+                            <i class="shuffle icon"></i>
+                        </button>
+                    </td>
+    	        </tr>
+    	        {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+<div class="ui modal">
+    <i class="close icon"></i>
+        <div class="header">
+            Nuevo Televisor
+        </div>
+        
+        <div class="content">
+	        <form class="ui form" method="POST" action="/televisores">
+				  <div class="field">
+				  		<label>IP</label>
+				    	<input type="text" name="ip_dir" placeholder="IP Televisor" required="true">
+				  </div>
+				  <div class="field">
+				  		<label>ID Ubicacion</label>
+				    	<input type="text" name="ubicacion_id" placeholder="UbicacionID" required="true">
+				  </div>
+				  <div class="field">
+				  		<label>ID Camara</label>
+				    	<input type="text" name="cam_id" placeholder="CamaraID" required="true">
+				  </div>
+				  <div class="field">
+		            	<input type="submit" class="circular blue fluid ui button" value="Aceptar">
+		          </div> 
+			</form>
+		</div>
+</div>
+
+<script>
+	$("#nuevoModal").click(function(){
+        $('.ui.modal').modal({
+            onShow    : function(){
+                $('.ui.modal .header').text("Nuevo Televisor");
+                $('.ui.modal .content').find('input[name=nombre]').val("");
+                $('.ui.modal .content').find('input[name=posicion]').val("");
+                $('.ui.modal .content').find('input[name=edad]').val("");    
+            }
+        }).modal('show');
+    }); 
+
+	$(".ui.delete.icon.button").click(function(){
+        var tv_id = $(this).parent().parent().find("td:first").text();
+       
+       $.ajax({
+            url : "/televisores/" + tv_id,
+            method : "DELETE",
+            success : function(response){
+                $('#televisores tr:eq('+tv_id+')').remove();
+            }
+        }) 
+    });
+
+    $(".ui.shuffle.icon.button").click(function(){
+    	
+    });
+</script>
+
+{{/partial}}
+{{> layout.hbs}}

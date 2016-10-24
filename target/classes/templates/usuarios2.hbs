@@ -1,0 +1,251 @@
+{{#partial "title"}}
+<title>{{title}}</title>
+{{/partial}}
+{{#partial "content"}}
+<div class="ui main container">
+    <div class="ui center aligned inverted segment">
+        <h2 class="ui right floated header">Usuarios</h2>
+        <div class="ui clearing divider"></div>
+        <button id="nuevo" class="positive fluid ui button">Nuevo usuario</button>
+        <div class="ui clearing divider"></div>
+        <table id="usuarios" class="ui center aligned celled structured table">
+            
+            <thead>
+	        	<tr>
+    	            <th class="ascending" colspan="1">#</th>
+        	        <th colspan="1">Usuario</th>
+        	        <th colspan="1">Password</th>
+            	    <th colspan="1">Email</th>
+            	    <th colspan="1">Marca</th>
+                    <th colspan="1">Acciones</th>
+            	</tr>
+            </thead>
+            <tbody>
+            	{{#each usuarios}}
+	            <tr>
+    	            <td>{{this.id}}</td>
+        	        <td>{{this.nombre}} <br>{{this.apellido}}</td>
+        	        <td>{{this.password}}</td>
+            	    <td>{{this.email}}</td>
+            	    <td>{{this.marca.nombre}}</td>
+                    <td class="center aligned">
+                        <button id="edit" class="ui edit icon button">
+                            <i class="write icon"></i>
+                        </button>
+                        <button id="delete" class="ui delete icon button">
+                            <i class="trash icon"></i>
+                        </button>
+                        <button id="delete" class="ui shuffle icon button">
+                            <i class="shuffle icon"></i>
+                        </button>
+                    </td>
+    	        </tr>
+    	        {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="nuevo-modal" class="ui modal">
+    <i class="close icon"></i>
+        <div class="header">
+            Nuevo usuario
+        </div>
+        <div class="content">
+            <form class="ui form">
+                <div class="two fields">
+                    <div class="field">
+                        <label>Nombre</label>
+                        <input name="nombre" placeholder="Nombres" type="text">
+                    </div>
+                    <div class="field">
+                        <label>Apellido</label>
+                        <input name="apellido" placeholder="Apellido" type="text">
+                    </div>
+                </div>
+                
+                
+                <div class="three fields">
+                    <div class="field">
+                        <label>Password</label>
+                        <input name="password" placeholder="Password" type="text">
+                    </div>
+                    <div class="field">
+	                    <label>Correo electrónico</label>
+	                    <input type="email" placeholder="ejemplo@smarketing.com">
+	                </div>
+	                <div class="field">
+                        <label>Marca ID</label>
+                        <input name="marca_id" placeholder="idMarca" required="true" type="text">
+				    </div>
+                </div>
+                
+            </form>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">
+                Cancelar
+            </div>
+            <div id="nuevo-button" class="ui positive right labeled icon button">
+                Guardar
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+</div>
+<div id="modificar-modal" class="ui modal">
+    <i class="close icon"></i>
+        <div class="header">
+            Modificar usuario
+        </div>
+        <div class="content">
+            <form class="ui form">
+                <div class="two fields">
+                    <div class="field">
+                        <label>Nombre</label>
+                        <input name="nombre" placeholder="Nombres" type="text">
+                    </div>
+                    <div class="field">
+                        <label>Apellido</label>
+                        <input name="apellido" placeholder="Apellido" type="text">
+                    </div>
+                </div>
+                
+                
+                <div class="three fields">
+                    <div class="field">
+                        <label>Password</label>
+                        <input name="password" placeholder="Password" type="text">
+                    </div>
+                    <div class="field">
+	                    <label>Correo electrónico</label>
+	                    <input type="email" placeholder="ejemplo@smarketing.com">
+	                </div>
+	                <div class="field">
+                        <label>Marca ID</label>
+                        <input name="marca_id" placeholder="idMarca" required="true" type="text">
+				    </div>
+                </div>
+                
+            </form>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">
+                Cancelar
+            </div>
+            <div id="modificar-button" class="ui positive right labeled icon button">
+                Modificar
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+</div>
+
+<script>
+    $('.ui.checkbox').checkbox();
+    var selectedId = null;
+    
+    /*Agrego un nuevo usuario*/
+    $("#nuevo-button").click(function(){
+        
+        var nombre = $('#nuevo-modal').find('input[name=nombre]').val();
+        var apellido = $('#nuevo-modal').find('input[name=apellido]').val();
+        var password = $('#nuevo-modal').find('input[name=password]').val();
+        var email = $('#nuevo-modal').find('input[type=email]').val();
+        
+        $.ajax({
+            url : "/usuarios",
+            method : "POST",
+            data : {nombre: nombre, apellido: apellido, password: password, email: email},
+            success : function(response){
+                var json = JSON.parse(response);
+                    $("#usuarios > tbody").append("<tr><td>"+json.id+"</td><td>"+json.nombre + " " +json.apellido+"</td><td>"+json.password+"</td><td>"+json.email+"</td><td><button class='ui edit icon button'><i class='write icon'></i></button><button class='ui delete icon button'><i class='trash icon'></i></button></td>");
+            }
+        })
+        //<td><button class="'ui edit icon button'"><i class="write icon"></i></button><button class="ui delete icon button"><i class="'trash icon'"></i></button></td>
+        
+    });
+    /*Muestro el modal para agregar un nuevo usuario*/
+    $("#nuevo").click(function(){
+        $('#nuevo-modal').modal({
+        }).modal('show');
+    });
+    
+    /*Elimino el registro de la base de datos y de la tabla*/
+    $(".ui.delete.icon.button").click(function(){
+        var id = $(this).parent().parent().find("td:first").text();
+        
+        $.ajax({
+            url : "/usuarios/" + id,
+            method : "DELETE",
+            success : function(response){
+                $('#usuarios tr:eq('+id+')').remove();
+            }
+        })
+    });
+    
+    /*Cargo el modal con los datos de la fila que tenia el boton en el que hice clic*/
+    $(".ui.edit.icon.button").click(function(){
+        var id = $(this).parent().parent().find("td:first").text();
+        selectedId = id;
+        var nombre = null;
+        var apellido = null;
+        var password = null;
+        var email = null;
+        
+        $.ajax({
+            url : "/usuarios/" + id,
+            method : "GET",
+            success : function(response){
+                nombre= response.nombre;
+                apellido = response.apellido;
+                password = response.password;
+                email = response.email;
+                
+                $('#modificar-modal').modal({
+                    onShow    : function(){
+                        $('#modificar-modal').find('input[name=nombre]').val(nombre);
+                        $('#modificar-modal').find('input[name=apellido]').val(apellido);
+                        $('#modificar-modal').find('input[name=password]').val(password);
+                        $('#modificar-modal').find('input[type=email]').val(email);
+                    }
+                }).modal('show');
+            }
+        })
+    });
+    
+    /*Agrego un nuevo usuario*/
+    $("#modificar-button").click(function(){
+        var id = $(this).parent().parent().find("td:first").text();
+        var nombre = $('#modificar-modal').find('input[name=nombre]').val();
+        var apellido = $('#modificar-modal').find('input[name=apellido]').val();
+        var password = $('#modificar-modal').find('input[name=password]').val();
+        var email = $('#modificar-modal').find('input[type=email]').val();
+        $.ajax({
+            url : "/usuarios/" + selectedId,
+            method : "PUT",
+            data : {nombre: nombre, apellido: apellido, password: password, email: email},
+            success : function(response){
+                var supplierSelector = "td:contains('"+ response.id + "')";
+                $supplierRow = $(supplierSelector).closest("tr");
+                $supplierRow.find("td:nth-child(2)").find("a").text(response.nombre + " " + response.apellido);
+                $supplierRow.find("td:nth-child(3)").text(response.password);
+                $supplierRow.find("td:nth-child(4)").text(response.email);
+            }
+        })
+    });
+    
+//    $("#editar").click(function(){
+//        var id = $(this).parent().parent().find("td:first").text();
+//        $.ajax({
+//            url : "/usuarios/" + id,
+//            method : "PUT",
+//            data : {nombre: "Rodrigo Castro", email: "rodrigo.castro@gmail.com"},
+//            success : function(response){
+//                var supplierSelector = "td:contains('"+ response.id + "')";
+//                $supplierRow = $(supplierSelector).closest("tr");
+//                $supplierRow.find("td:nth-child(2)").find("a").text(response.nombre);
+//                $supplierRow.find("td:nth-child(3)").text(response.email);
+//            }
+//        });
+//    });
+</script>
+{{/partial}}
+{{> layout.hbs}}

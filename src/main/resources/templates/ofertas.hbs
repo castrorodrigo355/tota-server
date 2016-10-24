@@ -1,0 +1,94 @@
+{{#partial "title"}}
+<title>{{title}}</title>
+{{/partial}}
+{{#partial "content"}}
+<div class="ui main container">
+    <div class="ui center aligned inverted segment">
+        <h2 class="ui center aligned">
+  			OFERTAS
+		</h2>
+		
+		<div class="ui clearing divider"></div>
+        <button id="nuevoModal" class="circular yellow fluid ui button">Nueva Oferta</button>
+        <div class="ui clearing divider"></div>
+		
+        <table id="ofertas" class="ui center aligned celled structured table">
+            <thead>
+	        	<tr>
+    	            <th class="ascending" colspan="1">#</th>
+                	<th colspan="1">Descripcion</th>
+                	<th rowspan="1">Acciones</th>
+            	</tr>
+            </thead>
+            <tbody>
+            	{{#each ofertas}}
+	            <tr>
+    	            <td>{{this.id}}</td>
+            	    <td>{{this.descripcion}}</td>
+                	<td class="center aligned">
+                        <button id="edit" class="ui icon button">
+                            <i class="write icon"></i>
+                        </button>
+                        <button id="delete" class="ui delete icon button">
+                            <i class="trash icon"></i>
+                        </button>
+                        <button id="delete" class="ui shuffle icon button">
+                            <i class="shuffle icon"></i>
+                        </button>
+                    </td>
+    	        </tr>
+    	        {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+<div class="ui modal">
+    <i class="close icon"></i>
+        <div class="header">
+            Nueva Oferta
+        </div>
+        
+        <div class="content">
+	        <form class="ui form" method="POST" action="/ofertas">
+				  <div class="field">
+				    	<input type="text" name="descripcion" placeholder="Descripcion" required="true">
+				  </div>
+				  <div class="field">
+				    	<input type="text" name="pub_id" placeholder="ID Publicidad" required="true">
+				  </div>
+				  <div class="field">
+		            	<input type="submit" class="circular yellow fluid ui button" value="Aceptar">
+		          </div> 
+			</form>
+		</div>
+</div>
+
+<script>
+	$("#nuevoModal").click(function(){
+        $('.ui.modal').modal({
+            onShow    : function(){
+            }
+        }).modal('show');
+    }); 
+
+	$(".ui.delete.icon.button").click(function(){
+        var of_id = $(this).parent().parent().find("td:first").text();
+       
+       $.ajax({
+            url : "/ofertas/" + of_id,
+            method : "DELETE",
+            success : function(response){
+                $('#ofertas tr:eq('+of_id+')').remove();
+            }
+        }) 
+    });
+
+    $(".ui.shuffle.icon.button").click(function(){
+    	
+    });
+</script>
+
+{{/partial}}
+{{> layout.hbs}}

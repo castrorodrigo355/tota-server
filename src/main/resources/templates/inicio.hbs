@@ -1,0 +1,82 @@
+{{#partial "title"}}
+<title>{{title}}</title>
+{{/partial}}
+{{#partial "content"}}
+
+<div class="ui main container">
+	
+	<div class="ui circular center aligned segment">
+        
+        {{#if usuario.admin}}
+        
+			<div class="ui circular center aligned segment">
+			
+				<div class="ui circular labels">
+				  <a class="ui label">
+				    <h1 class="ui center aligned">BIENVENIDO {{usuario.nombre}} !!!</h1>
+				  </a>
+				</div>
+			
+				<div class="ui circular segment">
+					<p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Nombre: {{usuario.nombre}} XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+				 	<p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Apellido: {{usuario.apellido}}  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+					<p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Email: {{usuario.email}}  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+					<p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Tipo User: Administrador  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+				</div>
+				
+				<div class="ui clearing divider"></div>
+				
+					  <button class="ui circular massive inverted green button">Marcas</button>
+					  <button class="ui circular massive inverted orange button">Ofertas</button>
+					  <button class="ui circular massive inverted red button">Televisores</button>
+					  <button class="ui circular massive inverted purple button">Usuarios</button>
+					  <button class="ui circular massive inverted blue button">Camaras</button>
+					  <button class="ui circular massive inverted white button">Reportes</button>
+				  
+			</div>  
+                
+        {{else}}
+        
+        	<div class="ui circular center aligned segment">  
+				  
+				<div class="ui circular labels">
+				  <a class="ui label">
+				    <h1 class="ui center aligned">BIENVENIDO {{usuario.nombre}} !!!</h1>
+				  </a>
+				</div>
+			
+				<div class="ui circular segment">
+					<p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Nombre: {{usuario.nombre}} XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+				 	<p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Apellido: {{usuario.apellido}}  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+					<p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Email: {{usuario.email}}  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+					<p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Tipo User: Usuario  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+				</div>
+				
+				<div class="ui clearing divider"></div>
+				
+					  <button class="ui circular massive inverted pink button">Publicidades</button>
+					  <button class="ui circular massive inverted yellow button">Ofertas</button>
+				  
+			</div>
+			        
+        {{/if}}
+		
+	</div>
+	
+</div>
+
+<script>
+	
+	$(".ui.circular.massive.inverted.green.button").click(function(){$(window).attr('location', '/marcas');});
+	$(".ui.circular.massive.inverted.orange.button").click(function(){$(window).attr('location', '/ofertas');});
+	$(".ui.circular.massive.inverted.red.button").click(function(){$(window).attr('location', '/televisores');});
+	$(".ui.circular.massive.inverted.purple.button").click(function(){$(window).attr('location', '/usuarios');});
+	$(".ui.circular.massive.inverted.blue.button").click(function(){$(window).attr('location', '/camaras');});
+	$(".ui.circular.massive.inverted.pink.button").click(function(){$(window).attr('location', '/publicidades');});
+	$(".ui.circular.massive.inverted.yellow.button").click(function(){$(window).attr('location', '/ofertas');});
+	$(".ui.circular.massive.inverted.white.button").click(function(){$(window).attr('location', '/reportes');});
+
+</script>
+
+{{/partial}}
+{{> layout.hbs}}

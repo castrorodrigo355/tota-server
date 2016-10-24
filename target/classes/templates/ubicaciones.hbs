@@ -1,0 +1,82 @@
+{{#partial "title"}}
+<title>{{title}}</title>
+{{/partial}}
+{{#partial "content"}}
+<div class="ui main container">
+    <div class="ui aligned inverted segment">
+        <h2 class="ui center aligned">
+  			UBICACIONES
+		</h2>
+		
+        <table id="ubicaciones" class="ui center aligned celled structured table">
+            <thead>
+	        	<tr>
+    	            <th class="ascending" colspan="1">#</th>
+        	        <th colspan="1">Ubicacion</th>
+        	        <th colspan="1">Camaras Vinculadas</th>
+        	        <th colspan="1">Televisores Vinculados</th>
+                	<th rowspan="1">Acciones</th>
+            	</tr>
+            </thead>
+            <tbody>
+            	{{#each ubicaciones}}
+	            <tr>
+    	            <td>{{this.id}}</td>
+            	    <td><a href="/ubicaciones/{{this.id}}">{{this.descripcion}}</a></td>
+            	    
+            	    <td>
+                        <div class="ui list">
+                            {{#each this.camaras}}
+                            	<div class="item">ID: {{this.id}} - Dir IP: {{this.ip_dir}}</div>
+                                
+                            {{/each}}
+                        </div>
+                    </td>
+                    
+                    <td>
+                        <div class="ui list">
+                            {{#each this.televisores}}
+                            	<div class="item">ID: {{this.id}} - Direccion: {{this.ip_dir}}</div>
+                                
+                            {{/each}}
+                        </div>
+                    </td>
+            	    
+                    <td class="center aligned">
+                        <button id="edit" class="ui icon button">
+                            <i class="write icon"></i>
+                        </button>
+                        <button id="delete" class="ui delete icon button">
+                            <i class="trash icon"></i>
+                        </button>
+                        <button id="delete" class="ui shuffle icon button">
+                            <i class="shuffle icon"></i>
+                        </button>
+                    </td>
+    	        </tr>
+    	        {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+	$(".ui.delete.icon.button").click(function(){
+        var ubicacion_id = $(this).parent().parent().find("td:first").text();
+       
+       $.ajax({
+            url : "/ubicaciones/" + ubicacion_id,
+            method : "DELETE",
+            success : function(response){
+                $('#ubicaciones tr:eq('+ubicacion_id+')').remove();
+            }
+        }) 
+    });
+
+    $(".ui.shuffle.icon.button").click(function(){
+    	
+    });
+</script>
+
+{{/partial}}
+{{> layout.hbs}}

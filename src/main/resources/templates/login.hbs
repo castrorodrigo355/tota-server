@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <script src="semantic/dist/semantic.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <title>{{title}}</title>
+</head>
+<body>
+<div class="ui middle aligned center aligned grid">
+    <div class="column">
+        <h2 class="ui teal image header">
+            <img src="img/marketing.png" class="image">
+            <div class="content">
+                SMartketing
+            </div>
+        </h2>
+        <form class="ui large form" method="POST" action="/login">
+            <div class="ui stacked segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="email" placeholder="E-mail">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+                <input type="submit" class="ui fluid large teal submit button" value="Ingresar">
+            </div>
+            {{#if error}}
+            <div class="ui error message visible">{{error}}</div>
+            {{/if}}
+        </form>
+        <div class="ui message">
+            Eres nuevo? &nbsp;<a href="/register">Registrate</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
