@@ -1,0 +1,146 @@
+{{#partial "title"}}
+<title>{{title}}</title>
+{{/partial}}
+{{#partial "content"}}
+<div class="ui main container">
+    <div class="ui aligned inverted segment">
+        <h2 class="ui center aligned">PERSONAS</h2>
+        
+        <div class="ui clearing divider"></div>
+        <button id="nuevo" class="circular negative fluid ui button">Nueva Persona</button>
+        <div class="ui clearing divider"></div>
+        
+        <table id ="personas" class="ui center aligned celled structured table">
+            <thead>
+	        	<tr>
+    	            <th class="ascending" colspan="1">#</th>
+        	        <th colspan="1">Nombre</th>
+            	    <th colspan="1">Apellido</th>
+            	    <th colspan="1">Edad</th>
+                	<th rowspan="1">Acciones</th>
+            	</tr>
+            </thead>
+            <tbody>
+            	{{#each personas}}
+	            <tr>
+    	            <td>{{this.pers_id}}</td>
+        	        <td>{{this.nombre}}</td>
+            	    <td>{{this.apellido}}</td>
+            	    <td>{{this.edad}}</td>
+                    <td class="center aligned">
+                        <button id="edit" class="ui edit icon button">
+                            <i class="write icon"></i>
+                        </button>
+                        <button id="delete" class="ui delete icon button">
+                            <i class="trash icon"></i>
+                        </button>
+                        <button id="delete" class="ui shuffle icon button">
+                            <i class="shuffle icon"></i>
+                        </button>
+                        <button id="upload" class="ui circular icon button" type="file">
+                            <i class="icon settings"></i>
+                        </button>
+                    </td>
+    	        </tr>
+    	        {{/each}}
+            </tbody>
+        </table>
+        
+    </div>
+</div>
+
+<div class="ui modal">
+    <i class="close icon"></i>
+        <div class="header">
+            Nueva Persona
+        </div>
+        
+        <div class="content">
+            <form class="ui form" method="POST" action="/personas">
+                <div class="field">
+                    <div class="field">
+                        <label>Nombre</label>
+                        <input type="text" name="nombre" placeholder="Nombre">
+                    </div>
+                    <div class="field">
+                        <label>Apellido</label>
+                        <input type="text" name="apellido" placeholder="Apellido">
+                    </div>
+                    <div class="field">
+                        <label>Edad</label>
+                        <input type="text" name="edad" placeholder="Edad">
+                    </div>
+                     <div class="field">
+                        <label>Id</label>
+                        <input type="text" name="pers_id" placeholder="Id...">
+                    </div>
+				    <div class="field">>
+		            	<input type="submit" class="circular red fluid ui button" value="Aceptar">
+		            </div> 
+			</form>
+		</div>
+		</div>    
+</div>
+</div>
+
+<script>
+
+	$("#nuevo").click(function(){
+        $('.ui.modal').modal({
+            onShow    : function(){
+               $('.ui.modal .content').find('input[name=nombre]').val("");
+               $('.ui.modal .content').find('input[name=pers_id]').val("");
+               $('.ui.modal .content').find('input[name=apellido]').val("");
+               $('.ui.modal .content').find('input[name=edad]').val(""); 
+            }
+        }).modal('show');
+    });
+		
+    $(".ui.delete.icon.button").click(function(){
+        var pers_id = $(this).parents("tr").find("td").eq(0).text();
+       
+       $.ajax({
+            url : "/personas/" + pers_id,
+            method : "DELETE",
+            success : function(response){
+                $('#personas tr:eq('+pers_id+')').remove();
+            }
+        }) 
+    });
+    
+    $(".ui.shuffle.icon.button").click(function(){
+    debugger;
+    	var idPersona = $(this).parents("tr").find("td").eq(0).text();
+        var nombre  = $(this).parents("tr").find("td").eq(1).text();
+        var apellido = $(this).parents("tr").find("td").eq(2).text();
+        var edad = $(this).parents("tr").find("td").eq(3).text();
+		
+		alert(idPersona + " - " + nombre + " - " + apellido + " - " + edad);
+    });
+    
+    $(".ui.edit.icon.button").click(function(){
+    debugger;
+        var idPersona = $(this).parents("tr").find("td").eq(0).text();
+        var nombre  = $(this).parents("tr").find("td").eq(1).text();
+        var apellido = $(this).parents("tr").find("td").eq(2).text();
+        var edad = $(this).parents("tr").find("td").eq(3).text();
+        
+        $('.ui.modal').modal({
+			onShow    : function(){
+				$('.ui.modal .header').text("Modificar Persona");
+                $('.ui.modal .content').find('input[name=nombre]').val("");
+                $('.ui.modal .content').find('input[name=apellido]').val("");
+                $('.ui.modal .content').find('input[name=edad]').val("");
+                $('.ui.modal .content').find('input[name=pers_id]').val("");
+                
+                $('.ui.modal .content').find('input[name=nombre]').val(nombre);
+                $('.ui.modal .content').find('input[name=apellido]').val(apellido);
+                $('.ui.modal .content').find('input[name=edad]').val(edad);
+                $('.ui.modal .content').find('input[name=pers_id]').val(idPersona);
+            }
+        }).modal('show');
+    });    
+</script>
+
+{{/partial}}
+{{> layout.hbs}}
