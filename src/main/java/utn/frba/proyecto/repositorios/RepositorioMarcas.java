@@ -16,7 +16,9 @@ public class RepositorioMarcas implements WithGlobalEntityManager, Transactional
 	}
 
 	public List<Marcas> getAllBrands() {
-		return entityManager().createQuery("from Marcas", Marcas.class).getResultList();
+		List<Marcas> marcas = entityManager().createQuery("from Marcas", Marcas.class).getResultList();
+		marcas.forEach(marca -> entityManager().refresh(marca));
+		return marcas;
 	}
 
 	public Marcas getBrandById(int id) {

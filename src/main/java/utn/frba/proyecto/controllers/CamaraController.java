@@ -51,7 +51,10 @@ public class CamaraController {
 
 			if (camara != null) {
 				camara.setIp_dir(ip_dir);
-				return camaraService.modificarCamara(camara);
+				camaraService.modificarCamara(camara);
+				camaraService.getCamaras();
+				res.redirect("/camaras");
+				return null;
 			} else {
 				res.status(400);
 				return "No hay camaras con Id " + cam_id;

@@ -5,6 +5,7 @@ import java.util.List;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import utn.frba.proyecto.entities.Camaras;
+import utn.frba.proyecto.entities.Usuarios;
 
 public class RepositorioCamaras implements WithGlobalEntityManager, TransactionalOps {
 
@@ -21,9 +22,9 @@ public class RepositorioCamaras implements WithGlobalEntityManager, Transactiona
 	}
 	
 	public List<Camaras> getAllCamaras() {
-		return withTransaction(() -> {
-			return entityManager().createQuery("from Camaras", Camaras.class).getResultList();
-		});
+		List<Camaras> camaras = entityManager().createQuery("from Camaras", Camaras.class).getResultList();
+		camaras.forEach(camara -> entityManager().refresh(camara));
+		return camaras;
 	}
 
 	public Camaras getCamaraById(int id) {

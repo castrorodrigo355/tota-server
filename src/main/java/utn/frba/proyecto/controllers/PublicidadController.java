@@ -6,6 +6,7 @@ import static spark.Spark.delete;
 import static spark.Spark.get;
 import static spark.Spark.halt;
 import static spark.Spark.post;
+import static spark.Spark.put;
 import static utn.frba.proyecto.utils.JSONUtils.json;
 
 import java.io.File;
@@ -77,6 +78,31 @@ public class PublicidadController {
 			}
 			response.status(400);
 			return new ResponseError("No hay publicidad con id '%s'", String.valueOf(pub_id));
+		}, json());
+		
+		put("/publicidades/:user_id", (req, res) -> {
+			int pub_id = Integer.parseInt(req.params(":pub_id"));
+			Publicidades publicidad = publicidadService.getPublicidad(pub_id);
+			
+			String sexo = req.queryParams("sexo");
+			int emin = Integer.parseInt(req.queryParams("edad_min"));
+			int emax = Integer.parseInt(req.queryParams("edad_max"));
+			int hrmin = Integer.parseInt(req.queryParams("horario_min"));
+			int hrmax = Integer.parseInt(req.queryParams("horario_max"));
+			String descripcion = req.queryParams("descripcion");
+
+			if (publicidad != null) {
+				publicidad.setSexo(sexo);
+				publicidad.setEdad_min(emin);
+				publicidad.setEdad_max(emax);
+				publicidad.setHorario_min(hrmin);
+				publicidad.setHorario_max(hrmax);
+				publicidad.setDescripcion(descripcion);
+				return publicidadService.modificarPublicidad(publicidad);
+			} else {
+				res.status(400);
+				return "No hay publicidades con Id " + pub_id;
+			}
 		}, json());
 
 		delete("/publicidades/:pub_id", (req, res) -> {

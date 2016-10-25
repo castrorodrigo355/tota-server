@@ -52,7 +52,9 @@ public class TelevisorController {
 
 			if (televisor != null) {
 				televisor.setIp_dir(ip_dir);
-				return televisorService.modificarTelevisor(televisor);
+				televisorService.modificarTelevisor(televisor);
+				res.redirect("/televisores");
+	            return null;
 			} else {
 				res.status(400);
 				return "No hay Televisores con Id " + tv_id;
@@ -86,8 +88,12 @@ public class TelevisorController {
 			
 			Televisores televisor = televisorService.crearTelevisor(ip_dir, ubicacion, camara);
 
-			ubicacion.agregarTelevisor(televisor);
+			ubicacion.agregarTelevisor(televisor);			
+			televisor.setUbicacion(ubicacion);
+			
 			camara.agregarTelevisor(televisor);
+			televisor.setCamara(camara);
+			
 			televisorService.getTelevisores();
 			res.redirect("/televisores");
             return null;

@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+
+import utn.frba.proyecto.entities.Camaras;
 import utn.frba.proyecto.entities.Televisores;
 
 public class RepositorioTelevisores implements WithGlobalEntityManager, TransactionalOps {
@@ -21,9 +23,9 @@ public class RepositorioTelevisores implements WithGlobalEntityManager, Transact
 	}
 
 	public List<Televisores> getAllTelevisores() {
-		return withTransaction(() -> {
-			return entityManager().createQuery("from Televisores", Televisores.class).getResultList();
-		});
+		List<Televisores> televisores = entityManager().createQuery("from Televisores", Televisores.class).getResultList();
+		televisores.forEach(televisor -> entityManager().refresh(televisor));
+		return televisores;
 	}
 	
 	public Televisores getTelevisorById(int id) {

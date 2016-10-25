@@ -51,6 +51,7 @@ public class MarcaController {
 
 			if (marca != null) {
 				marca.setNombre(nombre);
+				marca.setDescripcion(descripcion);
 				return marcaService.modificarMarca(marca);
 			} else {
 				res.status(400);

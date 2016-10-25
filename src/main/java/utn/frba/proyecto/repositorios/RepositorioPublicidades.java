@@ -17,14 +17,15 @@ public class RepositorioPublicidades implements WithGlobalEntityManager, Transac
 	}
 
 	public List<Publicidades> getPublicidades() {
-		return entityManager().createQuery("from Publicidades", Publicidades.class).getResultList();
+		List<Publicidades> pubs = entityManager().createQuery("from Publicidades", Publicidades.class).getResultList();
+		pubs.forEach(publicidad -> entityManager().refresh(publicidad));
+		return pubs;
 	}
 	
 	public void addPublicidad(Publicidades publicidad) {
 		withTransaction(() -> {
 			entityManager().persist(publicidad);
 		});
-
 	}
 
 	public void modificarPublicidad(Publicidades publicidad) {
