@@ -11,13 +11,10 @@ import javassist.bytecode.StackMap.Writer;
 import static org.apache.maven.Maven.*;
 import com.sun.xml.internal.ws.commons.*;
 
-/*
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.Writer;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
-*/
 
 public class GeneradorCodigoQR {
 	private static final int ancho = 200;
@@ -29,8 +26,8 @@ public class GeneradorCodigoQR {
 	
 	public void generarCodigoQR(String nombreImagenQR, String datos) throws FileNotFoundException, IOException, WriterException {
 		BitMatrix matrix;
-		Writer writer = new MultiFormatWriter();
-		matrix = writer.encode(datos, BarcodeFormat.QR_CODE, ancho, alto);
+		MultiFormatWriter writer = new MultiFormatWriter();
+		matrix = ((com.google.zxing.Writer) writer).encode(datos, BarcodeFormat.QR_CODE, ancho, alto);
 
 		BufferedImage image = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_RGB);
 		for (int y = 0; y < alto; y++) {
