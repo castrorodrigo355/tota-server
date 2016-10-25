@@ -5,11 +5,19 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import org.eclipse.aether.util.graph.selector.StaticDependencySelector;
+
+import javassist.bytecode.StackMap.Writer;
+import static org.apache.maven.Maven.*;
+import com.sun.xml.internal.ws.commons.*;
+
+/*
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.Writer;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+*/
 
 public class GeneradorCodigoQR {
 	private static final int ancho = 200;
