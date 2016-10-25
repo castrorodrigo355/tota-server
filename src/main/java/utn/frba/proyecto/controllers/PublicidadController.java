@@ -28,7 +28,7 @@ import utn.frba.proyecto.utils.ResponseError;
 public class PublicidadController {
 	private MarcaService marcaService = new MarcaService();
 
-	private static final String rutaDeImagenes = "C:/Users/LaTota/workspace8/tota-server-master/tota-server/src/main/resources/public/img";
+	private static final String rutaDeImagenes = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/img";
 	
 	public PublicidadController(final PublicidadService publicidadService) {
 
@@ -100,9 +100,17 @@ public class PublicidadController {
 			int hrmax = Integer.parseInt(request.queryParams("horario_max"));
 			String descripcion = request.queryParams("descripcion");
 			
+			String extension = "";
+			int extensionImagenSeleccionada = descripcion.length();
+			String ultimos3 = descripcion.substring(extensionImagenSeleccionada - 3, extensionImagenSeleccionada);
+	    	switch(ultimos3){
+		    	case "png": extension = ".png"; break;
+		    	case "jpg": extension = ".jpg"; break;
+		    	default: extension = ".gif"; break; 
+	    	}
+			
 			String cantPublicidades = String.valueOf(publicidadService.getPublicidades().size() + 1);
 			String ruta = "../img/";
-			String extension = ".png";
 			String nombreFinal = cantPublicidades + extension;
 			
 			File fichero1 = new File(rutaDeImagenes, descripcion);

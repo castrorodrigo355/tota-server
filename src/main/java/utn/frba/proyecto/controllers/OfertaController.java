@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
+import utn.frba.proyecto.entities.GeneradorCodigoQR;
+import utn.frba.proyecto.entities.Mezclador;
 import utn.frba.proyecto.entities.Ofertas;
 import utn.frba.proyecto.entities.Publicidades;
 import utn.frba.proyecto.services.OfertaService;
@@ -73,14 +75,29 @@ public class OfertaController {
 		}, json());
 
 		post("/ofertas", (req, res) -> {
-			String descripcion = req.queryParams("descripcion");
+			String descOferta = req.queryParams("descripcion");
 			int pub_id = Integer.parseInt(req.queryParams("pub_id"));
 			
 			PublicidadService publicidadService = new PublicidadService();
 			Publicidades publicidad = publicidadService.getPublicidad(pub_id);
-			Ofertas oferta = ofertaService.crearOferta(descripcion, publicidad);
+			
+			String descPublicidad = publicidad.getDescripcion();
+			String idPublicidad = String.valueOf(publicidad.getId());
+			
+			String imagenQR = "qr.png";
+			
+			GeneradorCodigoQR generador = new GeneradorCodigoQR();
+			generador.generarCodigoQR(imagenQR, descOferta);
+			
+			String nombreFinal = idPublicidad + ".png";
+			Mezclador miMezclador = new Mezclador();
+			miMezclador.mezclarImagenes(descPublicidad, imagenQR, nombreFinal);
+			
+			Ofertas oferta = ofertaService.crearOferta(descOferta, publicidad);
 			publicidad.agregarOferta(oferta);
-			return ofertaService.getOfertas();
+			
+			res.redirect("/ofertas");
+            return null;
 		}, json());
 
 		after("/ofertas/*", (req, res) -> {

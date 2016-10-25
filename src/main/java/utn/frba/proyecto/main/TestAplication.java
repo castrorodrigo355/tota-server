@@ -18,15 +18,18 @@ import utn.frba.proyecto.repositorios.RepositorioUsuarios;
 import static spark.Spark.*;
 
 public class TestAplication {
-	
-    private static String nombreCazador;
 
 	public static void main(String[] args) {
     	
-    	List <Usuarios> usuarios = RepositorioUsuarios.getInstance().getAllUsers();
-    	Usuarios unUsuario = usuarios.get(3);
-    	String datosUsuario = unUsuario.toString();
-    	System.out.println(datosUsuario);
-    	
+		String descripcion = "nombreImagen.gif";
+		int extensionImagenSeleccionada = descripcion.length();
+		System.out.println("la longitud es: " + extensionImagenSeleccionada);
+		String ultimos3 = descripcion.substring(extensionImagenSeleccionada - 3,extensionImagenSeleccionada);
+    	System.out.println("Los ultimos 3 son: " + ultimos3);
+    	switch(ultimos3){
+	    	case "png": System.out.println("La extension es png"); break;
+	    	case "jpg": System.out.println("La extension es jpg"); break;
+	    	default: System.out.println("La extension es gif"); break; 
+    	}
     }
 }
