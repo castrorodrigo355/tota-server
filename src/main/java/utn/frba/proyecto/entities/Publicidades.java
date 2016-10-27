@@ -25,7 +25,8 @@ public class Publicidades {
 	private int horario_min;
 	private int horario_max;
 	private String descripcion;
-	
+	private String path;
+
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "pub_id")
 	private Ofertas oferta;
@@ -35,13 +36,14 @@ public class Publicidades {
 	private Marcas marca;
 	
 	public Publicidades() {}
-	public Publicidades(String sexo, int edad_min, int edad_max, int horario_min, int horario_max, String descripcion) {
+	public Publicidades(String sexo, int edad_min, int edad_max, int horario_min, int horario_max, String desc, String path) {
 		this.sexo = sexo;
 		this.edad_min = edad_min;
 		this.edad_max = edad_max;
 		this.horario_min = horario_min;
 		this.horario_max = horario_max;
-		this.descripcion = descripcion;
+		this.descripcion = desc;
+		this.path = path;
 	}
 
 	public int getId() {
@@ -98,6 +100,13 @@ public class Publicidades {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
 	}
 	
 	public Marcas getMarca() {

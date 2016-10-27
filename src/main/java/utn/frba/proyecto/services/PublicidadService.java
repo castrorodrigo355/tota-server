@@ -17,8 +17,8 @@ public class PublicidadService {
 		return RepositorioPublicidades.getInstance().getPublicidadById(id);
 	}
 
-	public Publicidades crearPublicidad(String sexo, int emin, int emax, int hrmin, int hrmax, String desc, Marcas marca) {
-		Publicidades publicidad = new Publicidades(sexo, emin, emax, hrmin, hrmax, desc);
+	public Publicidades crearPublicidad(String sexo, int emin, int emax, int hrmin, int hrmax, String desc, String path, Marcas marca) {
+		Publicidades publicidad = new Publicidades(sexo, emin, emax, hrmin, hrmax, desc, path);
 		RepositorioPublicidades.getInstance().addPublicidad(publicidad);
 		return publicidad;
 	}
@@ -26,7 +26,7 @@ public class PublicidadService {
 		RepositorioPublicidades.getInstance().addPublicidad(publicidad);
 		return publicidad;
 	}
-	public Publicidades modificarPublicidad(int id, String sexo, int emin, int emax, int hrmin, int hrmax, String desc) {
+	public Publicidades modificarPublicidad(int id, String sexo, int emin, int emax, int hrmin, int hrmax, String desc, String path) {
 		Publicidades publicidad = RepositorioPublicidades.getInstance().getPublicidadById(id);
 		publicidad.setSexo(sexo);
 		publicidad.setEdad_min(emin);
@@ -34,6 +34,7 @@ public class PublicidadService {
 		publicidad.setHorario_min(hrmin);
 		publicidad.setHorario_max(hrmax);
 		publicidad.setDescripcion(desc);
+		publicidad.setPath(path);
 		RepositorioPublicidades.getInstance().modificarPublicidad(publicidad);
 		return publicidad;
 	}

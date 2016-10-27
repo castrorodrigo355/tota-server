@@ -86,11 +86,15 @@ public class Bootstrap implements WithGlobalEntityManager, TransactionalOps {
 			Marcas marca3 = new Marcas("Salomon", "Montaña, vino y partuza");
 			Marcas marca4 = new Marcas("Topper", "No me compra nadie");
 
-			Publicidades p1 = new Publicidades("H",75,85,8,11,"path1"); Publicidades p2 = new Publicidades("M",65,75,10,13,"path2");
-			Publicidades p3 = new Publicidades("H",40,45,12,15,"path3"); Publicidades p4 = new Publicidades("M",45,55,14,17,"path4");
-			Publicidades p5 = new Publicidades("H",35,45,18,21,"path5"); Publicidades p6 = new Publicidades("M",25,35,20,23,"path6");
-			Publicidades p7 = new Publicidades("H",55,65,16,19,"path7"); Publicidades p8 = new Publicidades("M",60,80,21,24,"path8");
-																		 Publicidades p9 = new Publicidades("M",10,15,10,15,"path9");
+			Publicidades p1 = new Publicidades("H",75,85,8,11,"desc1", "path1"); 
+			Publicidades p2 = new Publicidades("M",65,75,10,13,"desc2","path2");
+			Publicidades p3 = new Publicidades("H",40,45,12,15,"desc3","path3"); 
+			Publicidades p4 = new Publicidades("M",45,55,14,17,"desc4","path4");
+			Publicidades p5 = new Publicidades("H",35,45,18,21,"desc5","path5"); 
+			Publicidades p6 = new Publicidades("M",25,35,20,23,"desc6","path6");
+			Publicidades p7 = new Publicidades("H",55,65,16,19,"desc7","path7"); 
+			Publicidades p8 = new Publicidades("M",60,80,21,24,"desc8","path8");
+			Publicidades p9 = new Publicidades("M",10,15,10,15,"desc9","path9");
 			
 			Ofertas oferta1 = new Ofertas("45%");
 			Ofertas oferta2 = new Ofertas("25%");

@@ -125,6 +125,7 @@ public class PublicidadController {
 			int hrmin = Integer.parseInt(request.queryParams("horario_min"));
 			int hrmax = Integer.parseInt(request.queryParams("horario_max"));
 			String descripcion = request.queryParams("descripcion");
+			String path = request.queryParams("path");
 			
 			String extension = "";
 			int extensionImagenSeleccionada = descripcion.length();
@@ -137,15 +138,15 @@ public class PublicidadController {
 			
 			String cantPublicidades = String.valueOf(publicidadService.getPublicidades().size() + 1);
 			String ruta = "../img/";
-			String nombreFinal = cantPublicidades + extension;
+			String nombreFinal = ruta + cantPublicidades + extension;
 			
-			File fichero1 = new File(rutaDeImagenes, descripcion);
+			File fichero1 = new File(rutaDeImagenes, path);
 			File fichero2 = new File(rutaDeImagenes, nombreFinal);
 			fichero1.renameTo(fichero2);
 			
 			Usuarios usuario = AuthenticationUtil.getAuthenticatedUser(request);
 			Marcas marca = usuario.getMarca();
-			Publicidades publicidad = new Publicidades(sexo, emin, emax, hrmin, hrmax, nombreFinal);
+			Publicidades publicidad = new Publicidades(sexo, emin, emax, hrmin, hrmax, descripcion, nombreFinal);
 			publicidad.setMarca(marca);
 			publicidadService.crearPublicidad(publicidad);
 			response.redirect("/publicidades");

@@ -14,6 +14,7 @@
         horario_min int,
         horario_max int,
         descripcion varchar(255),
+        path varchar(255),
         primary key (pub_id)
     )
 	
