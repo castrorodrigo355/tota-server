@@ -1,8 +1,11 @@
 package utn.frba.proyecto.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Ofertas {
@@ -11,9 +14,12 @@ public class Ofertas {
 	@GeneratedValue
 	private int of_id;
 	private String descripcion;
+	
+	@OneToOne
+    @JoinColumn(name = "pub_id")
+	private Publicidades publicidad;
 
-	public Ofertas(){
-	}
+	public Ofertas(){}
 	public Ofertas(String descripcion){
 		this.descripcion = descripcion;
 	}
@@ -33,4 +39,13 @@ public class Ofertas {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	
+	public Publicidades getPublicidad() {
+		return publicidad;
+	}
+	
+	public void setPublicidad(Publicidades publicidad) {
+		this.publicidad = publicidad;
+	}
+	
 }

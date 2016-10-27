@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Publicidades {
@@ -25,9 +26,9 @@ public class Publicidades {
 	private int horario_max;
 	private String descripcion;
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "pub_id")
-	private List<Ofertas> ofertas = new ArrayList<Ofertas>();
+	private Ofertas oferta;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "marca_id")
@@ -99,27 +100,20 @@ public class Publicidades {
 		this.descripcion = descripcion;
 	}
 	
-	public void agregarOferta(Ofertas oferta) {
-		this.ofertas.add(oferta);
-	}
-
-	public void quitarOferta(Ofertas oferta) {
-		this.ofertas.remove(oferta);
-	}
-	
-	public List<Ofertas> getOfertas() {
-		return ofertas;
-	}
-
-	public void setOfertas(List<Ofertas> ofertas) {
-		this.ofertas = ofertas;
-	}
-	
 	public Marcas getMarca() {
 		return marca;
 	}
+	
 	public void setMarca(Marcas marca) {
 		this.marca = marca;
+	}
+	
+	public Ofertas getOferta() {
+		return oferta;
+	}
+	
+	public void setOferta(Ofertas oferta) {
+		this.oferta = oferta;
 	}
 	
 }

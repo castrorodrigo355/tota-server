@@ -58,44 +58,6 @@
         cant_personas_seleccionadas int,
         primary key (id)
     )
-
-
-
-
-
-
-
-
-
-
-
-
-    create table Personas (
-        pers_id int not null auto_increment,
-        nombre varchar(255),
-        apellido varchar(255),
-        edad varchar(255),
-        primary key (id)
-    )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-    
     
     alter table Camaras
         add constraint FK_qrl5f3yhd9wodli09hduhpk0u 
@@ -135,4 +97,4 @@
 	alter table Ofertas
         add constraint FK_sbhx5jg9romdi1io3d285ppcg 
         foreign key (pub_id)
-        references Publicidades (pub_id)        
+        references Publicidades (pub_id)

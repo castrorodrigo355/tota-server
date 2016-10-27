@@ -90,28 +90,37 @@ public class Bootstrap implements WithGlobalEntityManager, TransactionalOps {
 			Publicidades p3 = new Publicidades("H",40,45,12,15,"path3"); Publicidades p4 = new Publicidades("M",45,55,14,17,"path4");
 			Publicidades p5 = new Publicidades("H",35,45,18,21,"path5"); Publicidades p6 = new Publicidades("M",25,35,20,23,"path6");
 			Publicidades p7 = new Publicidades("H",55,65,16,19,"path7"); Publicidades p8 = new Publicidades("M",60,80,21,24,"path8");
+																		 Publicidades p9 = new Publicidades("M",10,15,10,15,"path9");
 			
-			Ofertas oferta1 = new Ofertas("40 %"); Ofertas oferta2 = new Ofertas("20 %"); Ofertas oferta3 = new Ofertas("30 %"); 
-			Ofertas oferta4 = new Ofertas("10 %"); Ofertas oferta5 = new Ofertas("35 %"); Ofertas oferta6 = new Ofertas("5 %");
-			Ofertas oferta7 = new Ofertas("10 %"); Ofertas oferta8 = new Ofertas("35 %");
+			Ofertas oferta1 = new Ofertas("45%");
+			Ofertas oferta2 = new Ofertas("25%");
+			Ofertas oferta3 = new Ofertas("35%");
+			Ofertas oferta4 = new Ofertas("10%");
+			Ofertas oferta5 = new Ofertas("15%");
 			
-			p1.agregarOferta(oferta1); p2.agregarOferta(oferta2); p3.agregarOferta(oferta3); p4.agregarOferta(oferta4);
-			p5.agregarOferta(oferta5); p6.agregarOferta(oferta6); p7.agregarOferta(oferta7); p8.agregarOferta(oferta8);
+			p1.setOferta(oferta1); //oferta1.setPublicidad(p1);
+			p2.setOferta(oferta2); //oferta2.setPublicidad(p2);
 			
-			RepositorioOfertas.getInstance().addOferta(oferta1); RepositorioOfertas.getInstance().addOferta(oferta2);
-			RepositorioOfertas.getInstance().addOferta(oferta3); RepositorioOfertas.getInstance().addOferta(oferta4);
-			RepositorioOfertas.getInstance().addOferta(oferta5); RepositorioOfertas.getInstance().addOferta(oferta6);
-			RepositorioOfertas.getInstance().addOferta(oferta7); RepositorioOfertas.getInstance().addOferta(oferta8);
+			p7.setOferta(oferta3); //oferta3.setPublicidad(p7);
+			p8.setOferta(oferta4); //oferta4.setPublicidad(p8);
+			p9.setOferta(oferta5); //oferta5.setPublicidad(p9);
+			
+			RepositorioOfertas.getInstance().addOferta(oferta1); 
+			RepositorioOfertas.getInstance().addOferta(oferta2);
+			RepositorioOfertas.getInstance().addOferta(oferta3); 
+			RepositorioOfertas.getInstance().addOferta(oferta4);
+			RepositorioOfertas.getInstance().addOferta(oferta5);
 			
 			RepositorioPublicidades.getInstance().addPublicidad(p1); RepositorioPublicidades.getInstance().addPublicidad(p2);
 			RepositorioPublicidades.getInstance().addPublicidad(p3); RepositorioPublicidades.getInstance().addPublicidad(p4);
 			RepositorioPublicidades.getInstance().addPublicidad(p5); RepositorioPublicidades.getInstance().addPublicidad(p6);
 			RepositorioPublicidades.getInstance().addPublicidad(p7); RepositorioPublicidades.getInstance().addPublicidad(p8);
+																	 RepositorioPublicidades.getInstance().addPublicidad(p9);
 			
 			marca1.agregarPublicidad(p1); marca1.agregarPublicidad(p2); 
 			marca2.agregarPublicidad(p3); marca2.agregarPublicidad(p4);
-			marca3.agregarPublicidad(p5); marca3.agregarPublicidad(p6); 
-			marca4.agregarPublicidad(p7); marca4.agregarPublicidad(p8);
+			marca3.agregarPublicidad(p5); marca3.agregarPublicidad(p6);
+			marca4.agregarPublicidad(p7); marca4.agregarPublicidad(p8); marca4.agregarPublicidad(p9);
 			
 			RepositorioMarcas.getInstance().addBrand(marca1);
 			RepositorioMarcas.getInstance().addBrand(marca2);

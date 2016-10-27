@@ -7,6 +7,8 @@ import static spark.Spark.get;
 import static spark.Spark.post;
 import static spark.Spark.put;
 import static utn.frba.proyecto.utils.JSONUtils.json;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import spark.ModelAndView;
@@ -15,6 +17,7 @@ import utn.frba.proyecto.entities.GeneradorCodigoQR;
 import utn.frba.proyecto.entities.Mezclador;
 import utn.frba.proyecto.entities.Ofertas;
 import utn.frba.proyecto.entities.Publicidades;
+import utn.frba.proyecto.entities.Usuarios;
 import utn.frba.proyecto.services.OfertaService;
 import utn.frba.proyecto.services.PublicidadService;
 import utn.frba.proyecto.utils.AuthenticationUtil;
@@ -26,9 +29,23 @@ public class OfertaController {
 		HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
 		get("/ofertas", (request, response) -> {
-			List<Ofertas> ofertas = ofertaService.getOfertas();
+			
+			List<Publicidades> publicidades = new ArrayList<Publicidades>();
+			List<Ofertas> ofertas = new ArrayList<Ofertas>();
+			
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("usuario", AuthenticationUtil.getAuthenticatedUser(request));
+			Usuarios usuario = AuthenticationUtil.getAuthenticatedUser(request);
+			
+			// Aca tengo las publicidades de la marca del usuario ...
+			publicidades = usuario.getMarca().getPublicidades();
+			
+			// Quiero entonces las ofertas existentes que tengan publicidad "pub_id"
+			for(Publicidades unaPublicidad : publicidades){
+				Ofertas unaOferta = unaPublicidad.getOferta();
+				ofertas.add(unaOferta);
+			}
+			
+			map.put("usuario", usuario);
 			map.put("ofertas", ofertas);
 			return new ModelAndView(map, "ofertas.hbs");
 		}, engine);
@@ -94,7 +111,8 @@ public class OfertaController {
 			miMezclador.mezclarImagenes(descPublicidad, imagenQR, nombreFinal);
 			
 			Ofertas oferta = ofertaService.crearOferta(descOferta, publicidad);
-			publicidad.agregarOferta(oferta);
+			publicidad.setOferta(oferta);
+			oferta.setPublicidad(publicidad);
 			
 			res.redirect("/ofertas");
             return null;
