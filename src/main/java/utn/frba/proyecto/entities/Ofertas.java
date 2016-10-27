@@ -14,10 +14,6 @@ public class Ofertas {
 	@GeneratedValue
 	private int of_id;
 	private String descripcion;
-	
-	@OneToOne
-    @JoinColumn(name = "pub_id")
-	private Publicidades publicidad;
 
 	public Ofertas(){}
 	public Ofertas(String descripcion){
@@ -38,14 +34,6 @@ public class Ofertas {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-	
-	public Publicidades getPublicidad() {
-		return publicidad;
-	}
-	
-	public void setPublicidad(Publicidades publicidad) {
-		this.publicidad = publicidad;
 	}
 	
 }

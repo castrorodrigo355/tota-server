@@ -8,6 +8,7 @@ import static spark.Spark.post;
 import static spark.Spark.put;
 import static utn.frba.proyecto.utils.JSONUtils.json;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +25,7 @@ import utn.frba.proyecto.utils.AuthenticationUtil;
 
 public class OfertaController {
 
+	private static final String rutaOfertas = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/ofertas";
 	public OfertaController(final OfertaService ofertaService) {
 
 		HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
@@ -80,6 +82,8 @@ public class OfertaController {
 		delete("/ofertas/:of_id", (req, res) -> {
 			int of_id = Integer.parseInt(req.params(":of_id"));
 			Ofertas oferta = ofertaService.getOferta(of_id);
+			//File fotoParaBorrar = new File(rutaOfertas, imgQR);
+			//fotoParaBorrar.delete();
 
 			if (oferta != null) {
 				ofertaService.eliminarOferta(oferta);
@@ -106,13 +110,12 @@ public class OfertaController {
 			GeneradorCodigoQR generador = new GeneradorCodigoQR();
 			generador.generarCodigoQR(imagenQR, descOferta);
 			
-			String nombreFinal = idPublicidad + ".png";
+			String nombreFinal = idPublicidad + "-" + descOferta + ".png";
 			Mezclador miMezclador = new Mezclador();
 			miMezclador.mezclarImagenes(descPublicidad, imagenQR, nombreFinal);
 			
 			Ofertas oferta = ofertaService.crearOferta(descOferta, publicidad);
 			publicidad.setOferta(oferta);
-			oferta.setPublicidad(publicidad);
 			
 			res.redirect("/ofertas");
             return null;

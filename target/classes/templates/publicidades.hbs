@@ -36,13 +36,7 @@
             	    <td>{{this.horario_min}}</td>
             	    <td>{{this.horario_max}}</td>
             	    <td>{{this.descripcion}}</td>
-            	    <td>
-            	    	<div class="ui list">
-                            {{#each this.ofertas}}
-                            	<div class="item">ID: {{this.id}}</div>        
-                            {{/each}}
-                        </div>
-                    </td>
+            	    <td>{{this.oferta.id}}</td>
             	    <td class="center aligned">
                         <button id="edit" class="ui edit icon button">
                             <i class="write icon"></i>
