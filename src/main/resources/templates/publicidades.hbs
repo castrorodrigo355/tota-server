@@ -18,7 +18,7 @@
         	        <th colspan="1">Edad Max</th>
             	    <th colspan="1">Hr Min</th>
             	    <th colspan="1">Hr Max</th>
-            	    <th colspan="1">Desc</th>
+            	    <th colspan="1">Descripcion</th>
             	    <th colspan="1">Path</th>
                     <th colspan="1">Acciones</th>
             	</tr>
@@ -51,84 +51,100 @@
 <div id="nuevo-modal" class="ui modal">
     <i class="close icon"></i>
         <div class="header">
-            Nueva Publicidad
+            Nueva Camara
         </div>
         <div class="content">
-            <form class="ui form">
-				<div class="field">
-	                <label>Sexo</label>
-	                <input name="sexo" placeholder="Sexo" type="text">
-	            </div>
-	            <div class="field">
-	                <label>Edad Minima</label>
-	                <input name="edad_min" placeholder="Edad Minima" type="text">
-	            </div>
-	            <div class="field">
-	                <label>Edad Maxima</label>
-	                <input name="edad_max" placeholder="Edad Maxima" type="text">
-	            </div>
-	            <div class="field">
-	                <label>Hr Minimo</label>
-	                <input name="horario_min" placeholder="Horario Minimo" type="text">
-	            </div>
-	            <div class="field">
-	                <label>Hr Maximo</label>
-	                <input name="horario_max" placeholder="Horario Maximo" type="text">
-	            </div>
-				<div class="field">
-	                <label>Descripcion</label>
-	                <input name="descripcion" placeholder="Detalle Descripcion" type="text">
-	            </div>
-	            <div>
-					<input type="file" id ="fileUpload" class="circular red fluid ui button" value="Seleccionar" onchange="funcionNombre(this.value)">
-                </div>
-	            <div class="field">
-	                <label>Path</label>
-	                <input name="path" placeholder="Path" type="text">
-	            </div>
+            <form class="ui form" method="POST" action="/publicidades">
+	            	<div class="field">
+		                <label>Sexo</label>
+		                <input name="sexo" placeholder="Sexo" type="text" required="true">
+		            </div>
+		            
+	                <div class="two fields">
+		                <div class="field">
+			                <label>Edad Minima</label>
+			                <input name="edad_min" placeholder="Edad Minima" type="text" required="true">
+			            </div>
+			            <div class="field">
+			                <label>Edad Maxima</label>
+			                <input name="edad_max" placeholder="Edad Maxima" type="text" required="true">
+			            </div>
+			        </div>    
+		            
+		            <div class="two fields">
+		            	<div class="field">
+			                <label>Hr Minimo</label>
+			                <input name="horario_min" placeholder="Horario Minimo" type="text" required="true">
+			            </div>
+			            <div class="field">
+			                <label>Hr Maximo</label>
+			                <input name="horario_max" placeholder="Horario Maximo" type="text" required="true">
+			            </div>
+		            </div>
+		            
+		            <div>
+						<input type="file" id ="fileUpload" class="circular red fluid ui button" value="Seleccionar" onchange="funcionNombre(this.value)">
+	                </div>
+		            
+		            <div class="two fields">
+			            <div class="field">
+			                <label>Descripcion</label>
+			                <input name="descripcion" placeholder="Detalle Descripcion" type="text" required="true">
+			            </div>
+			            <div class="field">
+			                <label>Path</label>
+			                <input name="path" placeholder="Path" type="text" required="true">
+			            </div>
+		            </div>
+		            <input type="submit" class="circular purple fluid ui button" value="Aceptar">
             </form>
         </div>
-        <div class="actions">
-            <div class="ui black deny button">
-                Cancelar
-            </div>
-            <div id="nuevo-button" class="ui positive right labeled icon button">
-                Guardar
-                <i class="checkmark icon"></i>
-            </div>
-        </div>
+       
 </div>
 <div id="modificar-modal" class="ui modal">
     <i class="close icon"></i>
         <div class="header">
-            Modificar usuario
+            Modificar Camara
         </div>
         <div class="content">
             <form class="ui form">
                 <div class="field">
-	                <label>Sexo</label>
-	                <input name="sexo" placeholder="Sexo" type="text">
-	            </div>
-	            <div class="field">
-	                <label>Edad Minima</label>
-	                <input name="edad_min" placeholder="Edad Minima" type="text">
-	            </div>
-	            <div class="field">
-	                <label>Edad Maxima</label>
-	                <input name="edad_max" placeholder="Edad Maxima" type="text">
-	            </div>
-	            <div class="field">
-	                <label>Hr Minimo</label>
-	                <input name="horario_min" placeholder="Horario Minimo" type="text">
-	            </div>
-	            <div class="field">
-	                <label>Hr Maximo</label>
-	                <input name="horario_max" placeholder="Horario Maximo" type="text">
-	            </div>
-				<div class="field">
-	                <label>Descripcion</label>
-	                <input name="descripcion" placeholder="Detalle Descripcion" type="text">
-	            </div>                
+		                <label>Sexo</label>
+		                <input name="sexo" placeholder="Sexo" type="text">
+		            </div>
+		            
+	                <div class="two fields">
+		                <div class="field">
+			                <label>Edad Minima</label>
+			                <input name="edad_min" placeholder="Edad Minima" type="text">
+			            </div>
+			            <div class="field">
+			                <label>Edad Maxima</label>
+			                <input name="edad_max" placeholder="Edad Maxima" type="text">
+			            </div>
+			        </div>    
+		            
+		            <div class="two fields">
+		            	<div class="field">
+			                <label>Hr Minimo</label>
+			                <input name="horario_min" placeholder="Horario Minimo" type="text">
+			            </div>
+			            <div class="field">
+			                <label>Hr Maximo</label>
+			                <input name="horario_max" placeholder="Horario Maximo" type="text">
+			            </div>
+		            </div>
+		            
+		            <div class="two fields">
+			            <div class="field">
+			                <label>Descripcion</label>
+			                <input name="descripcion" placeholder="Detalle Descripcion" type="text">
+			            </div>
+			            <div class="field">
+			                <label>Path</label>
+			                <input name="path" placeholder="Path" type="text">
+			            </div>
+		            </div>               
             </form>
         </div>
         <div class="actions">
@@ -143,46 +159,22 @@
 </div>
 
 <script>
-    $('.ui.checkbox').checkbox();
-    var selectedId = null;
-    
-    $("#nuevo-button").click(function(){
-        
-        var sexo = $('#nuevo-modal').find('input[name=sexo]').val();
-        var edad_min = $('#nuevo-modal').find('input[name=edad_min]').val();
-        var edad_max = $('#nuevo-modal').find('input[name=edad_max]').val();
-        var horario_min = $('#nuevo-modal').find('input[name=horario_min]').val();
-        var horario_max = $('#nuevo-modal').find('input[name=horario_max]').val();
-        var descripcion = $('#nuevo-modal').find('input[name=descripcion]').val();
-        var path = $('#nuevo-modal').find('input[name=path]').val();
-        
-        $.ajax({
-            url : "/publicidades",
-            method : "POST",
-            data : {sexo: sexo, edad_min: edad_min, edad_max: edad_max, horario_min: horario_min, horario_max: horario_max, descripcion: descripcion, path: path},
-            success : function(response){
-                var json = JSON.parse(response);
-                    $("#publicidades > tbody").append("<tr><td>"+json.id+"</td><td>"+json.sexo</td><td>"+json.edad_min+"</td><td>"+json.edad_max+"</td><td>"+json.horario_min+"</td><td>"+json.horario_max+"</td><td>"+json.descripcion+"</td><td>"+json.path+"</td><td><button class='ui edit icon button'><i class='write icon'></i></button><button class='ui delete icon button'><i class='trash icon'></i></button></td>");
-            }
-        })
-        
-    });
-    
-    $("#nuevo").click(function(){
+	
+	var selectedId = null;
+
+	function funcionNombre(fic) {
+  		fic = fic.split('\\');
+  		var nombreArchivo = (fic[fic.length-1]);
+  		$('.ui.modal .content').find('input[name=path]').val(nombreArchivo);
+	}
+
+	$("#nuevo").click(function(){
         $('#nuevo-modal').modal({
         }).modal('show');
     });
     
-    $(".ui.delete.icon.button").click(function(){
-        var id = $(this).parent().parent().find("td:first").text();
+    $("#nuevo-button").click(function(){
         
-        $.ajax({
-            url : "/publicidades/" + id,
-            method : "DELETE",
-            success : function(response){
-                $('#publicidades tr:eq('+id+')').remove();
-            }
-        })
     });
     
     $(".ui.edit.icon.button").click(function(){
@@ -195,6 +187,7 @@
         var horario_min = $(this).parents("tr").find("td").eq(4).text();
         var horario_max = $(this).parents("tr").find("td").eq(5).text();
         var descripcion = $(this).parents("tr").find("td").eq(6).text();
+        var path = $(this).parents("tr").find("td").eq(7).text();
         
 		$('#modificar-modal').modal({
             onShow    : function(){
@@ -204,6 +197,7 @@
                 $('#modificar-modal').find('input[name=horario_min]').val(horario_min);
                 $('#modificar-modal').find('input[name=horario_max]').val(horario_max);
                 $('#modificar-modal').find('input[name=descripcion]').val(descripcion);
+                $('#modificar-modal').find('input[name=path]').val(path);
             }
         }).modal('show');
     });
@@ -216,10 +210,11 @@
         var horario_min = $('#modificar-modal').find('input[name=horario_min]').val();
         var horario_max = $('#modificar-modal').find('input[name=horario_max]').val();
         var descripcion = $('#modificar-modal').find('input[name=descripcion]').val();
+        var path = $('#modificar-modal').find('input[name=path]').val();
         $.ajax({
             url : "/publicidades/" + selectedId,
             method : "PUT",
-            data : {sexo: sexo, edad_min: edad_min, edad_max: edad_max, horario_min: horario_min, horario_max: horario_max, descripcion: descripcion},
+            data : {sexo: sexo, edad_min: edad_min, edad_max: edad_max, horario_min: horario_min, horario_max: horario_max, descripcion: descripcion, path: path},
             success : function(response){
                 var supplierSelector = "td:contains('"+ response.id + "')";
                 $supplierRow = $(supplierSelector).closest("tr");
@@ -228,9 +223,23 @@
                 $supplierRow.find("td:nth-child(4)").text(response.edad_max);
                 $supplierRow.find("td:nth-child(5)").text(response.horario_min);
                 $supplierRow.find("td:nth-child(5)").text(response.horario_max);
-                $supplierRow.find("td:nth-child(5)").text(response.descripcion);
+                $supplierRow.find("td:nth-child(6)").text(response.descripcion);
+                $supplierRow.find("td:nth-child(7)").text(response.path);
             }
         })
+    });
+    
+    $(".ui.delete.icon.button").click(function(){
+       var pub_id = $(this).parent().parent().find("td:first").text();
+       selectedId = pub_id;
+       
+       $.ajax({
+            url : "/publicidades/" + selectedId,
+            method : "DELETE",
+            success : function(response){
+                $('#publicidades tr:eq('+selectedId+')').remove();
+            }
+        }) 
     });
     
 </script>

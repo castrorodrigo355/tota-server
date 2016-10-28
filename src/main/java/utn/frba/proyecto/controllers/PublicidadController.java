@@ -80,7 +80,7 @@ public class PublicidadController {
 			return new ResponseError("No hay publicidad con id '%s'", String.valueOf(pub_id));
 		}, json());
 		
-		put("/publicidades/:user_id", (req, res) -> {
+		put("/publicidades/:pub_id", (req, res) -> {
 			int pub_id = Integer.parseInt(req.params(":pub_id"));
 			Publicidades publicidad = publicidadService.getPublicidad(pub_id);
 			
@@ -90,6 +90,7 @@ public class PublicidadController {
 			int hrmin = Integer.parseInt(req.queryParams("horario_min"));
 			int hrmax = Integer.parseInt(req.queryParams("horario_max"));
 			String descripcion = req.queryParams("descripcion");
+			String path = req.queryParams("path");
 
 			if (publicidad != null) {
 				publicidad.setSexo(sexo);
@@ -98,6 +99,7 @@ public class PublicidadController {
 				publicidad.setHorario_min(hrmin);
 				publicidad.setHorario_max(hrmax);
 				publicidad.setDescripcion(descripcion);
+				publicidad.setPath(path);
 				return publicidadService.modificarPublicidad(publicidad);
 			} else {
 				res.status(400);
@@ -110,6 +112,9 @@ public class PublicidadController {
 			Publicidades publicidad = publicidadService.getPublicidad(pub_id);
 
 			if (publicidad != null) {
+				String path = publicidad.getPath();
+				File fotoParaBorrar = new File(rutaDeImagenes, path);
+				fotoParaBorrar.delete();
 				publicidadService.eliminarPublicidad(publicidad);
 				return publicidadService.getPublicidades();
 			} else {
@@ -128,8 +133,8 @@ public class PublicidadController {
 			String path = request.queryParams("path");
 			
 			String extension = "";
-			int extensionImagenSeleccionada = descripcion.length();
-			String ultimos3 = descripcion.substring(extensionImagenSeleccionada - 3, extensionImagenSeleccionada);
+			int extensionImagenSeleccionada = path.length();
+			String ultimos3 = path.substring(extensionImagenSeleccionada - 3, extensionImagenSeleccionada);
 	    	switch(ultimos3){
 		    	case "png": extension = ".png"; break;
 		    	case "jpg": extension = ".jpg"; break;
@@ -138,7 +143,7 @@ public class PublicidadController {
 			
 			String cantPublicidades = String.valueOf(publicidadService.getPublicidades().size() + 1);
 			String ruta = "../img/";
-			String nombreFinal = ruta + cantPublicidades + extension;
+			String nombreFinal = cantPublicidades + extension;
 			
 			File fichero1 = new File(rutaDeImagenes, path);
 			File fichero2 = new File(rutaDeImagenes, nombreFinal);

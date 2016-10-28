@@ -6,7 +6,6 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import utn.frba.proyecto.entities.Camaras;
 import utn.frba.proyecto.entities.Marcas;
 import utn.frba.proyecto.entities.Ofertas;
-import utn.frba.proyecto.entities.Personas;
 import utn.frba.proyecto.entities.Publicidades;
 import utn.frba.proyecto.entities.Televisores;
 import utn.frba.proyecto.entities.Ubicaciones;
@@ -14,7 +13,6 @@ import utn.frba.proyecto.entities.Usuarios;
 import utn.frba.proyecto.repositorios.RepositorioCamaras;
 import utn.frba.proyecto.repositorios.RepositorioMarcas;
 import utn.frba.proyecto.repositorios.RepositorioOfertas;
-import utn.frba.proyecto.repositorios.RepositorioPersonas;
 import utn.frba.proyecto.repositorios.RepositorioPublicidades;
 import utn.frba.proyecto.repositorios.RepositorioTelevisores;
 import utn.frba.proyecto.repositorios.RepositorioUbicaciones;
@@ -142,11 +140,7 @@ public class Bootstrap implements WithGlobalEntityManager, TransactionalOps {
 			
 			ana.setMarca(marca4);
 			RepositorioUsuarios.getInstance().agregarUsuario(ana);
-			
-			RepositorioPersonas.getInstance().addPersona(new Personas("marcelo","barovero","32"));
-			RepositorioPersonas.getInstance().addPersona(new Personas("jonathan","maidana","30"));
-			RepositorioPersonas.getInstance().addPersona(new Personas("leonardo","ponzio","35"));
-			
+		
 		});
 		System.exit(0);
 	}

@@ -31,18 +31,18 @@ public class OfertaController {
 		HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
 		get("/ofertas", (request, response) -> {
-			
-			List<Publicidades> publicidades = new ArrayList<Publicidades>();
-			List<Ofertas> ofertas = new ArrayList<Ofertas>();
-			
 			Map<String, Object> map = new HashMap<String, Object>();
+			List<Publicidades> publicidadesDeMarcaDeUsuario = new ArrayList<Publicidades>();
+			List<Ofertas> ofertas = new ArrayList<Ofertas>();
 			Usuarios usuario = AuthenticationUtil.getAuthenticatedUser(request);
 			
-			// Aca tengo las publicidades de la marca del usuario ...
-			publicidades = usuario.getMarca().getPublicidades();
+			if(usuario == null){
+				map.put("ofertas", ofertas);
+				return new ModelAndView(map, "ofertas.hbs");
+			}
 			
-			// Quiero entonces las ofertas existentes que tengan publicidad "pub_id"
-			for(Publicidades unaPublicidad : publicidades){
+			publicidadesDeMarcaDeUsuario = usuario.getMarca().getPublicidades();
+			for(Publicidades unaPublicidad : publicidadesDeMarcaDeUsuario){
 				Ofertas unaOferta = unaPublicidad.getOferta();
 				ofertas.add(unaOferta);
 			}
@@ -50,6 +50,7 @@ public class OfertaController {
 			map.put("usuario", usuario);
 			map.put("ofertas", ofertas);
 			return new ModelAndView(map, "ofertas.hbs");
+
 		}, engine);
 
 		get("/ofertas/:of_id", (req, res) -> {
@@ -102,7 +103,7 @@ public class OfertaController {
 			PublicidadService publicidadService = new PublicidadService();
 			Publicidades publicidad = publicidadService.getPublicidad(pub_id);
 			
-			String descPublicidad = publicidad.getDescripcion();
+			String path = publicidad.getPath();
 			String idPublicidad = String.valueOf(publicidad.getId());
 			
 			String imagenQR = "qr.png";
@@ -112,7 +113,7 @@ public class OfertaController {
 			
 			String nombreFinal = idPublicidad + "-" + descOferta + ".png";
 			Mezclador miMezclador = new Mezclador();
-			miMezclador.mezclarImagenes(descPublicidad, imagenQR, nombreFinal);
+			miMezclador.mezclarImagenes(path, imagenQR, nombreFinal);
 			
 			Ofertas oferta = ofertaService.crearOferta(descOferta, publicidad);
 			publicidad.setOferta(oferta);
