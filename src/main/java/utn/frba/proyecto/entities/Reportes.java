@@ -3,8 +3,11 @@ package utn.frba.proyecto.entities;
 import java.util.GregorianCalendar;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Reportes {
@@ -16,15 +19,19 @@ public class Reportes {
 	private int cant_mujeres;
 	private int cant_hombres;
 	private int cant_personas_seleccionadas;
+	private int pub_id;
+	private int cam_id;
 
 	public Reportes() {}
 
-	public Reportes(int id, GregorianCalendar hora_fecha, int cant_mujeres, int cant_hombres, int cant_seleccionadas) {
+	public Reportes(int id, GregorianCalendar hora_fecha, int cant_mujeres, int cant_hombres, int cant_seleccionadas, int pub_id, int cam_id) {
 		this.id_reporte = id;
 		this.hora_fecha = hora_fecha;
 		this.cant_mujeres = cant_mujeres;
 		this.cant_hombres = cant_hombres;
 		this.cant_personas_seleccionadas = cant_seleccionadas;
+		this.pub_id = pub_id;
+		this.cam_id = cam_id;
 	}
 	
 	public int getId_reporte() {
@@ -65,6 +72,22 @@ public class Reportes {
 
 	public void setCant_personas_seleccionadas(int cant_personas_seleccionadas) {
 		this.cant_personas_seleccionadas = cant_personas_seleccionadas;
+	}
+	
+	public int getPub_id() {
+		return pub_id;
+	}
+
+	public void setPub_id(int pub_id) {
+		this.pub_id = pub_id;
+	}
+	
+	public int getCam_id() {
+		return cam_id;
+	}
+
+	public void setCam_id(int cam_id) {
+		this.cam_id = cam_id;
 	}
 
 }

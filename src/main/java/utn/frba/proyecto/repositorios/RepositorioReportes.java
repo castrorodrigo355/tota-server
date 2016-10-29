@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+import utn.frba.proyecto.entities.Camaras;
 import utn.frba.proyecto.entities.Reportes;
 
 public class RepositorioReportes implements WithGlobalEntityManager, TransactionalOps {
@@ -17,6 +18,12 @@ public class RepositorioReportes implements WithGlobalEntityManager, Transaction
 	public List<Reportes> getAllReportes() {
 		return withTransaction(() -> {
 			return entityManager().createQuery("from Reportes", Reportes.class).getResultList();
+		});
+	}
+	
+	public List<Reportes> getReportesFiltrados(String filtro){
+		return withTransaction(() -> {
+			return entityManager().createQuery("from Reportes WHERE " + filtro, Reportes.class).getResultList();
 		});
 	}
 
