@@ -27,8 +27,7 @@ public class Publicidades {
 	private String descripcion;
 	private String path;
 
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "pub_id")
+	@OneToOne(fetch=FetchType.EAGER, mappedBy="publicidades")
 	private Ofertas oferta;
 	
 	@ManyToOne(fetch = FetchType.EAGER)

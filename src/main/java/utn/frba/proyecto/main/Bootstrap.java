@@ -100,29 +100,31 @@ public class Bootstrap implements WithGlobalEntityManager, TransactionalOps {
 			Ofertas oferta4 = new Ofertas("10%");
 			Ofertas oferta5 = new Ofertas("15%");
 			
-			p1.setOferta(oferta1); //oferta1.setPublicidad(p1);
-			p2.setOferta(oferta2); //oferta2.setPublicidad(p2);
+			oferta1.setPublicidades(p1);
+			oferta2.setPublicidades(p2);
 			
-			p7.setOferta(oferta3); //oferta3.setPublicidad(p7);
-			p8.setOferta(oferta4); //oferta4.setPublicidad(p8);
-			p9.setOferta(oferta5); //oferta5.setPublicidad(p9);
-			
-			RepositorioOfertas.getInstance().addOferta(oferta1); 
-			RepositorioOfertas.getInstance().addOferta(oferta2);
-			RepositorioOfertas.getInstance().addOferta(oferta3); 
-			RepositorioOfertas.getInstance().addOferta(oferta4);
-			RepositorioOfertas.getInstance().addOferta(oferta5);
+			oferta3.setPublicidades(p7);
+			oferta4.setPublicidades(p8);
+			oferta5.setPublicidades(p9);
 			
 			RepositorioPublicidades.getInstance().addPublicidad(p1); RepositorioPublicidades.getInstance().addPublicidad(p2);
 			RepositorioPublicidades.getInstance().addPublicidad(p3); RepositorioPublicidades.getInstance().addPublicidad(p4);
 			RepositorioPublicidades.getInstance().addPublicidad(p5); RepositorioPublicidades.getInstance().addPublicidad(p6);
 			RepositorioPublicidades.getInstance().addPublicidad(p7); RepositorioPublicidades.getInstance().addPublicidad(p8);
 																	 RepositorioPublicidades.getInstance().addPublicidad(p9);
+
+			RepositorioOfertas.getInstance().addOferta(oferta1); 
+			RepositorioOfertas.getInstance().addOferta(oferta2);
+			RepositorioOfertas.getInstance().addOferta(oferta3); 
+			RepositorioOfertas.getInstance().addOferta(oferta4);
+			RepositorioOfertas.getInstance().addOferta(oferta5);
+			
 			
 			marca1.agregarPublicidad(p1); marca1.agregarPublicidad(p2); 
 			marca2.agregarPublicidad(p3); marca2.agregarPublicidad(p4);
 			marca3.agregarPublicidad(p5); marca3.agregarPublicidad(p6);
 			marca4.agregarPublicidad(p7); marca4.agregarPublicidad(p8); marca4.agregarPublicidad(p9);
+			
 			
 			RepositorioMarcas.getInstance().addBrand(marca1);
 			RepositorioMarcas.getInstance().addBrand(marca2);

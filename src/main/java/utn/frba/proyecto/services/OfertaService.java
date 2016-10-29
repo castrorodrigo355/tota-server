@@ -4,6 +4,7 @@ import java.util.List;
 import utn.frba.proyecto.entities.Ofertas;
 import utn.frba.proyecto.entities.Publicidades;
 import utn.frba.proyecto.repositorios.RepositorioOfertas;
+import utn.frba.proyecto.repositorios.RepositorioPublicidades;
 
 public class OfertaService {
 
@@ -15,12 +16,18 @@ public class OfertaService {
 		return RepositorioOfertas.getInstance().getOfertaById(id);
 	}
 
+	public Ofertas crearOferta(Ofertas oferta) {
+		RepositorioOfertas.getInstance().addOferta(oferta);
+		return oferta;
+	}
+	/*
 	public Ofertas crearOferta(String descripcion, Publicidades publicidad) {
 		Ofertas oferta = new Ofertas(descripcion);
 		RepositorioOfertas.getInstance().addOferta(oferta);
 		return oferta;
 	}
-
+	*/
+	
 	public void eliminarOferta(Ofertas oferta) {
 		RepositorioOfertas.getInstance().removeOferta(oferta);
 	}

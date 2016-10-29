@@ -145,17 +145,30 @@ public class PublicidadController {
 			String ruta = "../img/";
 			String nombreFinal = cantPublicidades + extension;
 			
+			/*
 			File fichero1 = new File(rutaDeImagenes, path);
 			File fichero2 = new File(rutaDeImagenes, nombreFinal);
 			fichero1.renameTo(fichero2);
+			*/
 			
 			Usuarios usuario = AuthenticationUtil.getAuthenticatedUser(request);
 			Marcas marca = usuario.getMarca();
 			Publicidades publicidad = new Publicidades(sexo, emin, emax, hrmin, hrmax, descripcion, nombreFinal);
 			publicidad.setMarca(marca);
 			publicidadService.crearPublicidad(publicidad);
+			
+			int cantidadPublicidades = publicidadService.getPublicidades().size();
+			Publicidades ultimaPublicidad = publicidadService.getPublicidades().get(cantidadPublicidades - 1);
+			ultimaPublicidad.setPath(ultimaPublicidad.getId() + extension);
+			publicidadService.modificarPublicidad(publicidad);
+			
+			File fichero1 = new File(rutaDeImagenes, path);
+			File fichero2 = new File(rutaDeImagenes, ultimaPublicidad.getId() + extension);
+			fichero1.renameTo(fichero2);
+			
+			publicidadService.getPublicidades();
 			response.redirect("/publicidades");
-			return null;
+			return null; 
 		}, json());
 		
 		after("/publicidades/*", (request, response) -> {

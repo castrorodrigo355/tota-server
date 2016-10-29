@@ -14,13 +14,17 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import static spark.Spark.*;
 import utn.frba.proyecto.entities.Usuarios;
-import utn.frba.proyecto.repositorios.RepositorioUsuarios;
+import utn.frba.proyecto.repositorios.RepositorioPublicidades;
+import utn.frba.proyecto.repositorios.RepositorioOfertas;
+import utn.frba.proyecto.entities.Publicidades;
+import utn.frba.proyecto.entities.Ofertas;
 import static spark.Spark.*;
 
 public class TestAplication {
 
 	public static void main(String[] args) {
     	
+		/*
 		String descripcion = "nombreImagen.gif";
 		int extensionImagenSeleccionada = descripcion.length();
 		System.out.println("la longitud es: " + extensionImagenSeleccionada);
@@ -31,5 +35,11 @@ public class TestAplication {
 	    	case "jpg": System.out.println("La extension es jpg"); break;
 	    	default: System.out.println("La extension es gif"); break; 
     	}
+    	*/
+		RepositorioOfertas rof = new RepositorioOfertas();
+		List<Ofertas> ofertas = rof.getAllOfertas();
+		for(Ofertas unaOferta : ofertas){
+			System.out.println(unaOferta.toString());
+		}
     }
 }

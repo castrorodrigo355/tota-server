@@ -92,7 +92,6 @@ public class OfertaController {
 			} else {
 				res.status(400);
 				return "No hay ofertas con Id " + of_id;
-
 			}
 		}, json());
 
@@ -115,10 +114,11 @@ public class OfertaController {
 			Mezclador miMezclador = new Mezclador();
 			miMezclador.mezclarImagenes(path, imagenQR, nombreFinal);
 			
-			Ofertas oferta = ofertaService.crearOferta(descOferta, publicidad);
+			Ofertas oferta = new Ofertas(descOferta);
+			oferta.setPublicidades(publicidad);
+			ofertaService.crearOferta(oferta);
 			publicidad.setOferta(oferta);
-			
-			res.redirect("/ofertas");
+			ofertaService.getOfertas();
             return null;
 		}, json());
 
