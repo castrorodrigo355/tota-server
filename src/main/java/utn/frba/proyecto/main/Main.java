@@ -9,6 +9,7 @@ import utn.frba.proyecto.controllers.InicioController;
 import utn.frba.proyecto.controllers.LoginController;
 import utn.frba.proyecto.controllers.MarcaController;
 import utn.frba.proyecto.controllers.OfertaController;
+import utn.frba.proyecto.controllers.PracticaController;
 import utn.frba.proyecto.controllers.PublicidadController;
 import utn.frba.proyecto.controllers.ReporteController;
 import utn.frba.proyecto.controllers.TelevisorController;
@@ -23,6 +24,7 @@ import utn.frba.proyecto.services.TelevisorService;
 import utn.frba.proyecto.services.UbicacionService;
 import utn.frba.proyecto.services.UsuarioService;
 import utn.frba.proyecto.services.OfertaService;
+import utn.frba.proyecto.services.PracticaService;
 
 public class Main {
 
@@ -41,5 +43,6 @@ public class Main {
 		new OfertaController(new OfertaService());
 		new ReporteController(new ReporteService());
 		new InicioController();
+		new PracticaController(new PracticaService());
 	}
 }

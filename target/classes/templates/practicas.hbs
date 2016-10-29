@@ -1,0 +1,76 @@
+{{#partial "title"}}
+<title>{{title}}</title>
+{{/partial}}
+<div class="ui main container">
+    
+    <div class="ui center massive aligned segment">
+    	
+    	<h2 class="ui right floated header">Marcas</h2>
+        
+        <table id="usuarios" class="ui center aligned celled structured table">
+            
+            <thead>
+	        	<tr>
+    	            <th class="ascending" colspan="1">ID</th>
+        	        <th colspan="1">Nombre</th>
+        	        <th colspan="1">Descripcion</th>
+        	        <th colspan="1">Usuarios</th>
+            	</tr>
+            </thead>
+            <tbody>
+            	{{#each listaDeMarcas}}
+	            <tr>
+    	            <td>{{this.id}}</td>
+        	        <td>{{this.nombre}}</td>
+        	        <td>{{this.descripcion}}</td>
+        	        <td>
+                        <div class="ui list">
+                            {{#each this.usuarios}}
+                            	<div class="item">ID: {{this.id}} - Email: {{this.email}}</div>
+                            {{/each}}
+                        </div>
+                    </td>
+    	        </tr>
+    	        {{/each}}
+            </tbody>
+        </table>
+        
+    </div>
+    
+    <div class="ui center massive aligned segment">
+    	
+    	<h2 class="ui right floated header">Usuarios</h2>
+        
+       <table id="usuarios" class="ui center aligned celled structured table">
+            
+            <thead>
+	        	<tr>
+    	            <th class="ascending" colspan="1">ID</th>
+        	        <th colspan="1">Nombre</th>
+        	        <th colspan="1">Apellido</th>
+        	        <th colspan="1">Password</th>
+            	    <th colspan="1">Email</th>
+            	    <th colspan="1">Marca</th>
+            	</tr>
+            </thead>
+            <tbody>
+            	{{#each listaDeUsuarios}}
+	            <tr>
+    	            <td>{{this.id}}</td>
+        	        <td>{{this.nombre}}</td>
+        	        <td>{{this.apellido}}</td>
+        	        <td>{{this.password}}</td>
+            	    <td>{{this.email}}</td>
+            	    <td>{{this.marca.id}}</td>
+    	        </tr>
+    	        {{/each}}
+            </tbody>
+        </table>
+     
+     </div>
+    
+</div>
+	
+{{#partial "content"}}
+{{/partial}}
+{{> layout.hbs}}
