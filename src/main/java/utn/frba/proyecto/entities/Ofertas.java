@@ -1,6 +1,5 @@
 package utn.frba.proyecto.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,7 +20,7 @@ public class Ofertas {
 	
 	@Override
 	public String toString() {
-		return "Ofertas [of_id=" + of_id + ", descripcion=" + descripcion + ", publicidades=" + publicidades.getId() + "]";
+		return "Ofertas [of_id=" + of_id + ", descripcion=" + descripcion + ", publicidades=" + publicidades.getPath() + "]";
 	}
 	public Ofertas(){}
 	public Ofertas(String descripcion){

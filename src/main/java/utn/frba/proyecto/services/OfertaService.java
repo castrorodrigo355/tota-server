@@ -2,9 +2,7 @@ package utn.frba.proyecto.services;
 
 import java.util.List;
 import utn.frba.proyecto.entities.Ofertas;
-import utn.frba.proyecto.entities.Publicidades;
 import utn.frba.proyecto.repositorios.RepositorioOfertas;
-import utn.frba.proyecto.repositorios.RepositorioPublicidades;
 
 public class OfertaService {
 

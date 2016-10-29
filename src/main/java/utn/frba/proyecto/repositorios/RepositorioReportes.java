@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
-import utn.frba.proyecto.entities.Camaras;
 import utn.frba.proyecto.entities.Reportes;
 
 public class RepositorioReportes implements WithGlobalEntityManager, TransactionalOps {

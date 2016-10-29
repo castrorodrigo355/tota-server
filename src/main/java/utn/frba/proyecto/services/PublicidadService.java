@@ -4,7 +4,6 @@ import java.util.List;
 
 import utn.frba.proyecto.entities.Marcas;
 import utn.frba.proyecto.entities.Publicidades;
-import utn.frba.proyecto.entities.Usuarios;
 import utn.frba.proyecto.repositorios.RepositorioPublicidades;
 
 public class PublicidadService {

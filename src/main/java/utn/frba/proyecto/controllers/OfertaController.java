@@ -36,15 +36,17 @@ public class OfertaController {
 			List<Ofertas> ofertas = new ArrayList<Ofertas>();
 			Usuarios usuario = AuthenticationUtil.getAuthenticatedUser(request);
 			
-			if(usuario == null){
+			if(usuario == null || usuario.getMarca().getPublicidades()==null){
 				map.put("ofertas", ofertas);
 				return new ModelAndView(map, "ofertas.hbs");
 			}
 			
 			publicidadesDeMarcaDeUsuario = usuario.getMarca().getPublicidades();
 			for(Publicidades unaPublicidad : publicidadesDeMarcaDeUsuario){
-				Ofertas unaOferta = unaPublicidad.getOferta();
-				ofertas.add(unaOferta);
+				if(unaPublicidad.getOferta() != null){
+					Ofertas unaOferta = unaPublicidad.getOferta();
+					ofertas.add(unaOferta);
+				}
 			}
 			
 			map.put("usuario", usuario);
@@ -83,8 +85,10 @@ public class OfertaController {
 		delete("/ofertas/:of_id", (req, res) -> {
 			int of_id = Integer.parseInt(req.params(":of_id"));
 			Ofertas oferta = ofertaService.getOferta(of_id);
-			//File fotoParaBorrar = new File(rutaOfertas, imgQR);
-			//fotoParaBorrar.delete();
+			String fotoOferta = oferta.getPublicidades().getPath();
+			
+			File fotoParaBorrar = new File(rutaOfertas, fotoOferta);
+			fotoParaBorrar.delete();
 
 			if (oferta != null) {
 				ofertaService.eliminarOferta(oferta);
@@ -110,7 +114,16 @@ public class OfertaController {
 			GeneradorCodigoQR generador = new GeneradorCodigoQR();
 			generador.generarCodigoQR(imagenQR, descOferta);
 			
-			String nombreFinal = idPublicidad + "-" + descOferta + ".png";
+			String extension = "";
+			int extensionImagenSeleccionada = path.length();
+			String ultimos3 = path.substring(extensionImagenSeleccionada - 3, extensionImagenSeleccionada);
+	    	switch(ultimos3){
+		    	case "png": extension = ".png"; break;
+		    	case "jpg": extension = ".jpg"; break;
+		    	default: extension = ".gif"; break; 
+	    	}
+			
+			String nombreFinal = idPublicidad + extension;
 			Mezclador miMezclador = new Mezclador();
 			miMezclador.mezclarImagenes(path, imagenQR, nombreFinal);
 			
@@ -118,8 +131,7 @@ public class OfertaController {
 			oferta.setPublicidades(publicidad);
 			ofertaService.crearOferta(oferta);
 			publicidad.setOferta(oferta);
-			ofertaService.getOfertas();
-            return null;
+            return ofertaService.getOfertas();
 		}, json());
 
 		after("/ofertas/*", (req, res) -> {

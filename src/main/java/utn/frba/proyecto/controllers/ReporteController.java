@@ -1,12 +1,7 @@
 package utn.frba.proyecto.controllers;
 import java.util.List;
 
-import static spark.Spark.after;
-import static spark.Spark.delete;
 import static spark.Spark.get;
-import static spark.Spark.post;
-import static spark.Spark.put;
-import static utn.frba.proyecto.utils.JSONUtils.json;
 import java.util.HashMap;
 import java.util.Map;
 import spark.ModelAndView;

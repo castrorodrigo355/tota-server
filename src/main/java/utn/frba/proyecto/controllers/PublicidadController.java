@@ -20,14 +20,12 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 import utn.frba.proyecto.entities.Marcas;
 import utn.frba.proyecto.entities.Publicidades;
 import utn.frba.proyecto.entities.Usuarios;
-import utn.frba.proyecto.services.MarcaService;
 import utn.frba.proyecto.services.PublicidadService;
-import utn.frba.proyecto.services.UsuarioService;
 import utn.frba.proyecto.utils.AuthenticationUtil;
 import utn.frba.proyecto.utils.ResponseError;
 
 public class PublicidadController {
-	private MarcaService marcaService = new MarcaService();
+	// private MarcaService marcaService = new MarcaService();
 
 	private static final String rutaDeImagenes = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/img";
 	
@@ -54,7 +52,15 @@ public class PublicidadController {
 				return new ModelAndView(map, "publicidades.hbs");
 			}
 			
-			publicidades = usuario.getMarca().getPublicidades();
+			List<Publicidades> publicidadesDelSistema = publicidadService.getPublicidades();
+			Marcas marcaDeUsuario = usuario.getMarca();
+			for(Publicidades unaPublicidad : publicidadesDelSistema){
+				if(unaPublicidad.getMarca().getId() == marcaDeUsuario.getId()){
+					publicidades.add(unaPublicidad);
+				}
+			}
+			
+			// publicidades = usuario.getMarca().getPublicidades();
 			
 			map.put("usuario", usuario);
 			map.put("publicidades", publicidades);
@@ -142,14 +148,8 @@ public class PublicidadController {
 	    	}
 			
 			String cantPublicidades = String.valueOf(publicidadService.getPublicidades().size() + 1);
-			String ruta = "../img/";
+			// String ruta = "../img/";
 			String nombreFinal = cantPublicidades + extension;
-			
-			/*
-			File fichero1 = new File(rutaDeImagenes, path);
-			File fichero2 = new File(rutaDeImagenes, nombreFinal);
-			fichero1.renameTo(fichero2);
-			*/
 			
 			Usuarios usuario = AuthenticationUtil.getAuthenticatedUser(request);
 			Marcas marca = usuario.getMarca();

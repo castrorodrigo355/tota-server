@@ -6,7 +6,6 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 import utn.frba.proyecto.entities.Publicidades;
-import utn.frba.proyecto.entities.Usuarios;
 
 public class RepositorioPublicidades implements WithGlobalEntityManager, TransactionalOps {
 
