@@ -119,12 +119,11 @@ public class Bootstrap implements WithGlobalEntityManager, TransactionalOps {
 			RepositorioOfertas.getInstance().addOferta(oferta4);
 			RepositorioOfertas.getInstance().addOferta(oferta5);
 			
-			
 			marca1.agregarPublicidad(p1); marca1.agregarPublicidad(p2); 
 			marca2.agregarPublicidad(p3); marca2.agregarPublicidad(p4);
 			marca3.agregarPublicidad(p5); marca3.agregarPublicidad(p6);
-			marca4.agregarPublicidad(p7); marca4.agregarPublicidad(p8); marca4.agregarPublicidad(p9);
 			
+			marca4.agregarPublicidad(p7); marca4.agregarPublicidad(p8); marca4.agregarPublicidad(p9);
 			
 			RepositorioMarcas.getInstance().addBrand(marca1);
 			RepositorioMarcas.getInstance().addBrand(marca2);
