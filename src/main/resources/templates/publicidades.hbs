@@ -57,36 +57,104 @@
         </div>
         <div class="content">
             <form class="ui form" method="POST" action="/publicidades">
-	            	<div class="field">
-		                <label>Sexo</label>
-		                <input name="sexo" placeholder="Sexo" type="text" required="true">
-		            </div>
-		            
-	                <div class="two fields">
-		                <div class="field">
-			                <label>Edad Minima</label>
-			                <input name="edad_min" placeholder="Edad Minima" type="text" required="true">
-			            </div>
-			            <div class="field">
-			                <label>Edad Maxima</label>
-			                <input name="edad_max" placeholder="Edad Maxima" type="text" required="true">
-			            </div>
-			        </div>    
-		            
-		            <div class="two fields">
-		            	<div class="field">
-			                <label>Hr Minimo</label>
-			                <input name="horario_min" placeholder="Horario Minimo" type="text" required="true">
-			            </div>
-			            <div class="field">
-			                <label>Hr Maximo</label>
-			                <input name="horario_max" placeholder="Horario Maximo" type="text" required="true">
-			            </div>
-		            </div>
+	            	
+	              <div class="three fields">
+				  	 <div class="required field">
+						  <div class="ui selection dropdown">
+							  <input type="hidden" name="sexo" required="true">
+							  <i class="dropdown icon"></i>
+							  <div class="default text">Genero</div>
+							  <div class="menu" id="options">
+							    <div class="item" data-value="M">Masculino</div>
+							    <div class="item" data-value="F">Femenino</div>
+							  </div>
+						  </div>
+					 </div>	  
+				  </div>
+				  
+				  
+				  <div class="two fields">
+	                  
+	                  <div class="required field">
+				 	    					<div class="ui selection dropdown">
+											  <input type="hidden" name="edad_min">
+											  <i class="dropdown icon"></i>
+											  <div class="default text">Edad Minima</div>
+											  <div class="menu">
+											    <div class="item" data-value="1">1</div>
+											    <div class="item" data-value="10">10</div>
+											    <div class="item" data-value="20">20</div>
+											    <div class="item" data-value="30">30</div>
+											    <div class="item" data-value="40">40</div>
+											    <div class="item" data-value="50">50</div>
+											    <div class="item" data-value="60">60</div>
+											    <div class="item" data-value="70">70</div>
+											    <div class="item" data-value="80">80</div>
+											    <div class="item" data-value="90">90</div>
+											  </div>
+				  							</div>
+				 	  </div>
+				 	  
+				 	  <div class="required field">
+					    					<div class="ui selection dropdown">
+											  <input type="hidden" name="edad_max">
+											  <i class="dropdown icon"></i>
+											  <div class="default text">Edad Maxima</div>
+											  <div class="menu">
+											    <div class="item" data-value="1">1</div>
+											    <div class="item" data-value="20">20</div>
+											    <div class="item" data-value="30">30</div>
+											    <div class="item" data-value="40">40</div>
+											    <div class="item" data-value="50">50</div>
+											    <div class="item" data-value="60">60</div>
+											    <div class="item" data-value="70">70</div>
+											    <div class="item" data-value="80">80</div>
+											    <div class="item" data-value="90">90</div>
+											    <div class="item" data-value="100">100</div>
+											  </div>
+				 							 </div>
+				 	  </div>
+				 	  
+                  </div>
+                  
+                  
+                  
+                  <div class="two fields">
+	                  <div class="required field">
+				    						<div class="ui selection dropdown">
+											  <input type="hidden" name="horario_min">
+											  <i class="dropdown icon"></i>
+											  <div class="default text">Horario Minimo</div>
+											  <div class="menu">
+											    <div class="item" data-value="9">9</div>
+											    <div class="item" data-value="12">12</div>
+											    <div class="item" data-value="15">15</div>
+											    <div class="item" data-value="18">18</div>
+											    <div class="item" data-value="21">21</div>
+											  </div>
+				 							 </div>
+				  	  </div>
+				      <div class="required field">
+				    						<div class="ui selection dropdown">
+											  <input type="hidden" name="horario_max">
+											  <i class="dropdown icon"></i>
+											  <div class="default text">Horario Maximo</div>
+											  <div class="menu">
+											    <div class="item" data-value="12">12</div>
+											    <div class="item" data-value="15">15</div>
+											    <div class="item" data-value="18">18</div>
+											    <div class="item" data-value="21">21</div>
+											    <div class="item" data-value="24">24</div>
+											  </div>
+				 							 </div>
+				  	  </div>
+                  </div>
 		            
 		            <div>
 						<input type="file" id ="fileUpload" class="circular red fluid ui button" value="Seleccionar" onchange="funcionNombre(this.value)">
 	                </div>
+		            
+		            <div class="ui clearing divider"></div>
 		            
 		            <div class="two fields">
 			            <div class="field">
@@ -243,6 +311,15 @@
             }
         }) 
     });
+    
+    $('#validate').click(function() {
+
+	    if ($('#options').val().trim() === '') {
+	        alert('Debes seleccionar una opcion');
+	    } else {
+	        alert('Campo correcto');
+	    }
+	});
     
 </script>
 {{/partial}}
