@@ -22,8 +22,7 @@
 							  <div class="menu">
 							  
 							  	{{#each listaDeMarcas}}
-							  	    var idMarca = 3;
-							  		<div class="item" data-value=idMarca>{{this.nombre}}</div>
+							  		<div class="item" data-value= {{this.id}} > {{this.id}}-{{this.nombre}} </div>
 				    	        {{/each}}
 							    
 							  </div>
@@ -31,6 +30,9 @@
 					 </div>
 				  </div>
 				  
+				  <div class="field">
+				  <input type="submit" class="circular purple fluid ui button" value="Aceptar">
+				  </div>
 			</form>
 		</div>
     

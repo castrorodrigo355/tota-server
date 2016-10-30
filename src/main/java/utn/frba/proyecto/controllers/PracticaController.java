@@ -9,6 +9,7 @@ import java.util.Map;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import utn.frba.proyecto.entities.Usuarios;
+import utn.frba.proyecto.repositorios.RepositorioMarcas;
 import utn.frba.proyecto.entities.Marcas;
 import utn.frba.proyecto.services.UsuarioService;
 import utn.frba.proyecto.services.MarcaService;
@@ -23,7 +24,17 @@ public class PracticaController {
 
 		get("/practicas", (request, response) -> {
 			Map<String, Object> map = new HashMap<String, Object>();
-			List<Marcas> listaDeMarcas= new MarcaService().getMarcas();
+			
+			List<Marcas> listaDeMarcas = new ArrayList<>();
+			List<Marcas> marcas = RepositorioMarcas.getInstance().getAllBrands();
+
+			/*
+			List<Marcas> listaDeMarcas = new ArrayList<>();
+			List<Marcas> marcas= new MarcaService().getMarcas();
+			*/
+			for(Marcas unaMarca : marcas){
+				listaDeMarcas.add(unaMarca);
+			}
 			
 			map.put("usuario", AuthenticationUtil.getAuthenticatedUser(request));
 			map.put("listaDeMarcas", listaDeMarcas);

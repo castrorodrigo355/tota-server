@@ -36,10 +36,22 @@ public class TestAplication {
 	    	default: System.out.println("La extension es gif"); break; 
     	}
     	*/
+		
+		/*
 		RepositorioOfertas rof = new RepositorioOfertas();
 		List<Ofertas> ofertas = rof.getAllOfertas();
 		for(Ofertas unaOferta : ofertas){
 			System.out.println(unaOferta.toString());
+		}*/
+		
+		int posicionGuion = 0;
+		String marca = "24-adidas";
+		for(int i = 0; i < marca.length(); i++){
+			if(marca.charAt(i) == '-'){
+				posicionGuion = i;
+			}
 		}
+		String idMarca = marca.substring(0, posicionGuion);
+		System.out.println("Marca ID: " + idMarca);
     }
 }

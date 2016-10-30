@@ -70,12 +70,26 @@
                     </div>
                     <div class="field">
 	                    <label>Correo electrónico</label>
-	                    <input type="email" placeholder="ejemplo@smarketing.com">
+	                    <input name="email" placeholder="ejemplo@smarketing.com">
 	                </div>
-	                <div class="field">
-                        <label>Marca ID</label>
-                        <input name="marca_id" placeholder="idMarca" required="true" type="text">
-				    </div>
+	                
+	                <div class="required field">
+				  	 
+						  <div class="ui selection dropdown">
+							  <input type="hidden" name="marca_id">
+							  <i class="dropdown icon"></i>
+							  <div class="default text">Marcas</div>
+							  <div class="menu">
+							  
+							  	{{#each marcas}}
+							  		<div class="item" data-value= {{this.id}} > {{this.nombre}} </div>
+				    	        {{/each}}
+							    
+							  </div>
+						  </div>
+					 </div>
+	                
+	                
                 </div>
                 
             </form>
@@ -109,19 +123,16 @@
                 </div>
                 
                 
-                <div class="three fields">
+                <div class="two fields">
                     <div class="field">
                         <label>Password</label>
                         <input name="password" placeholder="Password" type="text">
                     </div>
                     <div class="field">
 	                    <label>Correo electrónico</label>
-	                    <input type="email" placeholder="ejemplo@smarketing.com">
+	                    <input name="email" placeholder="ejemplo@smarketing.com">
 	                </div>
-	                <div class="field">
-                        <label>Marca ID</label>
-                        <input name="marca_id" placeholder="idMarca" required="true" type="text">
-				    </div>
+	                
                 </div>
                 
             </form>
@@ -146,7 +157,7 @@
         var nombre = $('#nuevo-modal').find('input[name=nombre]').val();
         var apellido = $('#nuevo-modal').find('input[name=apellido]').val();
         var password = $('#nuevo-modal').find('input[name=password]').val();
-        var email = $('#nuevo-modal').find('input[type=email]').val();
+        var email = $('#nuevo-modal').find('input[name=email]').val();
         var marca_id = $('#nuevo-modal').find('input[name=marca_id]').val();
         
         $.ajax({
@@ -186,15 +197,15 @@
         var apellido = $(this).parents("tr").find("td").eq(2).text();
         var password = $(this).parents("tr").find("td").eq(3).text();
         var email = $(this).parents("tr").find("td").eq(4).text();
-        var marca_id = $(this).parents("tr").find("td").eq(5).text();
+        
         
 		$('#modificar-modal').modal({
                     onShow    : function(){
                         $('#modificar-modal').find('input[name=nombre]').val(nombre);
                         $('#modificar-modal').find('input[name=apellido]').val(apellido);
                         $('#modificar-modal').find('input[name=password]').val(password);
-                        $('#modificar-modal').find('input[type=email]').val(email);
-                        $('#modificar-modal').find('input[name=marca_id]').val(marca_id);
+                        $('#modificar-modal').find('input[name=email]').val(email);
+        
                     }
                 }).modal('show');
     });
@@ -204,19 +215,19 @@
         var nombre = $('#modificar-modal').find('input[name=nombre]').val();
         var apellido = $('#modificar-modal').find('input[name=apellido]').val();
         var password = $('#modificar-modal').find('input[name=password]').val();
-        var email = $('#modificar-modal').find('input[type=email]').val();
-        var marca_id = $('#modificar-modal').find('input[name=marca_id]').val();
+        var email = $('#modificar-modal').find('input[name=email]').val();
+        
         $.ajax({
             url : "/usuarios/" + selectedId,
             method : "PUT",
-            data : {nombre: nombre, apellido: apellido, password: password, email: email, marca_id: marca_id},
+            data : {nombre: nombre, apellido: apellido, password: password, email: email},
             success : function(response){
                 var supplierSelector = "td:contains('"+ response.id + "')";
                 $supplierRow = $(supplierSelector).closest("tr");
                 $supplierRow.find("td:nth-child(2)").find("a").text(response.nombre + " " + response.apellido);
                 $supplierRow.find("td:nth-child(3)").text(response.password);
                 $supplierRow.find("td:nth-child(4)").text(response.email);
-                $supplierRow.find("td:nth-child(5)").text(response.marca_id);
+        
             }
         })
     });

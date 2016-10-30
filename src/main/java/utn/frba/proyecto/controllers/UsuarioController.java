@@ -27,9 +27,11 @@ public class UsuarioController {
 
 		get("/usuarios", (request, response) -> {
 			List<Usuarios> usuarios = usuarioService.getUsuarios();
+			List<Marcas> marcas = new MarcaService().getMarcas();
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("usuario", AuthenticationUtil.getAuthenticatedUser(request));
 			map.put("usuarios", usuarios);
+			map.put("marcas", marcas);
 			return new ModelAndView(map, "usuarios.hbs");
 		}, engine);
 
