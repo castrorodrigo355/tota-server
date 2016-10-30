@@ -62,11 +62,17 @@
                         <label>Opciones</label>
                         <select name="opciones" id="opciones" multiple="" class="ui fluid dropdown">
 						    <option value="">Opciones</option>
-							<option value="remera">Remera</option>
-							<option value="pantalon">Pantalon</option>
-							<option value="zapatillas">Zapatillas</option>
-							<option value="campera">Campera</option>
-							<option value="camisa">Camisa</option>
+						    <option value="ropa deportiva">Ropa Deportiva</option>
+						    <option value="ropa formal">Ropa Informal</option>
+							<option value="ropa informal">Ropa Formal</option>
+							<option value="elegant sport">Elegant Sport</option>
+							<option value="casual">Casual</option>
+							<option value="marroquineria">Marroquineria</option>
+							<option value="relojeria">Relojeria</option>
+							<option value="joyeria">Joyeria</option>
+							<option value="bazar">Bazar</option>
+							<option value="peluqueria">Peluqueria</option>
+							<option value="alimentos">Alimentos</option>
 					  	</select>
                     </div>
                 </div>
@@ -124,7 +130,7 @@
         $.ajax({
             url : "/marcas",
             method : "POST",
-            data : {nombre: nombre, descripcion: JSON.stringify(elementos)},
+            data : {nombre: nombre, descripcion: elementos.join(",")},
             success : function(response){
                 var json = JSON.parse(response);
                     $("#marcas > tbody").append("<tr><td>"+json.id+"</td><td>"+json.nombre+"</td><td>"+json.descripcion+"</td><td>"+json.usuarios+"</td><td><button class='ui edit icon button'><i class='write icon'></i></button><button class='ui delete icon button'><i class='trash icon'></i></button></td>");

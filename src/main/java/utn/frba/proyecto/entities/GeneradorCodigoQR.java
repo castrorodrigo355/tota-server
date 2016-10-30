@@ -15,9 +15,11 @@ public class GeneradorCodigoQR {
 	private static final int alto = 200;
 	private static final String formato = "png";
 	private static final String ruta = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/qrs/";
-	
+	// private static final String ruta = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/qrs/";
+	// /img
+	// /of
 	public GeneradorCodigoQR(){}
-	
+		
 	public void generarCodigoQR(String nombreImagenQR, String datos) throws FileNotFoundException, IOException, WriterException {
 		BitMatrix matrix;
 		MultiFormatWriter writer = new MultiFormatWriter();

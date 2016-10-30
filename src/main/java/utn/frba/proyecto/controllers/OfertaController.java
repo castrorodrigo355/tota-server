@@ -34,6 +34,7 @@ public class OfertaController {
 			Map<String, Object> map = new HashMap<String, Object>();
 			List<Publicidades> publicidadesDeMarcaDeUsuario = new ArrayList<Publicidades>();
 			List<Ofertas> ofertas = new ArrayList<Ofertas>();
+			List<Publicidades> publicidadesSinOferta = new ArrayList<Publicidades>();
 			Usuarios usuario = AuthenticationUtil.getAuthenticatedUser(request);
 			
 			if(usuario == null || usuario.getMarca().getPublicidades()==null){
@@ -42,15 +43,23 @@ public class OfertaController {
 			}
 			
 			publicidadesDeMarcaDeUsuario = usuario.getMarca().getPublicidades();
+			
 			for(Publicidades unaPublicidad : publicidadesDeMarcaDeUsuario){
 				if(unaPublicidad.getOferta() != null){
 					Ofertas unaOferta = unaPublicidad.getOferta();
 					ofertas.add(unaOferta);
 				}
 			}
+
+			for(Publicidades unaPublicidad : publicidadesDeMarcaDeUsuario){
+				if(unaPublicidad.getOferta() == null){
+					publicidadesSinOferta.add(unaPublicidad);
+				}
+			}
 			
 			map.put("usuario", usuario);
 			map.put("ofertas", ofertas);
+			map.put("publicidadesSinOferta", publicidadesSinOferta);
 			return new ModelAndView(map, "ofertas.hbs");
 
 		}, engine);
