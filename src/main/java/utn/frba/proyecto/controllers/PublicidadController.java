@@ -122,7 +122,9 @@ public class PublicidadController {
 				File fotoParaBorrar = new File(rutaDeImagenes, path);
 				fotoParaBorrar.delete();
 				publicidadService.eliminarPublicidad(publicidad);
-				return publicidadService.getPublicidades();
+				publicidadService.getPublicidades();
+				res.redirect("/publicidades");
+				return null;
 			} else {
 				res.status(400);
 				return "No hay publicidades con Id " + pub_id;

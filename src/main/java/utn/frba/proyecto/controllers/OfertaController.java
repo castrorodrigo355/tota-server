@@ -85,14 +85,15 @@ public class OfertaController {
 		delete("/ofertas/:of_id", (req, res) -> {
 			int of_id = Integer.parseInt(req.params(":of_id"));
 			Ofertas oferta = ofertaService.getOferta(of_id);
-			String fotoOferta = oferta.getPublicidades().getPath();
-			
-			File fotoParaBorrar = new File(rutaOfertas, fotoOferta);
-			fotoParaBorrar.delete();
 
 			if (oferta != null) {
+				String fotoOferta = oferta.getPublicidades().getPath();
 				ofertaService.eliminarOferta(oferta);
-				return ofertaService.getOfertas();
+				File fotoParaBorrar = new File(rutaOfertas, fotoOferta);
+				fotoParaBorrar.delete();
+				ofertaService.getOfertas();
+				res.redirect("/ofertas");
+				return null;
 			} else {
 				res.status(400);
 				return "No hay ofertas con Id " + of_id;
@@ -131,7 +132,10 @@ public class OfertaController {
 			oferta.setPublicidades(publicidad);
 			ofertaService.crearOferta(oferta);
 			publicidad.setOferta(oferta);
-            return ofertaService.getOfertas();
+			
+			ofertaService.getOfertas();
+			res.redirect("/ofertas");
+			return null;
 		}, json());
 
 		after("/ofertas/*", (req, res) -> {
