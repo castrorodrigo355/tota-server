@@ -28,7 +28,9 @@ public class PublicidadController {
 	// private MarcaService marcaService = new MarcaService();
 
 	private static final String rutaDeImagenes = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/img";
-	
+	// private static final String ruta = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/qrs/";
+	// private static final String ruta = /img;
+	// private static final String ruta = /of;
 	public PublicidadController(final PublicidadService publicidadService) {
 
 		HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();

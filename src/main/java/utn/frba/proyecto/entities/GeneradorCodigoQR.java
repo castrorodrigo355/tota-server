@@ -16,8 +16,8 @@ public class GeneradorCodigoQR {
 	private static final String formato = "png";
 	private static final String ruta = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/qrs/";
 	// private static final String ruta = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/qrs/";
-	// /img
-	// /of
+	// private static final String ruta = /img;
+	// private static final String ruta = /of;
 	public GeneradorCodigoQR(){}
 		
 	public void generarCodigoQR(String nombreImagenQR, String datos) throws FileNotFoundException, IOException, WriterException {
