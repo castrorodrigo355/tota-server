@@ -1,21 +1,27 @@
 
 	create table Marcas (
         marca_id int not null auto_increment,
-        nombre varchar(255),
-        descripcion varchar(255),        
+        nombre varchar(25),
+        descripcion varchar(50),        
         primary key (marca_id)
     )
 
 	create table Publicidades (
         pub_id int not null auto_increment,
-        sexo varchar(255),
+        sexo char(1),
         edad_min int,
         edad_max int,
         horario_min int,
         horario_max int,
-        descripcion varchar(255),
-        path varchar(255),
+        descripcion varchar(50),
+        path varchar(50),
         primary key (pub_id)
+    )
+    
+    create table Ubicaciones (
+        ubicacion_id int not null auto_increment,
+        descripcion varchar(50),
+        primary key (ubicacion_id)
     )
 	
     create table Ofertas (
@@ -23,22 +29,17 @@
         descripcion varchar(255),
         primary key (of_id)
     )
-	
-	create table Ubicaciones (
-        ubicacion_id int not null auto_increment,
-        descripcion varchar(255),
-        primary key (ubicacion_id)
-    )
     
     create table Camaras (
         cam_id int not null auto_increment,
-        ip_dir varchar(255),
+        ip_dir varchar(40),
+        endpoint varchar(40);
         primary key (cam_id)
     )
 
     create table Televisores (
         tv_id int not null auto_increment,
-        ip_dir varchar(255),
+        ip_dir varchar(40),
         primary key (tv_id)
     )
 
