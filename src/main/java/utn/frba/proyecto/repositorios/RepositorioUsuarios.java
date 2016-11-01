@@ -5,6 +5,7 @@ import java.util.List;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import utn.frba.proyecto.entities.Marcas;
 import utn.frba.proyecto.entities.Usuarios;
 
 public class RepositorioUsuarios implements WithGlobalEntityManager, TransactionalOps {
@@ -14,7 +15,7 @@ public class RepositorioUsuarios implements WithGlobalEntityManager, Transaction
 	public static RepositorioUsuarios getInstance() {
 		return instance;
 	}
-	
+
 	public void agregarUsuario(Usuarios usuario) {
 		withTransaction(() -> {
 			entityManager().persist(usuario);
@@ -34,6 +35,18 @@ public class RepositorioUsuarios implements WithGlobalEntityManager, Transaction
 			usuario.setApellido(apellido);
 			usuario.setPassword(password);
 			usuario.setEmail(email);
+			return usuario;
+		});
+	}
+
+	public Usuarios modifyUser(int id, String nombre, String apellido, String password, String email, Marcas marca) {
+		return withTransaction(() -> {
+			Usuarios usuario = entityManager().find(Usuarios.class, id);
+			usuario.setNombre(nombre);
+			usuario.setApellido(apellido);
+			usuario.setPassword(password);
+			usuario.setEmail(email);
+			RepositorioMarcas.getInstance().agregarUsuarioAMarca(marca, usuario);
 			return usuario;
 		});
 	}

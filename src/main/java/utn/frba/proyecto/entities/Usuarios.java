@@ -1,11 +1,8 @@
 package utn.frba.proyecto.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Usuarios {
@@ -17,13 +14,12 @@ public class Usuarios {
 	private String apellido;
 	private String password;
 	private String email;
+	private String nombreMarca;
 	private boolean admin;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "marca_id")
-	private Marcas marca;
-	
-	public Usuarios() {}
+	public Usuarios() {
+	}
+
 	public Usuarios(String nombre, String apellido, String email) {
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -38,14 +34,13 @@ public class Usuarios {
 		this.admin = admin;
 	}
 
-	public Usuarios(String nombre, String apellido, String password, String email, Marcas marca) {
+	public Usuarios(String nombre, String apellido, String password, String email) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.password = password;
 		this.email = email;
-		this.marca = marca;
 	}
-	
+
 	public boolean isAdmin() {
 		return admin;
 	}
@@ -61,7 +56,7 @@ public class Usuarios {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
-	
+
 	public int getId() {
 		return user_id;
 	}
@@ -93,12 +88,14 @@ public class Usuarios {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public Marcas getMarca() {
-		return marca;
+
+	public String getNombreMarca() {
+		return this.nombreMarca;
 	}
-	public void setMarca(Marcas marca) {
-		this.marca = marca;
+
+	public void setNombreMarca(String nombreMarca) {
+		this.nombreMarca = nombreMarca;
+
 	}
 
 }

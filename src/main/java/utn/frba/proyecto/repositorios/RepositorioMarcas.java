@@ -6,6 +6,7 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 import utn.frba.proyecto.entities.Marcas;
+import utn.frba.proyecto.entities.Usuarios;
 
 public class RepositorioMarcas implements WithGlobalEntityManager, TransactionalOps {
 
@@ -14,10 +15,10 @@ public class RepositorioMarcas implements WithGlobalEntityManager, Transactional
 	public static RepositorioMarcas getInstance() {
 		return instance;
 	}
-	
+
 	public List<Marcas> listarMarcas() {
 		List<Marcas> marcas = entityManager().createQuery("from Marcas", Marcas.class).getResultList();
-		marcas.stream().forEach(marca-> entityManager().refresh(marca));
+		marcas.stream().forEach(marca -> entityManager().refresh(marca));
 		return marcas;
 	}
 
@@ -35,7 +36,7 @@ public class RepositorioMarcas implements WithGlobalEntityManager, Transactional
 			return marca;
 		});
 	}
-	
+
 	public void quitarMarca(Marcas marca) {
 		withTransaction(() -> {
 			entityManager().remove(marca);
@@ -44,6 +45,18 @@ public class RepositorioMarcas implements WithGlobalEntityManager, Transactional
 
 	public Marcas getMarca(int id) {
 		return entityManager().find(Marcas.class, id);
+	}
+
+	public void agregarUsuarioAMarca(Marcas marca, Usuarios usuario) {
+		withTransaction(() -> {
+			marca.agregarUsuario(usuario);
+		});
+	}
+
+	public void quitarUsuarioAMarca(Marcas marca, Usuarios usuario) {
+		withTransaction(() -> {
+			marca.quitarUsuario(usuario);
+		});
 	}
 
 }

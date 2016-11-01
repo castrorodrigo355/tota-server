@@ -15,22 +15,25 @@ public class UsuarioService {
 	}
 
 	public Usuarios crearUsuario(String nombre, String apellido, String password, String email, Marcas marca) {
-		Usuarios usuario = new Usuarios(nombre, apellido, PasswordUtil.hashPassword(password), email, marca);
+		Usuarios usuario = new Usuarios(nombre, apellido, PasswordUtil.hashPassword(password), email);
+		usuario.setNombreMarca(marca.getNombre());
 		RepositorioUsuarios.getInstance().agregarUsuario(usuario);
+		RepositorioMarcas.getInstance().agregarUsuarioAMarca(marca, usuario);
 		return usuario;
 	}
-	
+
 	public Usuarios getUsuario(int id) {
 		return RepositorioUsuarios.getInstance().getUserById(id);
 	}
-	
+
 	public void eliminarUsuario(Usuarios usuario) {
 		RepositorioUsuarios.getInstance().removeUser(usuario);
 	}
-	
+
 	public Usuarios modificarUsuario(int id, String nombre, String apellido, String password, String email) {
 		return RepositorioUsuarios.getInstance().modifyUser(id, nombre, apellido, password, email);
 	}
+
 	public Usuarios getUsuarioByUsernameAndPassword(String username, String password) {
 		return RepositorioUsuarios.getInstance().getUserByCredentials(username, password);
 	}

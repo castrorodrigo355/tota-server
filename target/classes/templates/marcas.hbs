@@ -137,11 +137,13 @@
     
     $(".ui.delete.icon.button").click(function(){
         var marca_id = $(this).parent().parent().find("td:first").text();
+        var row = $(this).parent().parent();
         
         $.ajax({
             url : "/marcas/" + marca_id,
             method : "DELETE",
             success : function(response){
+                row.remove();
                 $('#marcas tr:eq('+marca_id+')').remove();
             }
         })
