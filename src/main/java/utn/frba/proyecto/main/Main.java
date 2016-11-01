@@ -36,19 +36,19 @@ public class Main {
 		new InicioController();
 		new LoginController(new LoginService());
 		new UsuarioController(new UsuarioService());
-		//new PublicidadController(new PublicidadService());
+		new PublicidadController(new PublicidadService());
 		new MarcaController(new MarcaService());
 		new UbicacionController(new UbicacionService());
 		new CamaraController(new CamaraService());
 		new TelevisorController(new TelevisorService());
-		//new OfertaController(new OfertaService());
+		new OfertaController(new OfertaService());
 		new ReporteController(new ReporteService());
-		
+
 		after((request, response) -> {
 			PerThreadEntityManagers.getEntityManager();
 			PerThreadEntityManagers.closeEntityManager();
 		});
-	
+
 	}
 
 }

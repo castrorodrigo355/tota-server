@@ -165,14 +165,16 @@ public class Bootstrap implements WithGlobalEntityManager, TransactionalOps {
 			marca4.agregarUsuario(ana);
 			ana.setNombreMarca(marca4.getNombre());
 
-			/*
-			 * marca1.agregarPublicidad(p1); marca1.agregarPublicidad(p2);
-			 * marca2.agregarPublicidad(p3); marca2.agregarPublicidad(p4);
-			 * marca3.agregarPublicidad(p5); marca3.agregarPublicidad(p6);
-			 * 
-			 * marca4.agregarPublicidad(p7); marca4.agregarPublicidad(p8);
-			 * marca4.agregarPublicidad(p9);
-			 */
+			marca1.agregarPublicidad(p1);
+			marca1.agregarPublicidad(p2);
+			marca2.agregarPublicidad(p3);
+			marca2.agregarPublicidad(p4);
+			marca3.agregarPublicidad(p5);
+			marca3.agregarPublicidad(p6);
+
+			marca4.agregarPublicidad(p7);
+			marca4.agregarPublicidad(p8);
+			marca4.agregarPublicidad(p9);
 
 			RepositorioMarcas.getInstance().agregarMarca(marca1);
 			RepositorioMarcas.getInstance().agregarMarca(marca2);

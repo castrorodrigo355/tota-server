@@ -1,5 +1,6 @@
 package utn.frba.proyecto.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,15 +23,18 @@ public class Publicidades {
 	private String descripcion;
 	private String path;
 
-	@OneToOne(fetch=FetchType.EAGER, mappedBy="publicidades")
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "publicidades")
 	private Ofertas oferta;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "marca_id")
-	private Marcas marca;
-	
-	public Publicidades() {}
-	public Publicidades(String sexo, int edad_min, int edad_max, int horario_min, int horario_max, String desc, String path) {
+
+	// @ManyToOne(fetch = FetchType.EAGER)
+	// @JoinColumn(name = "marca_id")
+	// private Marcas marca;
+	//
+	public Publicidades() {
+	}
+
+	public Publicidades(String sexo, int edad_min, int edad_max, int horario_min, int horario_max, String desc,
+			String path) {
 		this.sexo = sexo;
 		this.edad_min = edad_min;
 		this.edad_max = edad_max;
@@ -95,28 +99,29 @@ public class Publicidades {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
+
 	public String getPath() {
 		return path;
 	}
+
 	public void setPath(String path) {
 		this.path = path;
 	}
-	
-	public Marcas getMarca() {
-		return marca;
-	}
-	
-	public void setMarca(Marcas marca) {
-		this.marca = marca;
-	}
-	
+	//
+	// public Marcas getMarca() {
+	// return marca;
+	// }
+	//
+	// public void setMarca(Marcas marca) {
+	// this.marca = marca;
+	// }
+
 	public Ofertas getOferta() {
 		return oferta;
 	}
-	
+
 	public void setOferta(Ofertas oferta) {
 		this.oferta = oferta;
 	}
-	
+
 }

@@ -3,9 +3,7 @@ package utn.frba.proyecto.services;
 import java.util.List;
 
 import utn.frba.proyecto.entities.Marcas;
-import utn.frba.proyecto.entities.Usuarios;
 import utn.frba.proyecto.repositorios.RepositorioMarcas;
-import utn.frba.proyecto.repositorios.RepositorioUsuarios;
 
 public class MarcaService {
 

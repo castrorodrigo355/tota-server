@@ -6,6 +6,7 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 import utn.frba.proyecto.entities.Marcas;
+import utn.frba.proyecto.entities.Publicidades;
 import utn.frba.proyecto.entities.Usuarios;
 
 public class RepositorioMarcas implements WithGlobalEntityManager, TransactionalOps {
@@ -47,6 +48,11 @@ public class RepositorioMarcas implements WithGlobalEntityManager, Transactional
 		return entityManager().find(Marcas.class, id);
 	}
 
+	public Marcas getMarcaByNombre(String nombre) {
+		return entityManager().createQuery("from Marcas M where M.nombre = :nombre", Marcas.class)
+				.setParameter("nombre", nombre).getSingleResult();
+	}
+
 	public void agregarUsuarioAMarca(Marcas marca, Usuarios usuario) {
 		withTransaction(() -> {
 			marca.agregarUsuario(usuario);
@@ -56,6 +62,18 @@ public class RepositorioMarcas implements WithGlobalEntityManager, Transactional
 	public void quitarUsuarioAMarca(Marcas marca, Usuarios usuario) {
 		withTransaction(() -> {
 			marca.quitarUsuario(usuario);
+		});
+	}
+
+	public void agregarPublicidadAMarca(Publicidades publicidad, Marcas marca) {
+		withTransaction(() -> {
+			marca.agregarPublicidad(publicidad);
+		});
+	}
+
+	public void quitarPublicidadAMarca(Publicidades publicidad, Marcas marca) {
+		withTransaction(() -> {
+			marca.quitarPublicidad(publicidad);
 		});
 	}
 

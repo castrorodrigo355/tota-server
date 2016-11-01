@@ -61,12 +61,13 @@ public class Marcas {
 		this.descripcion = descripcion;
 	}
 
-	/*
-	 * public List<Publicidades> getPublicidades() { return publicidades; }
-	 * 
-	 * public void setPublicidades(List<Publicidades> publicidades) {
-	 * this.publicidades = publicidades; }
-	 */
+	public List<Publicidades> getPublicidades() {
+		return publicidades;
+	}
+
+	public void setPublicidades(List<Publicidades> publicidades) {
+		this.publicidades = publicidades;
+	}
 
 	public List<Usuarios> getUsuarios() {
 		return usuarios;
@@ -83,6 +84,14 @@ public class Marcas {
 
 	public void quitarUsuario(Usuarios usuario) {
 		this.usuarios.remove(usuario);
+	}
+
+	public void agregarPublicidad(Publicidades publicidad) {
+		this.publicidades.add(publicidad);
+	}
+
+	public void quitarPublicidad(Publicidades publicidad) {
+		this.publicidades.remove(publicidad);
 	}
 
 }

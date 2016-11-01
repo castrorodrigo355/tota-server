@@ -301,12 +301,14 @@
     
     $(".ui.delete.icon.button").click(function(){
        var pub_id = $(this).parent().parent().find("td:first").text();
+       var row = $(this).parent().parent();
        selectedId = pub_id;
        
        $.ajax({
             url : "/publicidades/" + selectedId,
             method : "DELETE",
             success : function(response){
+                row.remove();
                 $('#publicidades tr:eq('+selectedId+')').remove();
             }
         }) 
