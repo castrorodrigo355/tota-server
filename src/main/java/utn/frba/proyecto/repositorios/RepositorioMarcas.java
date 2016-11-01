@@ -1,6 +1,7 @@
 package utn.frba.proyecto.repositorios;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
@@ -51,6 +52,12 @@ public class RepositorioMarcas implements WithGlobalEntityManager, Transactional
 	public Marcas getMarcaByNombre(String nombre) {
 		return entityManager().createQuery("from Marcas M where M.nombre = :nombre", Marcas.class)
 				.setParameter("nombre", nombre).getSingleResult();
+	}
+
+	public Marcas getMarcaByUsuario(Usuarios usuario) {
+		return entityManager().createQuery("from Marcas M where :usuario MEMBER OF M.usuarios", Marcas.class)
+				.setParameter("usuario", usuario).getSingleResult();
+
 	}
 
 	public void agregarUsuarioAMarca(Marcas marca, Usuarios usuario) {

@@ -14,7 +14,7 @@ public class Usuarios {
 	private String apellido;
 	private String password;
 	private String email;
-	private String nombreMarca;
+//	private String nombreMarca;
 	private boolean admin;
 
 	public Usuarios() {
@@ -89,13 +89,13 @@ public class Usuarios {
 		this.email = email;
 	}
 
-	public String getNombreMarca() {
-		return this.nombreMarca;
-	}
-
-	public void setNombreMarca(String nombreMarca) {
-		this.nombreMarca = nombreMarca;
-
-	}
+//	public String getNombreMarca() {
+//		return this.nombreMarca;
+//	}
+//
+//	public void setNombreMarca(String nombreMarca) {
+//		this.nombreMarca = nombreMarca;
+//
+//	}
 
 }

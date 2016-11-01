@@ -45,7 +45,7 @@ public class PublicidadController {
 		get("/publicidades", (request, response) -> {
 			Map<String, Object> map = new HashMap<String, Object>();
 			Usuarios usuario = AuthenticationUtil.getAuthenticatedUser(request);
-			Marcas marca = RepositorioMarcas.getInstance().getMarcaByNombre(usuario.getNombreMarca());
+			Marcas marca = RepositorioMarcas.getInstance().getMarcaByUsuario(usuario);
 			if (usuario != null || marca != null) {
 				map.put("usuario", usuario);
 				map.put("publicidades", marca.getPublicidades());
@@ -146,7 +146,7 @@ public class PublicidadController {
 			String nombreFinal = cantPublicidades + extension;
 
 			Usuarios usuario = AuthenticationUtil.getAuthenticatedUser(request);
-			Marcas marca = RepositorioMarcas.getInstance().getMarcaByNombre(usuario.getNombreMarca());
+			Marcas marca = RepositorioMarcas.getInstance().getMarcaByUsuario(usuario);
 			Publicidades publicidad = new Publicidades(sexo, emin, emax, hrmin, hrmax, descripcion, nombreFinal);
 			publicidadService.crearPublicidad(publicidad);
 			RepositorioMarcas.getInstance().agregarPublicidadAMarca(publicidad, marca);

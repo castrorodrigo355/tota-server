@@ -16,7 +16,6 @@ public class UsuarioService {
 
 	public Usuarios crearUsuario(String nombre, String apellido, String password, String email, Marcas marca) {
 		Usuarios usuario = new Usuarios(nombre, apellido, PasswordUtil.hashPassword(password), email);
-		usuario.setNombreMarca(marca.getNombre());
 		RepositorioUsuarios.getInstance().agregarUsuario(usuario);
 		RepositorioMarcas.getInstance().agregarUsuarioAMarca(marca, usuario);
 		return usuario;
