@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+
+import utn.frba.proyecto.entities.Camaras;
 import utn.frba.proyecto.entities.Televisores;
 
 public class RepositorioTelevisores implements WithGlobalEntityManager, TransactionalOps {
@@ -36,9 +38,11 @@ public class RepositorioTelevisores implements WithGlobalEntityManager, Transact
 		});
 	}
 	
-	public void modifyTelevisor(Televisores televisor) {
-		withTransaction(() -> {
-			entityManager().persist(televisor);
+	public Televisores modifyTelevisor(int id, String ipdir) {
+		return withTransaction(() -> {
+			Televisores televisor = entityManager().find(Televisores.class, id);
+			televisor.setIp_dir(ipdir);
+			return televisor;
 		});
 	}
 }

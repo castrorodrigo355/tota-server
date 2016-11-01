@@ -48,14 +48,41 @@
                         <label>IP</label>
                         <input name="ip_dir" placeholder="IP..." type="text">
                     </div>
-                    <div class="field">
-                        <label>Ubicacion Id</label>
-                        <input name="ubicacion_id" placeholder="ID Ubicacion" type="text">
-                    </div>
-                    <div class="field">
-                        <label>Camara Id</label>
-                        <input name="cam_id" placeholder="ID Camara" type="text">
-                    </div>
+                    
+                    <div class="required field">
+				  	 
+				  	 	  <label>Ubicaciones</label>
+						  <div class="ui selection dropdown">
+							  <input type="hidden" name="ubicacion_id">
+							  <i class="dropdown icon"></i>
+							  <div class="default text">Ubicaciones</div>
+							  <div class="menu">
+							  
+							  	{{#each ubicaciones}}
+							  		<div class="item" data-value= {{this.id}} > {{this.id}} - {{this.descripcion}} </div>
+				    	        {{/each}}
+							    
+							  </div>
+						  </div>
+					 </div>
+					 
+					 <div class="required field">
+				  	 
+				  	 	  <label>Camaras</label>
+						  <div class="ui selection dropdown">
+							  <input type="hidden" name="cam_id">
+							  <i class="dropdown icon"></i>
+							  <div class="default text">Camaras</div>
+							  <div class="menu">
+							  
+							  	{{#each camaras}}
+							  		<div class="item" data-value= {{this.cam_id}} > ID: {{this.cam_id}} - IP: {{this.ip_dir}} </div>
+				    	        {{/each}}
+							    
+							  </div>
+						  </div>
+					 </div>
+
                 </div>
             </form>
         </div>
@@ -111,7 +138,7 @@
             data : {ip_dir: ip_dir, ubicacion_id: ubicacion_id, cam_id: cam_id},
             success : function(response){
                 var json = JSON.parse(response);
-                    $("#televisores > tbody").append("<tr><td>"+json.id+"</td><td>"+json.ip_dir+"</td><td>"+json.ubicacion_id+"</td><td>"+json.cam_id+"</td><td><button class='ui edit icon button'><i class='write icon'></i></button><button class='ui delete icon button'><i class='trash icon'></i></button></td>");
+                    $("#televisores > tbody").append("<tr><td>"+json.tv_id+"</td><td>"+json.ip_dir+"</td><td>"+json.ubicacion_id+"</td><td>"+json.cam_id+"</td><td><button class='ui edit icon button'><i class='write icon'></i></button><button class='ui delete icon button'><i class='trash icon'></i></button></td>");
             }
         })
         

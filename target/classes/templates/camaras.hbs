@@ -14,6 +14,7 @@
 	        	<tr>
     	            <th class="ascending" colspan="1">#</th>
         	        <th colspan="1">IP</th>
+        	        <th colspan="1">Endpoint</th>
         	        <th colspan="1">Televisores</th>
         	        <th colspan="1">Acciones</th>
             	</tr>
@@ -21,8 +22,9 @@
             <tbody>
             	{{#each camaras}}
 	            <tr>
-    	            <td>{{this.id}}</td>
+    	            <td>{{this.cam_id}}</td>
         	        <td>{{this.ip_dir}}</td>
+        	        <td>{{this.endpoint}}</td>
         	        <td>
                         <div class="ui list">
                             {{#each this.televisores}}
@@ -57,9 +59,27 @@
                         <input name="ip_dir" placeholder="IP..." type="text">
                     </div>
                     <div class="field">
-                        <label>Ubicacion Id</label>
-                        <input name="ubicacion_id" placeholder="ID Ubicacion" type="text">
+                        <label>Endpoint</label>
+                        <input name="endpoint" placeholder="Endpoint..." type="text">
                     </div>
+                    
+                    <div class="required field">
+				  	 
+				  	 	  <label>Ubicaciones</label>
+						  <div class="ui selection dropdown">
+							  <input type="hidden" name="ubicacion_id">
+							  <i class="dropdown icon"></i>
+							  <div class="default text">Ubicaciones</div>
+							  <div class="menu">
+							  
+							  	{{#each ubicaciones}}
+							  		<div class="item" data-value= {{this.id}} > {{this.id}} - {{this.descripcion}} </div>
+				    	        {{/each}}
+							    
+							  </div>
+						  </div>
+					 </div>
+					
                 </div>
             </form>
         </div>
@@ -85,6 +105,10 @@
                         <label>IP</label>
                         <input name="ip_dir" placeholder="IP..." type="text">
                     </div>
+                    <div class="field">
+                        <label>Endpoint</label>
+                        <input name="endpoint" placeholder="Endpoint..." type="text">
+                    </div>
                 </div>                
             </form>
         </div>
@@ -106,15 +130,16 @@
     $("#nuevo-button").click(function(){
         
         var ip_dir = $('#nuevo-modal').find('input[name=ip_dir]').val();
+        var endpoint = $('#nuevo-modal').find('input[name=endpoint]').val();
         var ubicacion_id = $('#nuevo-modal').find('input[name=ubicacion_id]').val();
         
         $.ajax({
             url : "/camaras",
             method : "POST",
-            data : {ip_dir: ip_dir, ubicacion_id: ubicacion_id},
+            data : {ip_dir: ip_dir, endpoint: endpoint, ubicacion_id: ubicacion_id},
             success : function(response){
                 var json = JSON.parse(response);
-                    $("#camaras > tbody").append("<tr><td>"+json.id+"</td><td>"+json.ip_dir+"</td><td>"+json.ubicacion_id+"</td><td><button class='ui edit icon button'><i class='write icon'></i></button><button class='ui delete icon button'><i class='trash icon'></i></button></td>");
+                    $("#camaras > tbody").append("<tr><td>"+json.id+"</td><td>"+json.ip_dir+"</td><td>"+json.endpoint+"</td><td>"+json.ubicacion_id+"</td><td><button class='ui edit icon button'><i class='write icon'></i></button><button class='ui delete icon button'><i class='trash icon'></i></button></td>");
             }
         })
         
@@ -126,13 +151,13 @@
     });
     
     $(".ui.delete.icon.button").click(function(){
-        var id = $(this).parent().parent().find("td:first").text();
+        var cam_id = $(this).parent().parent().find("td:first").text();
         
         $.ajax({
-            url : "/camaras/" + id,
+            url : "/camaras/" + cam_id,
             method : "DELETE",
             success : function(response){
-                $('#camaras tr:eq('+id+')').remove();
+                $('#camaras tr:eq('+cam_id+')').remove();
             }
         })
     });
@@ -142,10 +167,12 @@
         var id = $(this).parents("tr").find("td").eq(0).text();
         selectedId = id;
         var ip_dir  = $(this).parents("tr").find("td").eq(1).text();
+        var endpoint  = $(this).parents("tr").find("td").eq(2).text();
         
 		$('#modificar-modal').modal({
                     onShow    : function(){
                         $('#modificar-modal').find('input[name=ip_dir]').val(ip_dir);
+                        $('#modificar-modal').find('input[name=endpoint]').val(endpoint);
                     }
                 }).modal('show');
     });
@@ -153,15 +180,17 @@
     $("#modificar-button").click(function(){
         var id = $(this).parent().parent().find("td:first").text();
         var ip_dir = $('#modificar-modal').find('input[name=ip_dir]').val();
+        var endpoint = $('#modificar-modal').find('input[name=endpoint]').val();
         
         $.ajax({
             url : "/camaras/" + selectedId,
             method : "PUT",
-            data : {ip_dir: ip_dir},
+            data : {ip_dir: ip_dir, endpoint: endpoint},
             success : function(response){
                 var supplierSelector = "td:contains('"+ response.id + "')";
                 $supplierRow = $(supplierSelector).closest("tr");
                 $supplierRow.find("td:nth-child(2)").text(response.ip_dir);
+                $supplierRow.find("td:nth-child(3)").text(response.endpoint);
             }
         })
     });

@@ -13,19 +13,8 @@ public class Televisores {
 	@GeneratedValue
 	private int tv_id;
 	private String ip_dir;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ubicacion_id")
-	private Ubicaciones ubicacion;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "cam_id")
-	private Camaras camara;
-	
-	public Televisores() {
-
-	}
-	
+	public Televisores() {}
 	public Televisores(String ip_dir) {
 		this.ip_dir = ip_dir;
 	}
@@ -45,21 +34,4 @@ public class Televisores {
 	public void setIp_dir(String ip_dir) {
 		this.ip_dir = ip_dir;
 	}
-
-	public Ubicaciones getUbicacion() {
-		return ubicacion;
-	}
-
-	public void setUbicacion(Ubicaciones ubicacion) {
-		this.ubicacion = ubicacion;
-	}
-
-	public Camaras getCamara() {
-		return camara;
-	}
-
-	public void setCamara(Camaras camara) {
-		this.camara = camara;
-	}
-
 }

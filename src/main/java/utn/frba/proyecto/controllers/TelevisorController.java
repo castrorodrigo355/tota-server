@@ -28,8 +28,14 @@ public class TelevisorController {
 		get("/televisores", (request, response) -> {
 			List<Televisores> televisores = televisorService.getTelevisores();
 			Map<String, Object> map = new HashMap<String, Object>();
+			
+			List<Ubicaciones> ubicaciones = new UbicacionService().getUbicaciones();
+			List<Camaras> camaras = new CamaraService().getCamaras();
+			
 			map.put("usuario", AuthenticationUtil.getAuthenticatedUser(request));
 			map.put("televisores", televisores);
+			map.put("ubicaciones", ubicaciones);
+			map.put("camaras", camaras);
 			return new ModelAndView(map, "televisores.hbs");
 		}, engine);
 
@@ -47,18 +53,11 @@ public class TelevisorController {
 
 		put("/televisores/:tv_id", (req, res) -> {
 			int tv_id = Integer.parseInt(req.params(":tv_id"));
-			String ip_dir = req.queryParams("ip_dir");
 			Televisores televisor = televisorService.getTelevisor(tv_id);
+			String ip_dir = req.queryParams("ip_dir");
 
-			if (televisor != null) {
-				televisor.setIp_dir(ip_dir);
-				televisorService.modificarTelevisor(televisor);
-				res.redirect("/televisores");
-	            return null;
-			} else {
-				res.status(400);
-				return "No hay Televisores con Id " + tv_id;
-			}
+			televisor.setIp_dir(ip_dir);
+			return televisorService.modificarTelevisor(tv_id, ip_dir);
 		}, json());
 		
 		delete("/televisores/:tv_id", (req, res) -> {
@@ -80,23 +79,13 @@ public class TelevisorController {
 			int ubicacion_id = Integer.parseInt(req.queryParams("ubicacion_id"));
 			int cam_id = Integer.parseInt(req.queryParams("cam_id"));
 			
-			UbicacionService ubicacionService = new UbicacionService();
-			Ubicaciones ubicacion = ubicacionService.getUbicacion(ubicacion_id);
-			
-			CamaraService camaraService = new CamaraService();
-			Camaras camara = camaraService.getCamara(cam_id);
-			
-			Televisores televisor = televisorService.crearTelevisor(ip_dir, ubicacion, camara);
-
+			Ubicaciones ubicacion = new UbicacionService().getUbicacion(ubicacion_id);
+			Camaras camara = new CamaraService().getCamara(cam_id);
+			/*
 			ubicacion.agregarTelevisor(televisor);			
-			televisor.setUbicacion(ubicacion);
-			
 			camara.agregarTelevisor(televisor);
-			televisor.setCamara(camara);
-			
-			televisorService.getTelevisores();
-			res.redirect("/televisores");
-            return null;
+			*/
+            return televisorService.crearTelevisor(ip_dir, ubicacion, camara);
 		}, json());
 		
 		after("/televisores/*", (req, res) -> {

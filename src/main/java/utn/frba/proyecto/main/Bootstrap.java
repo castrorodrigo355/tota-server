@@ -51,12 +51,12 @@ public class Bootstrap implements WithGlobalEntityManager, TransactionalOps {
 			Ubicaciones ubicacion2 = new Ubicaciones("Ubicacion #2");
 			Ubicaciones ubicacion3 = new Ubicaciones("Ubicacion #3");
 
-			Camaras camara1 = new Camaras("10.24.192.151");
-			Camaras camara2 = new Camaras("10.24.192.152");
-			Camaras camara3 = new Camaras("10.24.192.153");
-			Camaras camara4 = new Camaras("10.24.192.154");
-			Camaras camara5 = new Camaras("10.24.192.155");
-			Camaras camara6 = new Camaras("10.24.192.156");
+			Camaras camara1 = new Camaras("10.24.192.151", "111.111.111");
+			Camaras camara2 = new Camaras("10.24.192.152", "222.222.222");
+			Camaras camara3 = new Camaras("10.24.192.153", "333.333.333");
+			Camaras camara4 = new Camaras("10.24.192.154", "444.444.444");
+			Camaras camara5 = new Camaras("10.24.192.155", "555.555.555");
+			Camaras camara6 = new Camaras("10.24.192.156", "666.666.666");
 
 			Televisores televisor1 = new Televisores("Techo");
 			Televisores televisor2 = new Televisores("Piso");
@@ -76,13 +76,21 @@ public class Bootstrap implements WithGlobalEntityManager, TransactionalOps {
 			camara3.agregarTelevisor(televisor7);
 			camara3.agregarTelevisor(televisor8);
 
-			ubicacion1.agregarCamara(camara1);
-			ubicacion1.agregarCamara(camara2);
-			ubicacion2.agregarCamara(camara3);
-			ubicacion2.agregarCamara(camara4);
-			ubicacion3.agregarCamara(camara5);
-			ubicacion3.agregarCamara(camara6);
-
+			ubicacion1.agregarCamara(camara1); ubicacion1.agregarCamara(camara2);
+			ubicacion2.agregarCamara(camara3); ubicacion2.agregarCamara(camara4);
+			ubicacion3.agregarCamara(camara5); ubicacion3.agregarCamara(camara6);
+			
+			/*
+			camara1.setDescripcionUbicacion(ubicacion1.getDescripcion());
+			camara2.setDescripcionUbicacion(ubicacion1.getDescripcion());
+			
+			camara3.setDescripcionUbicacion(ubicacion2.getDescripcion());
+			camara4.setDescripcionUbicacion(ubicacion2.getDescripcion());
+			
+			camara5.setDescripcionUbicacion(ubicacion3.getDescripcion());
+			camara6.setDescripcionUbicacion(ubicacion3.getDescripcion());
+			*/
+			
 			ubicacion1.agregarTelevisor(televisor1);
 			ubicacion1.agregarTelevisor(televisor2);
 			ubicacion1.agregarTelevisor(televisor3);
@@ -114,7 +122,7 @@ public class Bootstrap implements WithGlobalEntityManager, TransactionalOps {
 			// ********************************************************************************************
 			Marcas marca1 = new Marcas("Adidas", "Imposible is nothing");
 			Marcas marca2 = new Marcas("Nike", "Just do it");
-			Marcas marca3 = new Marcas("Salomon", "Montaña, vino y partuza");
+			Marcas marca3 = new Marcas("Salomon", "MontaÃ±a, vino y partuza");
 			Marcas marca4 = new Marcas("Topper", "No me compra nadie");
 
 			Publicidades p1 = new Publicidades("H", 75, 85, 8, 11, "desc1", "path1");
@@ -157,13 +165,13 @@ public class Bootstrap implements WithGlobalEntityManager, TransactionalOps {
 			RepositorioOfertas.getInstance().addOferta(oferta5);
 
 			marca1.agregarUsuario(fedeA);
-			fedeA.setNombreMarca(marca1.getNombre());
+			//fedeA.setNombreMarca(marca1.getNombre());
 			marca2.agregarUsuario(fedeC);
-			fedeC.setNombreMarca(marca2.getNombre());
+			//fedeC.setNombreMarca(marca2.getNombre());
 			marca3.agregarUsuario(eze);
-			eze.setNombreMarca(marca3.getNombre());
+			//eze.setNombreMarca(marca3.getNombre());
 			marca4.agregarUsuario(ana);
-			ana.setNombreMarca(marca4.getNombre());
+			//ana.setNombreMarca(marca4.getNombre());
 
 			marca1.agregarPublicidad(p1);
 			marca1.agregarPublicidad(p2);

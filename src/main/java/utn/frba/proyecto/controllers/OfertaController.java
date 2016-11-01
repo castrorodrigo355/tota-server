@@ -1,6 +1,26 @@
 package utn.frba.proyecto.controllers;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import utn.frba.proyecto.services.OfertaService;
+import static utn.frba.proyecto.utils.JSONUtils.json;
+import static spark.Spark.*;
+import java.util.HashMap;
+import java.io.File;
+import java.util.ArrayList;
+import spark.ModelAndView;
+import java.util.List;
+import java.util.Map;
+
+import utn.frba.proyecto.entities.GeneradorCodigoQR;
+import utn.frba.proyecto.entities.Marcas;
+import utn.frba.proyecto.entities.Mezclador;
+import utn.frba.proyecto.entities.Publicidades;
+import utn.frba.proyecto.entities.Usuarios;
+import utn.frba.proyecto.entities.Ofertas;
+import utn.frba.proyecto.repositorios.RepositorioMarcas;
+import utn.frba.proyecto.repositorios.RepositorioOfertas;
+import utn.frba.proyecto.services.PublicidadService;
+import utn.frba.proyecto.utils.AuthenticationUtil;
+import utn.frba.proyecto.utils.ResponseError;
 
 public class OfertaController {
 
@@ -12,20 +32,21 @@ public class OfertaController {
 	public OfertaController(final OfertaService ofertaService) {
 
 		HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
-/*
+
 		get("/ofertas", (request, response) -> {
 			Map<String, Object> map = new HashMap<String, Object>();
 			List<Publicidades> publicidadesDeMarcaDeUsuario = new ArrayList<Publicidades>();
 			List<Ofertas> ofertas = new ArrayList<Ofertas>();
 			List<Publicidades> publicidadesSinOferta = new ArrayList<Publicidades>();
 			Usuarios usuario = AuthenticationUtil.getAuthenticatedUser(request);
-			
-			if(usuario == null || usuario.getMarca().getPublicidades()==null){
+			Marcas marca = RepositorioMarcas.getInstance().getMarcaByNombre(usuario.getNombreMarca());
+
+			if(usuario == null){
 				map.put("ofertas", ofertas);
 				return new ModelAndView(map, "ofertas.hbs");
 			}
 			
-			publicidadesDeMarcaDeUsuario = usuario.getMarca().getPublicidades();
+			publicidadesDeMarcaDeUsuario = marca.getPublicidades();
 			
 			for(Publicidades unaPublicidad : publicidadesDeMarcaDeUsuario){
 				if(unaPublicidad.getOferta() != null){
@@ -133,6 +154,5 @@ public class OfertaController {
 		after("/ofertas/*", (req, res) -> {
 			res.type("application/json");
 		});
-		*/
 	}
 }

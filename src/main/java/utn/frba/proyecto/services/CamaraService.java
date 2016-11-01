@@ -5,6 +5,7 @@ import java.util.List;
 import utn.frba.proyecto.entities.Camaras;
 import utn.frba.proyecto.entities.Ubicaciones;
 import utn.frba.proyecto.repositorios.RepositorioCamaras;
+import utn.frba.proyecto.repositorios.RepositorioUbicaciones;
 
 public class CamaraService {
 
@@ -16,9 +17,11 @@ public class CamaraService {
 		return RepositorioCamaras.getInstance().getCamaraById(id);
 	}
 
-	public Camaras crearCamara(String direccion, Ubicaciones ubicacion) {
-		Camaras camara = new Camaras(direccion);
+	public Camaras crearCamara(String direccion, String endpoint, Ubicaciones ubicacion) {
+		Camaras camara = new Camaras(direccion, endpoint);
+		// camara.setDescripcionUbicacion(ubicacion.getDescripcion());
 		RepositorioCamaras.getInstance().addCamara(camara);
+		RepositorioUbicaciones.getInstance().agregarCamaraAUbicacion(ubicacion, camara);
 		return camara;
 	}
 
@@ -26,8 +29,7 @@ public class CamaraService {
 		RepositorioCamaras.getInstance().eliminarCamara(camara);
 	}
 
-	public Camaras modificarCamara(Camaras camara) {
-		RepositorioCamaras.getInstance().modificarCamara(camara);
-		return camara;
+	public Camaras modificarCamara(int id, String ipdir, String endpoint) {
+		return RepositorioCamaras.getInstance().modificarCamara(id, ipdir, endpoint);
 	}
 }

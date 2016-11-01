@@ -2,6 +2,8 @@ package utn.frba.proyecto.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,23 +17,25 @@ public class Camaras {
 	@GeneratedValue
 	private int cam_id;
 	private String ip_dir;
-	
-	@OneToMany
+	private String endpoint;
+	// private String descripcionUbicacion;
+
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cam_id")
 	private List<Televisores> televisores = new ArrayList<Televisores>();
 
-	public Camaras(String ip_dir){
-		this.ip_dir = ip_dir;
-	}
-	public Camaras() {
+	public Camaras() {}
 
+	public Camaras(String ip_dir, String endpoint) {
+		this.ip_dir = ip_dir;
+		this.endpoint = endpoint;
 	}
-	
-	public int getId() {
+
+	public int getCam_id() {
 		return cam_id;
 	}
 
-	public void setId(int cam_id) {
+	public void setCam_id(int cam_id) {
 		this.cam_id = cam_id;
 	}
 
@@ -43,15 +47,14 @@ public class Camaras {
 		this.ip_dir = ip_dir;
 	}
 
-	// **************************************************************
-	public void agregarTelevisor(Televisores televisor) {
-		this.televisores.add(televisor);
+	public String getEndpoint() {
+		return endpoint;
 	}
 
-	public void quitarTelevisor(Televisores televisor) {
-		this.televisores.remove(televisor);
+	public void setEndpoint(String endpoint) {
+		this.endpoint = endpoint;
 	}
-	
+	// ****************************************************************
 	public List<Televisores> getTelevisores() {
 		return televisores;
 	}
@@ -59,4 +62,23 @@ public class Camaras {
 	public void setTelevisores(List<Televisores> televisores) {
 		this.televisores = televisores;
 	}
+
+	public void agregarTelevisor(Televisores televisor) {
+		this.televisores.add(televisor);
+	}
+
+	public void quitarTelevisor(Televisores televisor) {
+		this.televisores.remove(televisor);
+	}
+	// ****************************************************************
+	
+	/*
+	public String getDescripcionUbicacion() {
+		return this.descripcionUbicacion;
+	}
+
+	public void setDescripcionUbicacion(String descripcionUbicacion) {
+		this.descripcionUbicacion = descripcionUbicacion;
+	}
+	*/
 }

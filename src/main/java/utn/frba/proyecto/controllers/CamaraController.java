@@ -12,8 +12,10 @@ import java.util.Map;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import utn.frba.proyecto.entities.Camaras;
+import utn.frba.proyecto.entities.Marcas;
 import utn.frba.proyecto.entities.Ubicaciones;
 import utn.frba.proyecto.services.CamaraService;
+import utn.frba.proyecto.services.MarcaService;
 import utn.frba.proyecto.services.UbicacionService;
 import utn.frba.proyecto.utils.AuthenticationUtil;
 
@@ -25,9 +27,11 @@ public class CamaraController {
 
 		get("/camaras", (request, response) -> {
 			List<Camaras> camaras = camaraService.getCamaras();
+			List<Ubicaciones> ubicaciones = new UbicacionService().getUbicaciones();
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("usuario", AuthenticationUtil.getAuthenticatedUser(request));
 			map.put("camaras", camaras);
+			map.put("ubicaciones", ubicaciones);
 			return new ModelAndView(map, "camaras.hbs");
 		}, engine);
 
@@ -46,19 +50,14 @@ public class CamaraController {
 
 		put("/camaras/:cam_id", (req, res) -> {
 			int cam_id = Integer.parseInt(req.params(":cam_id"));
-			String ip_dir = req.queryParams("ip_dir");
 			Camaras camara = camaraService.getCamara(cam_id);
-
-			if (camara != null) {
-				camara.setIp_dir(ip_dir);
-				camaraService.modificarCamara(camara);
-				camaraService.getCamaras();
-				res.redirect("/camaras");
-				return null;
-			} else {
-				res.status(400);
-				return "No hay camaras con Id " + cam_id;
-			}
+			
+			String ip_dir = req.queryParams("ip_dir");
+			String endpoint = req.queryParams("endpoint");
+			
+			camara.setIp_dir(ip_dir);
+			camara.setEndpoint(endpoint);
+			return camaraService.modificarCamara(cam_id, ip_dir, endpoint);
 		}, json());
 
 		delete("/camaras/:cam_id", (req, res) -> {
@@ -77,15 +76,12 @@ public class CamaraController {
 
 		post("/camaras", (req, res) -> {
 			String ip_dir = req.queryParams("ip_dir");
+			String endpoint = req.queryParams("endpoint");
 			int ubicacion_id = Integer.parseInt(req.queryParams("ubicacion_id"));
 			
-			UbicacionService ubicacionService = new UbicacionService();
-			Ubicaciones ubicacion = ubicacionService.getUbicacion(ubicacion_id);
-			Camaras camara = camaraService.crearCamara(ip_dir, ubicacion);
-			ubicacion.agregarCamara(camara);
-			camaraService.getCamaras();
-			res.redirect("/camaras");
-			return null;
+			
+			Ubicaciones ubicacion = new UbicacionService().getUbicacion(ubicacion_id);
+			return camaraService.crearCamara(ip_dir, endpoint, ubicacion);
 		}, json());
 		
 		after("/camaras/*", (req, res) -> {
