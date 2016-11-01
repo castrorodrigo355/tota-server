@@ -33,7 +33,7 @@ public class OfertaController {
 	public OfertaController(final OfertaService ofertaService) {
 
 		HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
-
+/*
 		get("/ofertas", (request, response) -> {
 			Map<String, Object> map = new HashMap<String, Object>();
 			List<Publicidades> publicidadesDeMarcaDeUsuario = new ArrayList<Publicidades>();
@@ -154,5 +154,6 @@ public class OfertaController {
 		after("/ofertas/*", (req, res) -> {
 			res.type("application/json");
 		});
+		*/
 	}
 }

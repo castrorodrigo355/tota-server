@@ -22,14 +22,28 @@ public class Usuarios {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "marca_id")
 	private Marcas marca;
-
+	
 	public Usuarios() {}
+	public Usuarios(String nombre, String apellido, String email) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.email = email;
+	}
+
 	public Usuarios(String nombre, String apellido, String password, String email, boolean admin) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.password = password;
 		this.email = email;
 		this.admin = admin;
+	}
+
+	public Usuarios(String nombre, String apellido, String password, String email, Marcas marca) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.password = password;
+		this.email = email;
+		this.marca = marca;
 	}
 	
 	public boolean isAdmin() {
@@ -79,6 +93,7 @@ public class Usuarios {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
 	public Marcas getMarca() {
 		return marca;
 	}

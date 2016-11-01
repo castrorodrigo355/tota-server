@@ -14,33 +14,36 @@ public class RepositorioMarcas implements WithGlobalEntityManager, Transactional
 	public static RepositorioMarcas getInstance() {
 		return instance;
 	}
-
-	public List<Marcas> getAllBrands() {
+	
+	public List<Marcas> listarMarcas() {
 		List<Marcas> marcas = entityManager().createQuery("from Marcas", Marcas.class).getResultList();
-		marcas.forEach(marca -> entityManager().refresh(marca));
+		marcas.stream().forEach(marca-> entityManager().refresh(marca));
 		return marcas;
 	}
 
-	public Marcas getBrandById(int id) {
-		return entityManager().find(Marcas.class, id);
-	}
-
-	public void addBrand(Marcas marca) {
+	public void agregarMarca(Marcas marca) {
 		withTransaction(() -> {
 			entityManager().persist(marca);
 		});
 	}
 
-	public void removeBrand(Marcas marca) {
+	public Marcas modificarMarca(int id, String nombre, String descripcion) {
+		return withTransaction(() -> {
+			Marcas marca = entityManager().find(Marcas.class, id);
+			marca.setNombre(nombre);
+			marca.setDescripcion(descripcion);
+			return marca;
+		});
+	}
+	
+	public void quitarMarca(Marcas marca) {
 		withTransaction(() -> {
 			entityManager().remove(marca);
 		});
 	}
 
-	public void modifyBrand(Marcas marca) {
-		withTransaction(() -> {
-			entityManager().persist(marca);
-		});
+	public Marcas getMarca(int id) {
+		return entityManager().find(Marcas.class, id);
 	}
 
 }

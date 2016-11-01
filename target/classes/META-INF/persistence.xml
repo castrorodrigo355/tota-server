@@ -14,8 +14,8 @@
 		<class>utn.frba.proyecto.entities.Ubicaciones</class>
 		<class>utn.frba.proyecto.entities.Ofertas</class>
 		<class>utn.frba.proyecto.entities.Marcas</class>
-		<class>utn.frba.proyecto.entities.Personas</class>
 		<class>utn.frba.proyecto.entities.Reportes</class>
+		<class>utn.frba.proyecto.entities.Personas</class>
 		<properties>
 			<property name="hibernate.archive.autodetection" value="class" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />

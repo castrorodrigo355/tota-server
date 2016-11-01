@@ -7,26 +7,26 @@ import utn.frba.proyecto.repositorios.RepositorioMarcas;
 
 public class MarcaService {
 
-	public List<Marcas> getMarcas() {
-		return RepositorioMarcas.getInstance().getAllBrands();
+	public List<Marcas> listarMarcas() {
+		return RepositorioMarcas.getInstance().listarMarcas();
 	}
 
-	public Marcas getMarca(int id) {
-		return RepositorioMarcas.getInstance().getBrandById(id);
-	}
-
-	public Marcas crearMarca(String nombre, String descripcion) {
+	public Marcas agregarMarca(String nombre, String descripcion) {
 		Marcas marca = new Marcas(nombre, descripcion);
-		RepositorioMarcas.getInstance().addBrand(marca);
+		RepositorioMarcas.getInstance().agregarMarca(marca);
 		return marca;
 	}
 
-	public void eliminarMarca(Marcas marca) {
-		RepositorioMarcas.getInstance().removeBrand(marca);
+	public Marcas getMarcaById(int id) {
+		return RepositorioMarcas.getInstance().getMarca(id);
+	}
+	
+	public void quitarMarca(Marcas marca) {
+		RepositorioMarcas.getInstance().quitarMarca(marca);
 	}
 
-	public Marcas modificarMarca(Marcas marca) {
-		RepositorioMarcas.getInstance().modifyBrand(marca);
-		return marca;
+	public Marcas modificarMarca(int id, String nombre, String descripcion) {
+		return RepositorioMarcas.getInstance().modificarMarca(id, nombre, descripcion);
 	}
+	
 }

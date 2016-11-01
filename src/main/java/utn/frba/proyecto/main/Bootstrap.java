@@ -3,6 +3,7 @@ package utn.frba.proyecto.main;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import utn.frba.proyecto.utils.PasswordUtil;
 import utn.frba.proyecto.entities.Camaras;
 import utn.frba.proyecto.entities.Marcas;
 import utn.frba.proyecto.entities.Ofertas;
@@ -17,7 +18,6 @@ import utn.frba.proyecto.repositorios.RepositorioPublicidades;
 import utn.frba.proyecto.repositorios.RepositorioTelevisores;
 import utn.frba.proyecto.repositorios.RepositorioUbicaciones;
 import utn.frba.proyecto.repositorios.RepositorioUsuarios;
-import utn.frba.proyecto.utils.PasswordUtil;
 
 public class Bootstrap implements WithGlobalEntityManager, TransactionalOps {
 
@@ -119,16 +119,18 @@ public class Bootstrap implements WithGlobalEntityManager, TransactionalOps {
 			RepositorioOfertas.getInstance().addOferta(oferta4);
 			RepositorioOfertas.getInstance().addOferta(oferta5);
 			
+			/*
 			marca1.agregarPublicidad(p1); marca1.agregarPublicidad(p2); 
 			marca2.agregarPublicidad(p3); marca2.agregarPublicidad(p4);
 			marca3.agregarPublicidad(p5); marca3.agregarPublicidad(p6);
 			
 			marca4.agregarPublicidad(p7); marca4.agregarPublicidad(p8); marca4.agregarPublicidad(p9);
+			*/
 			
-			RepositorioMarcas.getInstance().addBrand(marca1);
-			RepositorioMarcas.getInstance().addBrand(marca2);
-			RepositorioMarcas.getInstance().addBrand(marca3);
-			RepositorioMarcas.getInstance().addBrand(marca4);
+			RepositorioMarcas.getInstance().agregarMarca(marca1);
+			RepositorioMarcas.getInstance().agregarMarca(marca2);
+			RepositorioMarcas.getInstance().agregarMarca(marca3);
+			RepositorioMarcas.getInstance().agregarMarca(marca4);
 			
 			fedeA.setMarca(marca1);
 			RepositorioUsuarios.getInstance().agregarUsuario(fedeA);

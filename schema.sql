@@ -6,6 +6,13 @@
         primary key (marca_id)
     )
 
+	create table Personas (
+        pers_id int not null auto_increment,
+        nombre varchar(50),
+        apellido varchar(50),
+        primary key (pers_id)
+    )
+
 	create table Publicidades (
         pub_id int not null auto_increment,
         sexo char(1),

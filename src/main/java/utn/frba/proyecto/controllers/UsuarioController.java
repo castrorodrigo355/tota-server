@@ -27,7 +27,7 @@ public class UsuarioController {
 
 		get("/usuarios", (request, response) -> {
 			List<Usuarios> usuarios = usuarioService.getUsuarios();
-			List<Marcas> marcas = new MarcaService().getMarcas();
+			List<Marcas> marcas = new MarcaService().listarMarcas();
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("usuario", AuthenticationUtil.getAuthenticatedUser(request));
 			map.put("usuarios", usuarios);
@@ -49,21 +49,17 @@ public class UsuarioController {
 		put("/usuarios/:user_id", (req, res) -> {
 			int user_id = Integer.parseInt(req.params(":user_id"));
 			Usuarios usuario = usuarioService.getUsuario(user_id);
+			
 			String nombre = req.queryParams("nombre");
 			String apellido = req.queryParams("apellido");
 			String password = req.queryParams("password");
 			String email = req.queryParams("email");
 
-			if (usuario != null) {
-				usuario.setNombre(nombre);
-				usuario.setApellido(apellido);
-				usuario.setPassword(password);
-				usuario.setEmail(email);
-				return usuarioService.modificarUsuario(usuario);
-			} else {
-				res.status(400);
-				return "No hay usuarios con Id " + user_id;
-			}
+			usuario.setNombre(nombre);
+			usuario.setApellido(apellido);
+			usuario.setPassword(password);
+			usuario.setEmail(email);
+			return usuarioService.modificarUsuario(user_id, nombre, apellido, password, email);
 		}, json());
 		
 		delete("/usuarios/:user_id", (req, res) -> {
@@ -86,14 +82,8 @@ public class UsuarioController {
 			String email = req.queryParams("email");
 			int marca_id = Integer.parseInt(req.queryParams("marca_id"));
 			
-			MarcaService marcaService = new MarcaService();
-			Marcas marca = marcaService.getMarca(marca_id);
-			Usuarios usuario = usuarioService.crearUsuario(nombre, apellido, password, email, marca);
-			marca.agregarUsuario(usuario);
-			marcaService.modificarMarca(marca);
-			usuario.setMarca(marca);
-            res.redirect("/usuarios");
-            return null;
+			Marcas marca = new MarcaService().getMarcaById(marca_id);
+            return usuarioService.crearUsuario(nombre, apellido, password, email, marca);
 		}, json());
 		
 		after("/usuarios/*", (req, res) -> {

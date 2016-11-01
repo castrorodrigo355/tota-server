@@ -32,7 +32,7 @@ public class PublicidadController {
 	// private static final String ruta = /img;
 	// private static final String ruta = /of;
 	public PublicidadController(final PublicidadService publicidadService) {
-
+/*
 		HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
 //		get("/publicidades", (request, response) -> {
@@ -178,5 +178,6 @@ public class PublicidadController {
 		after("/publicidades/*", (request, response) -> {
 			response.type("application/json");
 		});
+*/
 	}
 }

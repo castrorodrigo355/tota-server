@@ -11,25 +11,30 @@ public class RepositorioUsuarios implements WithGlobalEntityManager, Transaction
 
 	private static RepositorioUsuarios instance = new RepositorioUsuarios();
 
+	public static RepositorioUsuarios getInstance() {
+		return instance;
+	}
+	
 	public void agregarUsuario(Usuarios usuario) {
 		withTransaction(() -> {
 			entityManager().persist(usuario);
 		});
 	}
 
-	public static RepositorioUsuarios getInstance() {
-		return instance;
-	}
-
 	public List<Usuarios> getAllUsers() {
 		List<Usuarios> usuarios = entityManager().createQuery("from Usuarios", Usuarios.class).getResultList();
-		usuarios.forEach(usuario -> entityManager().refresh(usuario));
+		usuarios.stream().forEach(usuario -> entityManager().refresh(usuario));
 		return usuarios;
 	}
 
-	public void modifyUser(Usuarios usuario) {
-		withTransaction(() -> {
-			entityManager().persist(usuario);
+	public Usuarios modifyUser(int id, String nombre, String apellido, String password, String email) {
+		return withTransaction(() -> {
+			Usuarios usuario = entityManager().find(Usuarios.class, id);
+			usuario.setNombre(nombre);
+			usuario.setApellido(apellido);
+			usuario.setPassword(password);
+			usuario.setEmail(email);
+			return usuario;
 		});
 	}
 
