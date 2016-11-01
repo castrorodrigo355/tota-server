@@ -26,7 +26,7 @@ public class Bootstrap implements WithGlobalEntityManager, TransactionalOps {
 		Bootstrap bootstrap = new Bootstrap();
 		bootstrap.run();
 	}
-	
+
 	private void run() {
 		withTransaction(() -> {
 			Usuarios rodrigo = new Usuarios("Rodrigo", "Castro", PasswordUtil.hashPassword("admin"),
