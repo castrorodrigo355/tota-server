@@ -55,9 +55,22 @@
 				    	<input type="text" name="descripcion" placeholder="Descripcion">
 				  </div>
 				  
-				  <div class="field">
-				    	<input type="text" name="pub_id" placeholder="Publicidad">
-				  </div>
+  				  <div class="required field">
+			  	 
+			  	 	  <label>Publicidades</label>
+					  <div class="ui selection dropdown">
+						  <input type="hidden" name="pub_id">
+						  <i class="dropdown icon"></i>
+						  <div class="default text">Publicidad ...</div>
+						  <div class="menu">
+						  
+						  	{{#each publicidadesSinOferta}}
+						  		<div class="item" data-value= {{this.id}} > {{this.id}} - {{this.path}} </div>
+			    	        {{/each}}
+						    
+						  </div>
+					  </div>
+				 </div>
 
 				  <div class="field">
 		            	<input type="submit" class="circular yellow fluid ui button" value="Aceptar">

@@ -25,7 +25,7 @@ import utn.frba.proyecto.utils.ResponseError;
 
 public class OfertaController {
 
-	private static final String rutaOfertas = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/ofertas";
+	private static final String rutaOfertas = "C:/Users/LaTota/workspace800/tota-server-master/tota-server/src/main/resources/public/ofertas";
 	// private static final String ruta =
 	// "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/qrs/";
 	// private static final String ruta = /img;

@@ -14,7 +14,6 @@ public class Usuarios {
 	private String apellido;
 	private String password;
 	private String email;
-//	private String nombreMarca;
 	private boolean admin;
 
 	public Usuarios() {
