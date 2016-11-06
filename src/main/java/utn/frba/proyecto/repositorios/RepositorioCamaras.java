@@ -6,7 +6,6 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import utn.frba.proyecto.entities.Camaras;
 import utn.frba.proyecto.entities.Televisores;
-import utn.frba.proyecto.entities.Ubicaciones;
 
 public class RepositorioCamaras implements WithGlobalEntityManager, TransactionalOps {
 
@@ -28,13 +27,13 @@ public class RepositorioCamaras implements WithGlobalEntityManager, Transactiona
 		return camaras;
 	}
 
-	public void agregarTelevisorACamara(Camaras camara, Televisores televisor) {
+	public void agregarTelevisor(Camaras camara, Televisores televisor) {
 		withTransaction(() -> {
 			camara.agregarTelevisor(televisor);
 		});
 	}
 	
-	public void quitarTelevisorACamara(Camaras camara, Televisores televisor) {
+	public void quitarTelevisor(Camaras camara, Televisores televisor) {
 		withTransaction(() -> {
 			camara.quitarTelevisor(televisor);
 		});

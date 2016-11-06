@@ -42,11 +42,5 @@ public class RepositorioPublicidades implements WithGlobalEntityManager, Transac
 	public Publicidades getPublicidadById(int id) {
 		return entityManager().find(Publicidades.class, id);
 	}
-	/*
-	public List<Publicidades> getPublicidadesDeLaMarcaDelUsuario(Usuarios unUsuario) {
-		return entityManager()
-				.createQuery("from Usuarios U where U.email = :email and U.password = :password", Usuarios.class)
-				.setParameter("email", unUsuario.).setParameter("password", password).getSingleResult();
-	}
-	*/
+
 }

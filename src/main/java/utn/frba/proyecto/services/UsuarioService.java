@@ -10,14 +10,20 @@ import utn.frba.proyecto.utils.PasswordUtil;
 
 public class UsuarioService {
 
-	public List<Usuarios> getUsuarios() {
-		return RepositorioUsuarios.getInstance().getAllUsers();
+	public List<Usuarios> getUsuariosRestantes(Usuarios usuario) {
+		return RepositorioUsuarios.getInstance().getAllUsers(usuario);
 	}
 
+	public Usuarios crearUsuario(String nombre, String apellido, String password, String email) {
+		Usuarios usuario = new Usuarios(nombre, apellido, PasswordUtil.hashPassword(password), email, true);
+		RepositorioUsuarios.getInstance().agregarUsuario(usuario);
+		return usuario;
+	}
+	
 	public Usuarios crearUsuario(String nombre, String apellido, String password, String email, Marcas marca) {
 		Usuarios usuario = new Usuarios(nombre, apellido, PasswordUtil.hashPassword(password), email);
 		RepositorioUsuarios.getInstance().agregarUsuario(usuario);
-		RepositorioMarcas.getInstance().agregarUsuarioAMarca(marca, usuario);
+		RepositorioMarcas.getInstance().agregarUsuario(marca, usuario);
 		return usuario;
 	}
 
@@ -35,6 +41,10 @@ public class UsuarioService {
 
 	public Usuarios getUsuarioByUsernameAndPassword(String username, String password) {
 		return RepositorioUsuarios.getInstance().getUserByCredentials(username, password);
+	}
+
+	public List<Usuarios> getAdministradoresRestantes(Usuarios usuario) {
+		return RepositorioUsuarios.getInstance().getAdministradoresRestantes(usuario);
 	}
 
 }

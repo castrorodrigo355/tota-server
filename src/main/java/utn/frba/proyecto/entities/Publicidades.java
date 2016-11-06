@@ -1,19 +1,22 @@
 package utn.frba.proyecto.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
 public class Publicidades {
 
-	@GeneratedValue
 	@Id
+	@GeneratedValue
 	private int pub_id;
 	private String sexo;
 	private int edad_min;
@@ -22,33 +25,32 @@ public class Publicidades {
 	private int horario_max;
 	private String descripcion;
 	private String path;
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy="publicidades")
+	private Ofertas ofertas;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "publicidades")
-	private Ofertas oferta;
-
-	// @ManyToOne(fetch = FetchType.EAGER)
-	// @JoinColumn(name = "marca_id")
-	// private Marcas marca;
-	//
-	public Publicidades() {
+	public Ofertas getOferta() {
+		return ofertas;
 	}
-
-	public Publicidades(String sexo, int edad_min, int edad_max, int horario_min, int horario_max, String desc,
-			String path) {
+	public void setOferta(Ofertas oferta) {
+		this.ofertas = oferta;
+	}
+	public Publicidades() {}
+	public Publicidades(String sexo, int edad_min, int edad_max, int hr_min, int hr_max, String desc, String path) {
 		this.sexo = sexo;
 		this.edad_min = edad_min;
 		this.edad_max = edad_max;
-		this.horario_min = horario_min;
-		this.horario_max = horario_max;
+		this.horario_min = hr_min;
+		this.horario_max = hr_max;
 		this.descripcion = desc;
 		this.path = path;
 	}
 
-	public int getId() {
+	public int getPub_id() {
 		return pub_id;
 	}
 
-	public void setId(int pub_id) {
+	public void setPub_id(int pub_id) {
 		this.pub_id = pub_id;
 	}
 
@@ -107,21 +109,11 @@ public class Publicidades {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	//
-	// public Marcas getMarca() {
-	// return marca;
-	// }
-	//
-	// public void setMarca(Marcas marca) {
-	// this.marca = marca;
-	// }
 
-	public Ofertas getOferta() {
-		return oferta;
+	@Override
+	public String toString() {
+		return "Publicidades [pub_id=" + pub_id + ", sexo=" + sexo + ", edad_min=" + edad_min + ", edad_max=" + edad_max
+				+ ", horario_min=" + horario_min + ", horario_max=" + horario_max + ", descripcion=" + descripcion
+				+ ", path=" + path + "]";
 	}
-
-	public void setOferta(Ofertas oferta) {
-		this.oferta = oferta;
-	}
-
 }

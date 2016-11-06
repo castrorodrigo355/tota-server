@@ -24,7 +24,7 @@
             <tbody>
             	{{#each ofertas}}
 	            <tr>
-    	            <td>{{this.id}}</td>
+    	            <td>{{this.of_id}}</td>
             	    <td>{{this.descripcion}}</td>
             	    <td>{{this.publicidades.path}}</td>
 					<td class="center aligned">
@@ -64,8 +64,8 @@
 						  <div class="default text">Publicidad ...</div>
 						  <div class="menu">
 						  
-						  	{{#each publicidadesSinOferta}}
-						  		<div class="item" data-value= {{this.id}} > {{this.id}} - {{this.path}} </div>
+						  	{{#each publicidadesMarcaUsuario}}
+						  		<div class="item" data-value= {{this.pub_id}} > {{this.pub_id}} - {{this.path}} </div>
 			    	        {{/each}}
 						    
 						  </div>
@@ -80,6 +80,9 @@
 </div>
 
 <script>
+	
+	var selectedId = null;
+	
 	$("#nuevoModal").click(function(){
         $('.ui.modal').modal({
             onShow    : function(){
@@ -88,19 +91,22 @@
     }); 
 
 	$(".ui.delete.icon.button").click(function(){
-        var of_id = $(this).parent().parent().find("td:first").text();
-       
-       $.ajax({
-            url : "/ofertas/" + of_id,
+        var id = $(this).parent().parent().find("td:first").text();
+        var row = $(this).parent().parent();
+        selectedId = id;
+       	$.ajax({
+            url : "/ofertas/" + id,
             method : "DELETE",
             success : function(response){
-                $('#ofertas tr:eq('+of_id+')').remove();
+            	row.remove();
+                $('#ofertas tr:eq('+id+')').remove();
             }
         }) 
     });
 
     $(".ui.shuffle.icon.button").click(function(){
-    	
+    	var id = $(this).parent().parent().find("td:first").text();
+    	alert("Elegiste la fila: " + id);
     });
 </script>
 

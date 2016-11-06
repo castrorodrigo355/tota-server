@@ -1,10 +1,8 @@
 package utn.frba.proyecto.entities;
+
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Televisores {
@@ -19,14 +17,14 @@ public class Televisores {
 		this.ip_dir = ip_dir;
 	}
 
-	public int getId() {
+	public int getTv_id() {
 		return tv_id;
 	}
-
-	public void setId(int tv_id) {
+	
+	public void setTv_id(int tv_id) {
 		this.tv_id = tv_id;
 	}
-
+	
 	public String getIp_dir() {
 		return ip_dir;
 	}

@@ -1,7 +1,6 @@
 package utn.frba.proyecto.repositorios;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
@@ -24,6 +23,11 @@ public class RepositorioMarcas implements WithGlobalEntityManager, Transactional
 		return marcas;
 	}
 
+	public Marcas getMarca(int id) {
+		Marcas marca = entityManager().find(Marcas.class, id);
+		return marca;
+	}
+	
 	public void agregarMarca(Marcas marca) {
 		withTransaction(() -> {
 			entityManager().persist(marca);
@@ -45,10 +49,6 @@ public class RepositorioMarcas implements WithGlobalEntityManager, Transactional
 		});
 	}
 
-	public Marcas getMarca(int id) {
-		return entityManager().find(Marcas.class, id);
-	}
-
 	public Marcas getMarcaByNombre(String nombre) {
 		return entityManager().createQuery("from Marcas M where M.nombre = :nombre", Marcas.class)
 				.setParameter("nombre", nombre).getSingleResult();
@@ -57,28 +57,27 @@ public class RepositorioMarcas implements WithGlobalEntityManager, Transactional
 	public Marcas getMarcaByUsuario(Usuarios usuario) {
 		return entityManager().createQuery("from Marcas M where :usuario MEMBER OF M.usuarios", Marcas.class)
 				.setParameter("usuario", usuario).getSingleResult();
-
 	}
 
-	public void agregarUsuarioAMarca(Marcas marca, Usuarios usuario) {
+	public void agregarUsuario(Marcas marca, Usuarios usuario) {
 		withTransaction(() -> {
 			marca.agregarUsuario(usuario);
 		});
 	}
 
-	public void quitarUsuarioAMarca(Marcas marca, Usuarios usuario) {
+	public void quitarUsuario(Marcas marca, Usuarios usuario) {
 		withTransaction(() -> {
 			marca.quitarUsuario(usuario);
 		});
 	}
-
-	public void agregarPublicidadAMarca(Publicidades publicidad, Marcas marca) {
+	
+	public void agregarPublicidad(Marcas marca, Publicidades publicidad) {
 		withTransaction(() -> {
 			marca.agregarPublicidad(publicidad);
 		});
 	}
 
-	public void quitarPublicidadAMarca(Publicidades publicidad, Marcas marca) {
+	public void quitarPublicidad(Marcas marca, Publicidades publicidad) {
 		withTransaction(() -> {
 			marca.quitarPublicidad(publicidad);
 		});

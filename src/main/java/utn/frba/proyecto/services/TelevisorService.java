@@ -23,7 +23,7 @@ public class TelevisorService {
 		Televisores televisor = new Televisores(ip_dir);
 		RepositorioTelevisores.getInstance().addTelevisor(televisor);
 		RepositorioUbicaciones.getInstance().agregarTelevisorAUbicacion(ubicacion, televisor);
-		RepositorioCamaras.getInstance().agregarTelevisorACamara(camara, televisor);
+		RepositorioCamaras.getInstance().agregarTelevisor(camara, televisor);
 		return televisor;
 	}
 

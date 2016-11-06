@@ -28,7 +28,7 @@
         	        <td>
                         <div class="ui list">
                             {{#each this.televisores}}
-                            	<div class="item">ID: {{this.id}} - IP TV: {{this.ip_dir}}</div>
+                            	<div class="item">ID: {{this.tv_id}} - IP TV: {{this.ip_dir}}</div>
                             {{/each}}
                         </div>
                     </td>
@@ -73,7 +73,7 @@
 							  <div class="menu">
 							  
 							  	{{#each ubicaciones}}
-							  		<div class="item" data-value= {{this.id}} > {{this.id}} - {{this.descripcion}} </div>
+							  		<div class="item" data-value= {{this.ubicacion_id}} > {{this.ubicacion_id}} - {{this.descripcion}} </div>
 				    	        {{/each}}
 							    
 							  </div>
@@ -139,7 +139,7 @@
             data : {ip_dir: ip_dir, endpoint: endpoint, ubicacion_id: ubicacion_id},
             success : function(response){
                 var json = JSON.parse(response);
-                    $("#camaras > tbody").append("<tr><td>"+json.id+"</td><td>"+json.ip_dir+"</td><td>"+json.endpoint+"</td><td>"+json.ubicacion_id+"</td><td><button class='ui edit icon button'><i class='write icon'></i></button><button class='ui delete icon button'><i class='trash icon'></i></button></td>");
+                    $("#camaras > tbody").append("<tr><td>"+json.cam_id+"</td><td>"+json.ip_dir+"</td><td>"+json.endpoint+"</td><td>"+json.televisores+"</td><td><button class='ui edit icon button'><i class='write icon'></i></button><button class='ui delete icon button'><i class='trash icon'></i></button></td>");
             }
         })
         
@@ -164,8 +164,8 @@
     
     $(".ui.edit.icon.button").click(function(){
         
-        var id = $(this).parents("tr").find("td").eq(0).text();
-        selectedId = id;
+        var cam_id = $(this).parents("tr").find("td").eq(0).text();
+        selectedId = cam_id;
         var ip_dir  = $(this).parents("tr").find("td").eq(1).text();
         var endpoint  = $(this).parents("tr").find("td").eq(2).text();
         
@@ -178,7 +178,7 @@
     });
     
     $("#modificar-button").click(function(){
-        var id = $(this).parent().parent().find("td:first").text();
+        var cam_id = $(this).parent().parent().find("td:first").text();
         var ip_dir = $('#modificar-modal').find('input[name=ip_dir]').val();
         var endpoint = $('#modificar-modal').find('input[name=endpoint]').val();
         
@@ -187,7 +187,7 @@
             method : "PUT",
             data : {ip_dir: ip_dir, endpoint: endpoint},
             success : function(response){
-                var supplierSelector = "td:contains('"+ response.id + "')";
+                var supplierSelector = "td:contains('"+ response.cam_ + "')";
                 $supplierRow = $(supplierSelector).closest("tr");
                 $supplierRow.find("td:nth-child(2)").text(response.ip_dir);
                 $supplierRow.find("td:nth-child(3)").text(response.endpoint);

@@ -21,12 +21,13 @@ public class CamaraService {
 		Camaras camara = new Camaras(direccion, endpoint);
 		// camara.setDescripcionUbicacion(ubicacion.getDescripcion());
 		RepositorioCamaras.getInstance().addCamara(camara);
-		RepositorioUbicaciones.getInstance().agregarCamaraAUbicacion(ubicacion, camara);
+		RepositorioUbicaciones.getInstance().agregarCamara(ubicacion, camara);
 		return camara;
 	}
 
 	public void eliminarCamara(Camaras camara) {
 		RepositorioCamaras.getInstance().eliminarCamara(camara);
+		// RepositorioUbicaciones.getInstance().quitarCamara(ubicacion, camara);
 	}
 
 	public Camaras modificarCamara(int id, String ipdir, String endpoint) {

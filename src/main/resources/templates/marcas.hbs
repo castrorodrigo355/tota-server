@@ -6,7 +6,7 @@
     <div class="ui center aligned inverted segment">
         <h2 class="ui right floated header">Marcas</h2>
         <div class="ui clearing divider"></div>
-        <button id="nuevo" class="positive fluid ui button">Nueva Marca</button>
+        <button id="nuevo" class="blue circular fluid ui button">Nueva Marca</button>
         <div class="ui clearing divider"></div>
         <table id="marcas" class="ui center aligned celled structured table">
             
@@ -15,6 +15,7 @@
     	            <th class="ascending" colspan="1">#</th>
         	        <th colspan="1">Nombre</th>
         	        <th colspan="1">Descripcion</th>
+        	        <th colspan="1">Usuarios Asociados</th>
         	        <th colspan="1">Acciones</th>
             	</tr>
             </thead>
@@ -24,6 +25,12 @@
     	            <td>{{this.marca_id}}</td>
         	        <td>{{this.nombre}}</td>
         	        <td>{{this.descripcion}}</td>
+        	        <td>
+                        <div class="ui bulleted list">
+                            {{#each this.usuarios}}
+                            	<div class="item">ID: {{this.user_id}} - Email: {{this.email}}</div>
+                            {{/each}}
+                        </div>
                     <td class="center aligned">
                         <button id="edit" class="ui edit icon button">
                             <i class="write icon"></i>
@@ -38,6 +45,9 @@
         </table>
     </div>
 </div>
+
+
+
 <div id="nuevo-modal" class="ui modal" id="formulario">
     <i class="close icon"></i>
         <div class="header">
@@ -52,7 +62,7 @@
                     </div>
                     <div class="field">
                         <label>Opciones</label>
-                        <select name="opciones" id="opciones" multiple="" class="ui fluid dropdown">
+                        <select name="descripcion" id="opcionesNuevo" multiple="" class="ui fluid dropdown">
 						    <option value="">Opciones</option>
 						    <option value="ropa deportiva">Ropa Deportiva</option>
 						    <option value="ropa formal">Ropa Informal</option>
@@ -80,6 +90,9 @@
             </div>
         </div>
 </div>
+
+
+
 <div id="modificar-modal" class="ui modal">
     <i class="close icon"></i>
         <div class="header">
@@ -87,16 +100,37 @@
         </div>
         <div class="content">
             <form class="ui form">
+                
                 <div class="two fields">
                     <div class="field">
                         <label>Nombre</label>
                         <input name="nombre" placeholder="Nombres" type="text">
                     </div>
+                    
                     <div class="field">
-                        <label>Descripcion</label>
-                        <input name="descripcion" placeholder="Descripcion" type="text">
+                        <label>Tipos De Ropa Actual</label>
+                        <input name="tiposDeRopa" type="text" disabled="true">
                     </div>
-                </div>                
+                </div>
+                    
+                <div class="field">
+                    <label>Opciones</label>
+                    <select name="descripcion" id="opcionesModificar" multiple="" class="ui fluid dropdown">
+					    <option value="">Opciones</option>
+					    <option value="ropa deportiva">Ropa Deportiva</option>
+					    <option value="ropa formal">Ropa Informal</option>
+						<option value="ropa informal">Ropa Formal</option>
+						<option value="elegant sport">Elegant Sport</option>
+						<option value="casual">Casual</option>
+						<option value="marroquineria">Marroquineria</option>
+						<option value="relojeria">Relojeria</option>
+						<option value="joyeria">Joyeria</option>
+						<option value="bazar">Bazar</option>
+						<option value="peluqueria">Peluqueria</option>
+						<option value="alimentos">Alimentos</option>
+				  	</select>
+                </div>
+                
             </form>
         </div>
         <div class="actions">
@@ -114,23 +148,34 @@
     $('.ui.checkbox').checkbox();
     var selectedId = null;
     
-    $("#nuevo").click(function(){
-        $('#nuevo-modal').modal({
-        }).modal('show');
+    $(".ui.edit.icon.button").click(function(){
+        var id = $(this).parents("tr").find("td").eq(0).text();
+        selectedId = id;
+        var nombre = $(this).parents("tr").find("td").eq(1).text();
+        var tiposDeRopa = $(this).parents("tr").find("td").eq(2).text();
+        
+		$('#modificar-modal').modal({
+                    onShow    : function(){
+                        $('#modificar-modal').find('input[name=nombre]').val(nombre);
+						$('#modificar-modal').find('input[name=tiposDeRopa]').val(tiposDeRopa);
+                    }
+                }).modal('show');
     });
     
-    $("#nuevo-button").click(function(){
-        
-        var nombre = $('#nuevo-modal').find('input[name=nombre]').val();
-        var elementos = $('#nuevo-modal').find('select[name=opciones]').val();
+    $("#modificar-button").click(function(){
+        var id = $(this).parent().parent().find("td:first").text();
+        var nombre = $('#modificar-modal').find('input[name=nombre]').val();
+        var descripcion = $('#modificar-modal').find('select[name=descripcion]').val();
         
         $.ajax({
-            url : "/marcas",
-            method : "POST",
-            data : {nombre: nombre, descripcion: elementos.join(",")},
+            url : "/marcas/" + selectedId,
+            method : "PUT",
+            data : {nombre: nombre, descripcion: descripcion.join(",")},
             success : function(response){
-                var json = JSON.parse(response);
-                    $("#marcas > tbody").append("<tr><td>"+json.marca_id+"</td><td>"+json.nombre+"</td><td>"+json.descripcion+"</td><td><button class='ui edit icon button'><i class='write icon'></i></button><button class='ui delete icon button'><i class='trash icon'></i></button></td>");
+                var supplierSelector = "td:contains('"+ response.id + "')";
+                $supplierRow = $(supplierSelector).closest("tr");
+                $supplierRow.find("td:nth-child(2)").text(response.nombre);
+                $supplierRow.find("td:nth-child(3)").text(response.descripcion);
             }
         })
     });
@@ -149,35 +194,23 @@
         })
     });
     
-    $(".ui.edit.icon.button").click(function(){
-        
-        var id = $(this).parents("tr").find("td").eq(0).text();
-        selectedId = id;
-        var nombre  = $(this).parents("tr").find("td").eq(1).text();
-        var descripcion = $(this).parents("tr").find("td").eq(2).text();
-        
-		$('#modificar-modal').modal({
-                    onShow    : function(){
-                        $('#modificar-modal').find('input[name=nombre]').val(nombre);
-                        $('#modificar-modal').find('input[name=descripcion]').val(descripcion);
-                    }
-                }).modal('show');
+    $("#nuevo").click(function(){
+        $('#nuevo-modal').modal({
+        }).modal('show');
     });
     
-    $("#modificar-button").click(function(){
-        var id = $(this).parent().parent().find("td:first").text();
-        var nombre = $('#modificar-modal').find('input[name=nombre]').val();
-        var descripcion = $('#modificar-modal').find('input[name=descripcion]').val();
+    $("#nuevo-button").click(function(){
+        
+        var nombre = $('#nuevo-modal').find('input[name=nombre]').val();
+        var descripcion = $('#nuevo-modal').find('select[name=descripcion]').val();
         
         $.ajax({
-            url : "/marcas/" + selectedId,
-            method : "PUT",
-            data : {nombre: nombre, descripcion: descripcion},
+            url : "/marcas",
+            method : "POST",
+            data : {nombre: nombre, descripcion: descripcion.join(",")},
             success : function(response){
-                var supplierSelector = "td:contains('"+ response.id + "')";
-                $supplierRow = $(supplierSelector).closest("tr");
-                $supplierRow.find("td:nth-child(2)").text(response.nombre);
-                $supplierRow.find("td:nth-child(3)").text(response.descripcion);
+                var json = JSON.parse(response);
+                    $("#marcas > tbody").append("<tr><td>"+json.marca_id+"</td><td>"+json.nombre+"</td><td>"+json.descripcion+"</td><td>"+json.usuarios+"</td><td><button class='ui edit icon button'><i class='write icon'></i></button><button class='ui delete icon button'><i class='trash icon'></i></button></td>");
             }
         })
     });

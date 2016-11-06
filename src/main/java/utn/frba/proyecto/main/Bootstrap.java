@@ -4,20 +4,21 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 import utn.frba.proyecto.utils.PasswordUtil;
-import utn.frba.proyecto.entities.Camaras;
 import utn.frba.proyecto.entities.Marcas;
-import utn.frba.proyecto.entities.Ofertas;
-import utn.frba.proyecto.entities.Publicidades;
-import utn.frba.proyecto.entities.Televisores;
-import utn.frba.proyecto.entities.Ubicaciones;
 import utn.frba.proyecto.entities.Usuarios;
-import utn.frba.proyecto.repositorios.RepositorioCamaras;
+import utn.frba.proyecto.entities.Publicidades;
+import utn.frba.proyecto.entities.Ofertas;
+import utn.frba.proyecto.entities.Ubicaciones;
+import utn.frba.proyecto.entities.Camaras;
+import utn.frba.proyecto.entities.Televisores;
+
 import utn.frba.proyecto.repositorios.RepositorioMarcas;
-import utn.frba.proyecto.repositorios.RepositorioOfertas;
-import utn.frba.proyecto.repositorios.RepositorioPublicidades;
-import utn.frba.proyecto.repositorios.RepositorioTelevisores;
-import utn.frba.proyecto.repositorios.RepositorioUbicaciones;
 import utn.frba.proyecto.repositorios.RepositorioUsuarios;
+import utn.frba.proyecto.repositorios.RepositorioPublicidades;
+import utn.frba.proyecto.repositorios.RepositorioOfertas;
+import utn.frba.proyecto.repositorios.RepositorioUbicaciones;
+import utn.frba.proyecto.repositorios.RepositorioCamaras;
+import utn.frba.proyecto.repositorios.RepositorioTelevisores;
 
 public class Bootstrap implements WithGlobalEntityManager, TransactionalOps {
 
@@ -26,104 +27,24 @@ public class Bootstrap implements WithGlobalEntityManager, TransactionalOps {
 		Bootstrap bootstrap = new Bootstrap();
 		bootstrap.run();
 	}
-
+	
 	private void run() {
 		withTransaction(() -> {
-			Usuarios rodrigo = new Usuarios("Rodrigo", "Castro", PasswordUtil.hashPassword("admin"),
-					"rodrigo.castro@gmail.com", true);
-			RepositorioUsuarios.getInstance().agregarUsuario(rodrigo);
-
-			Usuarios fedeA = new Usuarios("Fede", "Alva", PasswordUtil.hashPassword("admin"), "fede.alva@gmail.com",
-					false);
-			Usuarios fedeC = new Usuarios("fede", "cze", PasswordUtil.hashPassword("admin"), "fede.cze@gmail.com",
-					false);
-			Usuarios eze = new Usuarios("ezequiel", "ogando", PasswordUtil.hashPassword("admin"),
-					"eze.ogando@gmail.com", false);
+			
+			Usuarios rodrigo = new Usuarios("Rodrigo", "Castro", PasswordUtil.hashPassword("admin"),"rodrigo.castro@gmail.com", true);
+			Usuarios eduardo = new Usuarios("Eduardo", "Toledo", PasswordUtil.hashPassword("admin"),"eduardo.toledo@gmail.com", true);
+			Usuarios cristian = new Usuarios("Cristian", "Guemes", PasswordUtil.hashPassword("admin"),"cristian.guemes@gmail.com", true);
+			Usuarios federico = new Usuarios("Federico", "Varela", PasswordUtil.hashPassword("admin"),"federico.varela@gmail.com", true);
+			Usuarios ezequiel = new Usuarios("Ezequiel", "Leverone", PasswordUtil.hashPassword("admin"),"ezequiel.leverone@gmail.com", true);
+			Usuarios fedeA = new Usuarios("Fede", "Alva", PasswordUtil.hashPassword("admin"), "fede.alva@gmail.com",false);
+			Usuarios fedeC = new Usuarios("fede", "cze", PasswordUtil.hashPassword("admin"), "fede.cze@gmail.com",false);
+			Usuarios eze = new Usuarios("ezequiel", "ogando", PasswordUtil.hashPassword("admin"),"eze.ogando@gmail.com", false);
 			Usuarios ana = new Usuarios("ana", "sosa", PasswordUtil.hashPassword("admin"), "ana.sosa@gmail.com", false);
-
-			RepositorioUsuarios.getInstance().agregarUsuario(fedeA);
-			RepositorioUsuarios.getInstance().agregarUsuario(fedeC);
-			RepositorioUsuarios.getInstance().agregarUsuario(eze);
-			RepositorioUsuarios.getInstance().agregarUsuario(ana);
-
-			// ********************************************************************************************
-			Ubicaciones ubicacion1 = new Ubicaciones("Ubicacion #1");
-			Ubicaciones ubicacion2 = new Ubicaciones("Ubicacion #2");
-			Ubicaciones ubicacion3 = new Ubicaciones("Ubicacion #3");
-
-			Camaras camara1 = new Camaras("10.24.192.151", "111.111.111");
-			Camaras camara2 = new Camaras("10.24.192.152", "222.222.222");
-			Camaras camara3 = new Camaras("10.24.192.153", "333.333.333");
-			Camaras camara4 = new Camaras("10.24.192.154", "444.444.444");
-			Camaras camara5 = new Camaras("10.24.192.155", "555.555.555");
-			Camaras camara6 = new Camaras("10.24.192.156", "666.666.666");
-
-			Televisores televisor1 = new Televisores("Techo");
-			Televisores televisor2 = new Televisores("Piso");
-			Televisores televisor3 = new Televisores("Pared");
-			Televisores televisor4 = new Televisores("Puerta");
-			Televisores televisor5 = new Televisores("Banio");
-			Televisores televisor6 = new Televisores("Escalera");
-			Televisores televisor7 = new Televisores("Ascensor");
-			Televisores televisor8 = new Televisores("Poste");
-
-			camara1.agregarTelevisor(televisor1);
-			camara1.agregarTelevisor(televisor2);
-			camara2.agregarTelevisor(televisor3);
-			camara2.agregarTelevisor(televisor4);
-			camara2.agregarTelevisor(televisor5);
-			camara3.agregarTelevisor(televisor6);
-			camara3.agregarTelevisor(televisor7);
-			camara3.agregarTelevisor(televisor8);
-
-			ubicacion1.agregarCamara(camara1); ubicacion1.agregarCamara(camara2);
-			ubicacion2.agregarCamara(camara3); ubicacion2.agregarCamara(camara4);
-			ubicacion3.agregarCamara(camara5); ubicacion3.agregarCamara(camara6);
 			
-			/*
-			camara1.setDescripcionUbicacion(ubicacion1.getDescripcion());
-			camara2.setDescripcionUbicacion(ubicacion1.getDescripcion());
-			
-			camara3.setDescripcionUbicacion(ubicacion2.getDescripcion());
-			camara4.setDescripcionUbicacion(ubicacion2.getDescripcion());
-			
-			camara5.setDescripcionUbicacion(ubicacion3.getDescripcion());
-			camara6.setDescripcionUbicacion(ubicacion3.getDescripcion());
-			*/
-			
-			ubicacion1.agregarTelevisor(televisor1);
-			ubicacion1.agregarTelevisor(televisor2);
-			ubicacion1.agregarTelevisor(televisor3);
-			ubicacion2.agregarTelevisor(televisor4);
-			ubicacion2.agregarTelevisor(televisor5);
-			ubicacion2.agregarTelevisor(televisor6);
-			ubicacion3.agregarTelevisor(televisor7);
-			ubicacion3.agregarTelevisor(televisor8);
-
-			RepositorioTelevisores.getInstance().addTelevisor(televisor1);
-			RepositorioTelevisores.getInstance().addTelevisor(televisor2);
-			RepositorioTelevisores.getInstance().addTelevisor(televisor3);
-			RepositorioTelevisores.getInstance().addTelevisor(televisor4);
-			RepositorioTelevisores.getInstance().addTelevisor(televisor5);
-			RepositorioTelevisores.getInstance().addTelevisor(televisor6);
-			RepositorioTelevisores.getInstance().addTelevisor(televisor7);
-			RepositorioTelevisores.getInstance().addTelevisor(televisor8);
-
-			RepositorioCamaras.getInstance().addCamara(camara1);
-			RepositorioCamaras.getInstance().addCamara(camara2);
-			RepositorioCamaras.getInstance().addCamara(camara3);
-			RepositorioCamaras.getInstance().addCamara(camara4);
-			RepositorioCamaras.getInstance().addCamara(camara5);
-			RepositorioCamaras.getInstance().addCamara(camara6);
-
-			RepositorioUbicaciones.getInstance().agregarUbicacion(ubicacion1);
-			RepositorioUbicaciones.getInstance().agregarUbicacion(ubicacion2);
-			RepositorioUbicaciones.getInstance().agregarUbicacion(ubicacion3);
-			// ********************************************************************************************
-			Marcas marca1 = new Marcas("Adidas", "Imposible is nothing");
-			Marcas marca2 = new Marcas("Nike", "Just do it");
-			Marcas marca3 = new Marcas("Salomon", "MontaÃ±a, vino y partuza");
-			Marcas marca4 = new Marcas("Topper", "No me compra nadie");
+			Marcas marca1 = new Marcas("Adidas", "Imposible is nothing");			marca1.agregarUsuario(fedeA);
+			Marcas marca2 = new Marcas("Nike", "Just do it");						marca2.agregarUsuario(fedeC);
+			Marcas marca3 = new Marcas("Salomon", "MontaÃ±a, vino y partuza");		marca3.agregarUsuario(eze);
+			Marcas marca4 = new Marcas("Topper", "No me compra nadie");				marca4.agregarUsuario(ana);
 
 			Publicidades p1 = new Publicidades("H", 75, 85, 8, 11, "desc1", "path1");
 			Publicidades p2 = new Publicidades("M", 65, 75, 10, 13, "desc2", "path2");
@@ -134,20 +55,42 @@ public class Bootstrap implements WithGlobalEntityManager, TransactionalOps {
 			Publicidades p7 = new Publicidades("H", 55, 65, 16, 19, "desc7", "path7");
 			Publicidades p8 = new Publicidades("M", 60, 80, 21, 24, "desc8", "path8");
 			Publicidades p9 = new Publicidades("M", 10, 15, 10, 15, "desc9", "path9");
-
+			
 			Ofertas oferta1 = new Ofertas("45%");
 			Ofertas oferta2 = new Ofertas("25%");
 			Ofertas oferta3 = new Ofertas("35%");
 			Ofertas oferta4 = new Ofertas("10%");
 			Ofertas oferta5 = new Ofertas("15%");
-
+			Ofertas oferta6 = new Ofertas("20%");
+			
+			/*
+			p1.setOferta(oferta1);
+			p2.setOferta(oferta2);
+			p3.setOferta(oferta3);
+			p7.setOferta(oferta4);
+			p8.setOferta(oferta5); 
+			p9.setOferta(oferta6);
+			*/
+			
 			oferta1.setPublicidades(p1);
 			oferta2.setPublicidades(p2);
-
-			oferta3.setPublicidades(p7);
-			oferta4.setPublicidades(p8);
-			oferta5.setPublicidades(p9);
-
+			oferta3.setPublicidades(p3);
+			
+			oferta4.setPublicidades(p7);
+			oferta5.setPublicidades(p8);
+			oferta6.setPublicidades(p9); 
+			
+			marca1.agregarUsuario(fedeA); 
+			marca2.agregarUsuario(fedeC); 
+			marca3.agregarUsuario(eze); 
+			marca4.agregarUsuario(ana);
+			
+			marca1.agregarPublicidad(p1); marca1.agregarPublicidad(p2);
+			marca2.agregarPublicidad(p3); marca2.agregarPublicidad(p4);
+			
+			marca4.agregarPublicidad(p5); marca4.agregarPublicidad(p6);
+			marca4.agregarPublicidad(p7); marca4.agregarPublicidad(p8); marca4.agregarPublicidad(p9);
+			
 			RepositorioPublicidades.getInstance().addPublicidad(p1);
 			RepositorioPublicidades.getInstance().addPublicidad(p2);
 			RepositorioPublicidades.getInstance().addPublicidad(p3);
@@ -157,50 +100,72 @@ public class Bootstrap implements WithGlobalEntityManager, TransactionalOps {
 			RepositorioPublicidades.getInstance().addPublicidad(p7);
 			RepositorioPublicidades.getInstance().addPublicidad(p8);
 			RepositorioPublicidades.getInstance().addPublicidad(p9);
-
+			
 			RepositorioOfertas.getInstance().addOferta(oferta1);
 			RepositorioOfertas.getInstance().addOferta(oferta2);
 			RepositorioOfertas.getInstance().addOferta(oferta3);
 			RepositorioOfertas.getInstance().addOferta(oferta4);
 			RepositorioOfertas.getInstance().addOferta(oferta5);
-
-			marca1.agregarUsuario(fedeA);
-			//fedeA.setNombreMarca(marca1.getNombre());
-			marca2.agregarUsuario(fedeC);
-			//fedeC.setNombreMarca(marca2.getNombre());
-			marca3.agregarUsuario(eze);
-			//eze.setNombreMarca(marca3.getNombre());
-			marca4.agregarUsuario(ana);
-			//ana.setNombreMarca(marca4.getNombre());
-
-			marca1.agregarPublicidad(p1);
-			marca1.agregarPublicidad(p2);
-			marca2.agregarPublicidad(p3);
-			marca2.agregarPublicidad(p4);
-			marca3.agregarPublicidad(p5);
-			marca3.agregarPublicidad(p6);
-
-			marca4.agregarPublicidad(p7);
-			marca4.agregarPublicidad(p8);
-			marca4.agregarPublicidad(p9);
-
+			RepositorioOfertas.getInstance().addOferta(oferta6);
+			
+			RepositorioUsuarios.getInstance().agregarUsuario(rodrigo);
+			RepositorioUsuarios.getInstance().agregarUsuario(eduardo);
+			RepositorioUsuarios.getInstance().agregarUsuario(cristian);
+			RepositorioUsuarios.getInstance().agregarUsuario(federico);
+			RepositorioUsuarios.getInstance().agregarUsuario(ezequiel);
+			RepositorioUsuarios.getInstance().agregarUsuario(fedeA);
+			RepositorioUsuarios.getInstance().agregarUsuario(fedeC);
+			RepositorioUsuarios.getInstance().agregarUsuario(eze);
+			RepositorioUsuarios.getInstance().agregarUsuario(ana);
+			
 			RepositorioMarcas.getInstance().agregarMarca(marca1);
 			RepositorioMarcas.getInstance().agregarMarca(marca2);
 			RepositorioMarcas.getInstance().agregarMarca(marca3);
 			RepositorioMarcas.getInstance().agregarMarca(marca4);
+			
+			// ********************************************************************************************
+			
+			Ubicaciones ubicacion1 = new Ubicaciones("Ubicacion #1");
+			Ubicaciones ubicacion2 = new Ubicaciones("Ubicacion #2");
+			Ubicaciones ubicacion3 = new Ubicaciones("Ubicacion #3");
 
-			// fedeA.setMarca(marca1);
-			RepositorioUsuarios.getInstance().agregarUsuario(fedeA);
+			Camaras camara1 = new Camaras("10.24.151", "111.111"); Camaras camara2 = new Camaras("10.24.152", "222.222");
+			Camaras camara3 = new Camaras("10.24.153", "333.333"); Camaras camara4 = new Camaras("10.24.154", "444.444");
 
-			// fedeC.setMarca(marca2);
-			RepositorioUsuarios.getInstance().agregarUsuario(fedeC);
+			Televisores t1 = new Televisores("Techo"); Televisores t2 = new Televisores("Piso");
+			Televisores t3 = new Televisores("Pared"); Televisores t4 = new Televisores("Puerta");
+			Televisores t5 = new Televisores("Banio"); Televisores t6 = new Televisores("Escalera");
+			Televisores t7 = new Televisores("Poste"); Televisores t8 = new Televisores("McDonald");
 
-			// eze.setMarca(marca3);
-			RepositorioUsuarios.getInstance().agregarUsuario(eze);
+			camara1.agregarTelevisor(t1); camara1.agregarTelevisor(t2); 
+			camara2.agregarTelevisor(t3); camara2.agregarTelevisor(t4); 
+			camara3.agregarTelevisor(t5); camara3.agregarTelevisor(t6); 
+			camara4.agregarTelevisor(t7); camara4.agregarTelevisor(t8);
 
-			// ana.setMarca(marca4);
-			RepositorioUsuarios.getInstance().agregarUsuario(ana);
+			ubicacion1.agregarCamara(camara1); ubicacion2.agregarCamara(camara2);
+			ubicacion3.agregarCamara(camara3); ubicacion3.agregarCamara(camara4);
+			
+			ubicacion1.agregarTelevisor(t1); ubicacion1.agregarTelevisor(t2);
+			ubicacion1.agregarTelevisor(t3); ubicacion2.agregarTelevisor(t4); 
+			ubicacion2.agregarTelevisor(t5); ubicacion2.agregarTelevisor(t6);
+			ubicacion3.agregarTelevisor(t7); ubicacion3.agregarTelevisor(t8);
 
+			RepositorioTelevisores.getInstance().addTelevisor(t1);
+			RepositorioTelevisores.getInstance().addTelevisor(t2);
+			RepositorioTelevisores.getInstance().addTelevisor(t3);
+			RepositorioTelevisores.getInstance().addTelevisor(t4);
+			RepositorioTelevisores.getInstance().addTelevisor(t5);
+			RepositorioTelevisores.getInstance().addTelevisor(t6);
+			RepositorioTelevisores.getInstance().addTelevisor(t7);
+			RepositorioTelevisores.getInstance().addTelevisor(t8);
+
+			RepositorioCamaras.getInstance().addCamara(camara1); RepositorioCamaras.getInstance().addCamara(camara2);
+			RepositorioCamaras.getInstance().addCamara(camara3); RepositorioCamaras.getInstance().addCamara(camara4);
+
+			RepositorioUbicaciones.getInstance().agregarUbicacion(ubicacion1);
+			RepositorioUbicaciones.getInstance().agregarUbicacion(ubicacion2);
+			RepositorioUbicaciones.getInstance().agregarUbicacion(ubicacion3);
+			// ********************************************************************************************
 		});
 		System.exit(0);
 	}

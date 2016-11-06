@@ -1,9 +1,7 @@
 package utn.frba.proyecto.controllers;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static utn.frba.proyecto.utils.JSONUtils.json;
@@ -20,27 +18,11 @@ import utn.frba.proyecto.utils.AuthenticationUtil;
 import utn.frba.proyecto.utils.ResponseError;
 
 public class PublicidadController {
-	// private MarcaService marcaService = new MarcaService();
-
+	
 	private static final String rutaDeImagenes = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/img";
-
-	// private static final String ruta =
-	// "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/qrs/";
-	// private static final String ruta = /img;
-	// private static final String ruta = /of;
 	public PublicidadController(final PublicidadService publicidadService) {
 
 		HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
-
-		// get("/publicidades", (request, response) -> {
-		// List<Publicidades> publicidades =
-		// publicidadService.getPublicidades();
-		// Map<String, Object> map = new HashMap<String, Object>();
-		// map.put("usuario", AuthenticationUtil.getAuthenticatedUser(request));
-		// map.put("publicidades", publicidades);
-		// return new ModelAndView(map, "publicidades.hbs");
-		//
-		// }, engine);
 
 		get("/publicidades", (request, response) -> {
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -130,34 +112,24 @@ public class PublicidadController {
 			int extensionImagenSeleccionada = path.length();
 			String ultimos3 = path.substring(extensionImagenSeleccionada - 3, extensionImagenSeleccionada);
 			switch (ultimos3) {
-			case "png":
-				extension = ".png";
-				break;
-			case "jpg":
-				extension = ".jpg";
-				break;
-			default:
-				extension = ".gif";
-				break;
+				case "png": extension = ".png"; break;
+				case "jpg": extension = ".jpg"; break;
+				default: extension = ".gif"; break;
 			}
 
 			String cantPublicidades = String.valueOf(publicidadService.getPublicidades().size() + 1);
-			// String ruta = "../img/";
 			String nombreFinal = cantPublicidades + extension;
 
-			Usuarios usuario = AuthenticationUtil.getAuthenticatedUser(request);
-			Marcas marca = RepositorioMarcas.getInstance().getMarcaByUsuario(usuario);
-			Publicidades publicidad = new Publicidades(sexo, emin, emax, hrmin, hrmax, descripcion, nombreFinal);
-			publicidadService.crearPublicidad(publicidad);
-			RepositorioMarcas.getInstance().agregarPublicidadAMarca(publicidad, marca);
+			Marcas marca = RepositorioMarcas.getInstance().getMarcaByUsuario(AuthenticationUtil.getAuthenticatedUser(request));
+			publicidadService.crearPublicidad(sexo, emin, emax, hrmin, hrmax, descripcion, nombreFinal, marca);
 
 			int cantidadPublicidades = publicidadService.getPublicidades().size();
 			Publicidades ultimaPublicidad = publicidadService.getPublicidades().get(cantidadPublicidades - 1);
-			ultimaPublicidad.setPath(ultimaPublicidad.getId() + extension);
-			publicidadService.modificarPublicidad(publicidad);
+			ultimaPublicidad.setPath(ultimaPublicidad.getPub_id() + extension);
+			publicidadService.modificarPublicidad(ultimaPublicidad);
 
 			File fichero1 = new File(rutaDeImagenes, path);
-			File fichero2 = new File(rutaDeImagenes, ultimaPublicidad.getId() + extension);
+			File fichero2 = new File(rutaDeImagenes, ultimaPublicidad.getPub_id() + extension);
 			fichero1.renameTo(fichero2);
 
 			publicidadService.getPublicidades();

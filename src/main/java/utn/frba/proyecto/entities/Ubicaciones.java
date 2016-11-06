@@ -32,11 +32,11 @@ public class Ubicaciones {
 		this.descripcion = descripcion;
 	}
 
-	public int getId() {
+	public int getUbicacion_id() {
 		return ubicacion_id;
 	}
 
-	public void setId(int ubicacion_id) {
+	public void setUbicacion_id(int ubicacion_id) {
 		this.ubicacion_id = ubicacion_id;
 	}
 

@@ -19,17 +19,13 @@ import utn.frba.proyecto.entities.Usuarios;
 import utn.frba.proyecto.entities.Ofertas;
 import utn.frba.proyecto.repositorios.RepositorioMarcas;
 import utn.frba.proyecto.repositorios.RepositorioOfertas;
+import utn.frba.proyecto.repositorios.RepositorioPublicidades;
 import utn.frba.proyecto.services.PublicidadService;
 import utn.frba.proyecto.utils.AuthenticationUtil;
-import utn.frba.proyecto.utils.ResponseError;
 
 public class OfertaController {
 
-	private static final String rutaOfertas = "C:/Users/LaTota/workspace800/tota-server-master/tota-server/src/main/resources/public/ofertas";
-	// private static final String ruta =
-	// "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/qrs/";
-	// private static final String ruta = /img;
-	// private static final String ruta = /of;
+	private static final String rutaOfertas = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/ofertas";
 
 	public OfertaController(final OfertaService ofertaService) {
 
@@ -37,36 +33,44 @@ public class OfertaController {
 
 		get("/ofertas", (request, response) -> {
 			Map<String, Object> map = new HashMap<String, Object>();
-			List<Publicidades> publicidadesDeMarcaDeUsuario = new ArrayList<Publicidades>();
-			List<Ofertas> ofertas = new ArrayList<Ofertas>();
-			List<Publicidades> publicidadesSinOferta = new ArrayList<Publicidades>();
+			
+			List<Ofertas> ofertasMarcaUsuario = new ArrayList<Ofertas>();
+			
+			List<Ofertas> ofertasSistema = RepositorioOfertas.getInstance().getAllOfertas();
+			
+			// Aca tengo al usuario
 			Usuarios usuario = AuthenticationUtil.getAuthenticatedUser(request);
+			
+			// Aca tengo la marca del usuario
 			Marcas marca = RepositorioMarcas.getInstance().getMarcaByUsuario(usuario);
+			
+			// Aca tengo las publicidades de la marca del usuario
+			List<Publicidades> publicidadesMarcaUsuario = marca.getPublicidades();
 
-			if (usuario == null) {
-				map.put("ofertas", ofertas);
+			for(Ofertas unaOferta : ofertasSistema){
+				for(Publicidades unaPublicidad : publicidadesMarcaUsuario){
+					if(unaPublicidad.getPub_id() == unaOferta.getPublicidades().getPub_id()){
+						ofertasMarcaUsuario.add(unaOferta);
+					}
+				}
+			}
+			
+			List<Publicidades> publicidadesMarcaUsuarioSinOfertas = new ArrayList<Publicidades>();
+			
+			for(Publicidades unaPublicidad : publicidadesMarcaUsuario){
+				if(unaPublicidad.getOferta() == null){
+					publicidadesMarcaUsuarioSinOfertas.add(unaPublicidad);
+				}
+			}
+			
+			if (usuario != null || marca != null) {
+				map.put("usuario", usuario);
+				map.put("ofertas", ofertasMarcaUsuario);
+				map.put("publicidadesMarcaUsuario", publicidadesMarcaUsuarioSinOfertas);
 				return new ModelAndView(map, "ofertas.hbs");
+			} else {
+				return null;
 			}
-
-			publicidadesDeMarcaDeUsuario = marca.getPublicidades();
-
-			for (Publicidades unaPublicidad : publicidadesDeMarcaDeUsuario) {
-				if (unaPublicidad.getOferta() != null) {
-					Ofertas unaOferta = unaPublicidad.getOferta();
-					ofertas.add(unaOferta);
-				}
-			}
-
-			for (Publicidades unaPublicidad : publicidadesDeMarcaDeUsuario) {
-				if (unaPublicidad.getOferta() == null) {
-					publicidadesSinOferta.add(unaPublicidad);
-				}
-			}
-
-			map.put("usuario", usuario);
-			map.put("ofertas", ofertas);
-			map.put("publicidadesSinOferta", publicidadesSinOferta);
-			return new ModelAndView(map, "ofertas.hbs");
 
 		}, engine);
 
@@ -100,39 +104,26 @@ public class OfertaController {
 		delete("/ofertas/:of_id", (req, res) -> {
 			int of_id = Integer.parseInt(req.params(":of_id"));
 			Ofertas oferta = ofertaService.getOferta(of_id);
-
-			if (oferta != null) {
-				String fotoOferta = oferta.getPublicidades().getPath();
-				ofertaService.eliminarOferta(oferta);
-				File fotoParaBorrar = new File(rutaOfertas, fotoOferta);
-				fotoParaBorrar.delete();
-				ofertaService.getOfertas();
-				res.redirect("/ofertas");
-				return null;
-			} else {
-				res.status(400);
-				return "No hay ofertas con Id " + of_id;
-			}
+			String fotoOferta = oferta.getPublicidades().getPath();
+			ofertaService.eliminarOferta(oferta);
+			File fotoParaBorrar = new File(rutaOfertas, fotoOferta);
+			fotoParaBorrar.delete();
+			return null;
 		}, json());
 
 		post("/ofertas", (req, res) -> {
 			String descOferta = req.queryParams("descripcion");
 			int pub_id = Integer.parseInt(req.queryParams("pub_id"));
 
-			PublicidadService publicidadService = new PublicidadService();
-			Publicidades publicidad = publicidadService.getPublicidad(pub_id);
+			Publicidades publicidad = RepositorioPublicidades.getInstance().getPublicidadById(pub_id);
 
 			String path = publicidad.getPath();
-			String idPublicidad = String.valueOf(publicidad.getId());
-
+			String idPublicidad = String.valueOf(publicidad.getPub_id());
 			String imagenQR = "qr.png";
-
 			GeneradorCodigoQR generador = new GeneradorCodigoQR();
 			generador.generarCodigoQR(imagenQR, descOferta);
-
 			String extension = "";
-			int extensionImagenSeleccionada = path.length();
-			String ultimos3 = path.substring(extensionImagenSeleccionada - 3, extensionImagenSeleccionada);
+			String ultimos3 = path.substring(path.length() - 3, path.length());
 			switch (ultimos3) {
 			case "png":
 				extension = ".png";
@@ -148,12 +139,7 @@ public class OfertaController {
 			String nombreFinal = idPublicidad + extension;
 			Mezclador miMezclador = new Mezclador();
 			miMezclador.mezclarImagenes(path, imagenQR, nombreFinal);
-
-			Ofertas oferta = new Ofertas(descOferta);
-			oferta.setPublicidades(publicidad);
-			ofertaService.crearOferta(oferta);
-			publicidad.setOferta(oferta);
-
+			ofertaService.crearOferta(descOferta, publicidad);
 			ofertaService.getOfertas();
 			res.redirect("/ofertas");
 			return null;

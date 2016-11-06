@@ -16,8 +16,7 @@ public class Usuarios {
 	private String email;
 	private boolean admin;
 
-	public Usuarios() {
-	}
+	public Usuarios() {}
 
 	public Usuarios(String nombre, String apellido, String email) {
 		this.nombre = nombre;
@@ -40,27 +39,11 @@ public class Usuarios {
 		this.email = email;
 	}
 
-	public boolean isAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public int getId() {
+	public int getUser_id() {
 		return user_id;
 	}
 
-	public void setId(int user_id) {
+	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
 
@@ -70,6 +53,14 @@ public class Usuarios {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 
 	public String getPassword() {
@@ -88,13 +79,12 @@ public class Usuarios {
 		this.email = email;
 	}
 
-//	public String getNombreMarca() {
-//		return this.nombreMarca;
-//	}
-//
-//	public void setNombreMarca(String nombreMarca) {
-//		this.nombreMarca = nombreMarca;
-//
-//	}
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
 
 }

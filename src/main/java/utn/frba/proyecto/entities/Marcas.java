@@ -23,15 +23,13 @@ public class Marcas {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "marca_id")
-	private List<Publicidades> publicidades = new ArrayList<Publicidades>();
-
+	private List<Usuarios> usuarios = new ArrayList<Usuarios>();
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "marca_id")
-	private List<Usuarios> usuarios = new ArrayList<Usuarios>();
+	private List<Publicidades> publicidades = new ArrayList<Publicidades>();
 
-	public Marcas() {
-	}
-
+	public Marcas(){}
 	public Marcas(String nombre, String descripcion) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -40,33 +38,23 @@ public class Marcas {
 	public int getMarca_id() {
 		return marca_id;
 	}
-
 	public void setMarca_id(int marca_id) {
 		this.marca_id = marca_id;
 	}
-
+	
 	public String getNombre() {
 		return nombre;
 	}
-
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 	public String getDescripcion() {
 		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	public List<Publicidades> getPublicidades() {
-		return publicidades;
-	}
-
-	public void setPublicidades(List<Publicidades> publicidades) {
-		this.publicidades = publicidades;
 	}
 
 	public List<Usuarios> getUsuarios() {
@@ -79,13 +67,20 @@ public class Marcas {
 
 	public void agregarUsuario(Usuarios usuario) {
 		this.usuarios.add(usuario);
-
 	}
 
 	public void quitarUsuario(Usuarios usuario) {
 		this.usuarios.remove(usuario);
 	}
 
+	public List<Publicidades> getPublicidades() {
+		return publicidades;
+	}
+	
+	public void setPublicidades(List<Publicidades> publicidades) {
+		this.publicidades = publicidades;
+	}
+	
 	public void agregarPublicidad(Publicidades publicidad) {
 		this.publicidades.add(publicidad);
 	}
@@ -93,5 +88,4 @@ public class Marcas {
 	public void quitarPublicidad(Publicidades publicidad) {
 		this.publicidades.remove(publicidad);
 	}
-
 }

@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+
+import utn.frba.proyecto.entities.Marcas;
 import utn.frba.proyecto.entities.Ofertas;
+import utn.frba.proyecto.entities.Usuarios;
 
 public class RepositorioOfertas implements WithGlobalEntityManager, TransactionalOps {
 
@@ -38,6 +41,6 @@ public class RepositorioOfertas implements WithGlobalEntityManager, Transactiona
 		withTransaction(() -> {
 			entityManager().persist(oferta);
 		});
-	}
+	}		
 
 }

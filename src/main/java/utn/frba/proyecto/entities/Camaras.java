@@ -70,15 +70,5 @@ public class Camaras {
 	public void quitarTelevisor(Televisores televisor) {
 		this.televisores.remove(televisor);
 	}
-	// ****************************************************************
 	
-	/*
-	public String getDescripcionUbicacion() {
-		return this.descripcionUbicacion;
-	}
-
-	public void setDescripcionUbicacion(String descripcionUbicacion) {
-		this.descripcionUbicacion = descripcionUbicacion;
-	}
-	*/
 }

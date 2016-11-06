@@ -20,7 +20,7 @@
             <tbody>
             	{{#each televisores}}
 	            <tr>
-    	            <td>{{this.id}}</td>
+    	            <td>{{this.tv_id}}</td>
         	        <td>{{this.ip_dir}}</td>
                     <td class="center aligned">
                         <button id="edit" class="ui edit icon button">
@@ -59,7 +59,7 @@
 							  <div class="menu">
 							  
 							  	{{#each ubicaciones}}
-							  		<div class="item" data-value= {{this.id}} > {{this.id}} - {{this.descripcion}} </div>
+							  		<div class="item" data-value= {{this.ubicacion_id}} > {{this.ubicacion_id}} - {{this.descripcion}} </div>
 				    	        {{/each}}
 							    
 							  </div>
@@ -138,7 +138,7 @@
             data : {ip_dir: ip_dir, ubicacion_id: ubicacion_id, cam_id: cam_id},
             success : function(response){
                 var json = JSON.parse(response);
-                    $("#televisores > tbody").append("<tr><td>"+json.tv_id+"</td><td>"+json.ip_dir+"</td><td>"+json.ubicacion_id+"</td><td>"+json.cam_id+"</td><td><button class='ui edit icon button'><i class='write icon'></i></button><button class='ui delete icon button'><i class='trash icon'></i></button></td>");
+                    $("#televisores > tbody").append("<tr><td>"+json.tv_id+"</td><td>"+json.ip_dir+"</td><td><button class='ui edit icon button'><i class='write icon'></i></button><button class='ui delete icon button'><i class='trash icon'></i></button></td>");
             }
         })
         

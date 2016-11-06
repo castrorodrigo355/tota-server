@@ -9,10 +9,9 @@ public class MarcaService {
 
 	public List<Marcas> listarMarcas() {
 		return RepositorioMarcas.getInstance().listarMarcas();
-
 	}
 
-	public Marcas agregarMarca(String nombre, String descripcion) {
+	public Marcas crearMarca(String nombre, String descripcion) {
 		Marcas marca = new Marcas(nombre, descripcion);
 		RepositorioMarcas.getInstance().agregarMarca(marca);
 		return marca;
@@ -23,7 +22,7 @@ public class MarcaService {
 	}
 
 	public void quitarMarca(Marcas marca) {
-
+		RepositorioMarcas.getInstance().quitarMarca(marca);
 //		// Necesito borrar la referencia a la marca en usuarios
 //		List<Usuarios> usuarios = RepositorioUsuarios.getInstance().getAllUsers();
 //		usuarios.stream().filter(usuario -> marca.equals(usuario.getMarca()))
@@ -31,8 +30,6 @@ public class MarcaService {
 //						usuario.getApellido(), usuario.getPassword(), usuario.getEmail(), null));
 
 		// Necesito borrar la referencia a la marca en publicidades
-
-		RepositorioMarcas.getInstance().quitarMarca(marca);
 	}
 
 	public Marcas modificarMarca(int id, String nombre, String descripcion) {

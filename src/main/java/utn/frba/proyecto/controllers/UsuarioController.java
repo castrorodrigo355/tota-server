@@ -26,10 +26,11 @@ public class UsuarioController {
 		HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
 		get("/usuarios", (request, response) -> {
-			List<Usuarios> usuarios = usuarioService.getUsuarios();
-			List<Marcas> marcas = new MarcaService().listarMarcas();
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("usuario", AuthenticationUtil.getAuthenticatedUser(request));
+			Usuarios usuario = AuthenticationUtil.getAuthenticatedUser(request);
+			List<Usuarios> usuarios = usuarioService.getUsuariosRestantes(usuario);
+			List<Marcas> marcas = new MarcaService().listarMarcas();
+			map.put("usuario", usuario);
 			map.put("usuarios", usuarios);
 			map.put("marcas", marcas);
 			return new ModelAndView(map, "usuarios.hbs");
@@ -65,14 +66,8 @@ public class UsuarioController {
 		delete("/usuarios/:user_id", (req, res) -> {
 			int user_id = Integer.parseInt(req.params(":user_id"));
 			Usuarios usuario = usuarioService.getUsuario(user_id);
-
-			if (usuario != null) {
-				usuarioService.eliminarUsuario(usuario);
-				return usuarioService.getUsuarios();
-			} else {
-				res.status(400);
-				return "No hay usuarios con Id " + user_id;
-			}
+			usuarioService.eliminarUsuario(usuario);
+			return null;
 		}, json());
 
 		post("/usuarios", (req, res) -> {
@@ -80,10 +75,15 @@ public class UsuarioController {
 			String apellido = req.queryParams("apellido");
 			String password = req.queryParams("password");
 			String email = req.queryParams("email");
-			int marca_id = Integer.parseInt(req.queryParams("marca_id"));
+			String marca_id = req.queryParams("marca_id");
 			
-			Marcas marca = new MarcaService().getMarcaById(marca_id);
-            return usuarioService.crearUsuario(nombre, apellido, password, email, marca);
+			if(marca_id.equals("")){
+				return usuarioService.crearUsuario(nombre, apellido, password, email);
+			}else{
+				int id = Integer.parseInt(marca_id);
+				Marcas marca = new MarcaService().getMarcaById(id);
+				return usuarioService.crearUsuario(nombre, apellido, password, email, marca);
+			}
 		}, json());
 		
 		after("/usuarios/*", (req, res) -> {

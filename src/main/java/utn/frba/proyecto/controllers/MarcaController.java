@@ -28,7 +28,7 @@ public class MarcaController {
 		get("/marcas", (request, response) -> {
 			List<Marcas> marcas = marcaService.listarMarcas();
 			
-			List<Usuarios> usuarios = RepositorioUsuarios.getInstance().getAllUsers(); 
+			List<Usuarios> usuarios = RepositorioUsuarios.getInstance().getAllUsers();
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("usuario", AuthenticationUtil.getAuthenticatedUser(request));
 			map.put("marcas", marcas);
@@ -71,7 +71,7 @@ public class MarcaController {
 			String nombre = req.queryParams("nombre");
 			String descripcion = req.queryParams("descripcion");
 			
-            return marcaService.agregarMarca(nombre, descripcion); 
+			return marcaService.crearMarca(nombre, descripcion);
 		}, json());
 		
 		after("/marcas/*", (req, res) -> {

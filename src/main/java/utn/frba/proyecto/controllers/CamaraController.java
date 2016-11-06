@@ -12,10 +12,8 @@ import java.util.Map;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import utn.frba.proyecto.entities.Camaras;
-import utn.frba.proyecto.entities.Marcas;
 import utn.frba.proyecto.entities.Ubicaciones;
 import utn.frba.proyecto.services.CamaraService;
-import utn.frba.proyecto.services.MarcaService;
 import utn.frba.proyecto.services.UbicacionService;
 import utn.frba.proyecto.utils.AuthenticationUtil;
 
@@ -63,24 +61,16 @@ public class CamaraController {
 		delete("/camaras/:cam_id", (req, res) -> {
 			int cam_id = Integer.parseInt(req.params(":cam_id"));
 			Camaras camara = camaraService.getCamara(cam_id);
-
-			if (camara != null) {
-				camaraService.eliminarCamara(camara);
-				return camaraService.getCamaras();
-			} else {
-				res.status(400);
-				return "No hay camaras con Id " + cam_id;
-
-			}
+			camaraService.eliminarCamara(camara);
+			return null;
 		}, json());
 
 		post("/camaras", (req, res) -> {
 			String ip_dir = req.queryParams("ip_dir");
 			String endpoint = req.queryParams("endpoint");
 			int ubicacion_id = Integer.parseInt(req.queryParams("ubicacion_id"));
-			
-			
 			Ubicaciones ubicacion = new UbicacionService().getUbicacion(ubicacion_id);
+			
 			return camaraService.crearCamara(ip_dir, endpoint, ubicacion);
 		}, json());
 		
