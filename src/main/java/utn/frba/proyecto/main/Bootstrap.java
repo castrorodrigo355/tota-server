@@ -46,22 +46,18 @@ public class Bootstrap implements WithGlobalEntityManager, TransactionalOps {
 			Marcas marca3 = new Marcas("Salomon", "MontaÃ±a, vino y partuza");		marca3.agregarUsuario(eze);
 			Marcas marca4 = new Marcas("Topper", "No me compra nadie");				marca4.agregarUsuario(ana);
 
-			Publicidades p1 = new Publicidades("H", 75, 85, 8, 11, "desc1", "path1");
-			Publicidades p2 = new Publicidades("M", 65, 75, 10, 13, "desc2", "path2");
-			Publicidades p3 = new Publicidades("H", 40, 45, 12, 15, "desc3", "path3");
-			Publicidades p4 = new Publicidades("M", 45, 55, 14, 17, "desc4", "path4");
-			Publicidades p5 = new Publicidades("H", 35, 45, 18, 21, "desc5", "path5");
-			Publicidades p6 = new Publicidades("M", 25, 35, 20, 23, "desc6", "path6");
+			Publicidades p1 = new Publicidades("H", 75, 85, 8, 11, "desc1", "path1");		Ofertas oferta1 = new Ofertas("45%");
+			Publicidades p2 = new Publicidades("M", 65, 75, 10, 13, "desc2", "path2");		Ofertas oferta2 = new Ofertas("25%");
+			Publicidades p3 = new Publicidades("H", 40, 45, 12, 15, "desc3", "path3");		Ofertas oferta3 = new Ofertas("35%");
+			Publicidades p4 = new Publicidades("M", 45, 55, 14, 17, "desc4", "path4");		Ofertas oferta4 = new Ofertas("10%");
+			Publicidades p5 = new Publicidades("H", 35, 45, 18, 21, "desc5", "path5");		Ofertas oferta5 = new Ofertas("15%");
+			Publicidades p6 = new Publicidades("M", 25, 35, 20, 23, "desc6", "path6");		Ofertas oferta6 = new Ofertas("20%");
 			Publicidades p7 = new Publicidades("H", 55, 65, 16, 19, "desc7", "path7");
 			Publicidades p8 = new Publicidades("M", 60, 80, 21, 24, "desc8", "path8");
 			Publicidades p9 = new Publicidades("M", 10, 15, 10, 15, "desc9", "path9");
 			
-			Ofertas oferta1 = new Ofertas("45%");
-			Ofertas oferta2 = new Ofertas("25%");
-			Ofertas oferta3 = new Ofertas("35%");
-			Ofertas oferta4 = new Ofertas("10%");
-			Ofertas oferta5 = new Ofertas("15%");
-			Ofertas oferta6 = new Ofertas("20%");
+			oferta1.setPublicidades(p1); oferta2.setPublicidades(p2); oferta3.setPublicidades(p3);
+			oferta4.setPublicidades(p7); oferta5.setPublicidades(p8); oferta6.setPublicidades(p9);
 			
 			/*
 			p1.setOferta(oferta1);
@@ -70,15 +66,7 @@ public class Bootstrap implements WithGlobalEntityManager, TransactionalOps {
 			p7.setOferta(oferta4);
 			p8.setOferta(oferta5); 
 			p9.setOferta(oferta6);
-			*/
-			
-			oferta1.setPublicidades(p1);
-			oferta2.setPublicidades(p2);
-			oferta3.setPublicidades(p3);
-			
-			oferta4.setPublicidades(p7);
-			oferta5.setPublicidades(p8);
-			oferta6.setPublicidades(p9); 
+			*/ 
 			
 			marca1.agregarUsuario(fedeA); 
 			marca2.agregarUsuario(fedeC); 

@@ -1,7 +1,9 @@
 package utn.frba.proyecto.controllers;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static utn.frba.proyecto.utils.JSONUtils.json;
@@ -19,7 +21,7 @@ import utn.frba.proyecto.utils.ResponseError;
 
 public class PublicidadController {
 	
-	private static final String rutaDeImagenes = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/img";
+	private static final String rutaDeImagenes = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/target/classes/public/img";
 	public PublicidadController(final PublicidadService publicidadService) {
 
 		HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
@@ -31,6 +33,7 @@ public class PublicidadController {
 			if (usuario != null || marca != null) {
 				map.put("usuario", usuario);
 				map.put("publicidades", marca.getPublicidades());
+				map.put("items", Arrays.asList(marca.getDescripcion().split("\\s*,\\s*")));
 				return new ModelAndView(map, "publicidades.hbs");
 			} else {
 				return null;

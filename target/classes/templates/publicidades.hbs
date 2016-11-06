@@ -162,10 +162,24 @@
 		            <div class="ui clearing divider"></div>
 		            
 		            <div class="two fields">
-			            <div class="field">
-			                <label>Descripcion</label>
-			                <input name="descripcion" placeholder="Detalle Descripcion" type="text" required="true">
-			            </div>
+			            
+						<div class="required field">
+			  	 
+					  	 	  <label>Tipos Ropa</label>
+							  <div class="ui selection dropdown">
+								  <input type="hidden" name="descripcion">
+								  <i class="dropdown icon"></i>
+								  <div class="default text">Tipos Ropa</div>
+								  <div class="menu">
+								  
+								  	{{#each items}}
+								  		<div class="item" data-value= {{this}} > {{this}} </div>
+					    	        {{/each}}
+								    
+								  </div>
+							  </div>
+						</div>
+						
 			            <div class="field">
 			                <label>Path</label>
 			                <input name="path" placeholder="Path" type="text" required="true">

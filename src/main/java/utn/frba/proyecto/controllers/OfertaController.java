@@ -25,7 +25,7 @@ import utn.frba.proyecto.utils.AuthenticationUtil;
 
 public class OfertaController {
 
-	private static final String rutaOfertas = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/ofertas";
+	private static final String rutaOfertas = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/target/classes/public/ofertas";
 
 	public OfertaController(final OfertaService ofertaService) {
 

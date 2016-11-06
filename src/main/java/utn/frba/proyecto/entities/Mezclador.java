@@ -7,9 +7,9 @@ import javax.imageio.ImageIO;
 
 public class Mezclador {
 	
-	private static final String rutaImagenPublicidad = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/img";
-	private static final String rutaImagenQR = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/qrs";
-	private static final String rutaOfertas = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/ofertas";
+	private static final String rutaImagenPublicidad = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/target/classes/public/img";
+	private static final String rutaImagenQR = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/target/classes/public/qrs";
+	private static final String rutaOfertas = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/target/classes/public/ofertas";
 	// private static final String ruta = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/qrs/";
 	// private static final String ruta = /img;
 	// private static final String ruta = /of;

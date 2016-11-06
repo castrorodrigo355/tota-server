@@ -41,7 +41,6 @@
         </table>
     </div>
 </div>
-</div>
 
 <div class="ui modal">
     <i class="close icon"></i>
@@ -79,15 +78,42 @@
 		</div>
 </div>
 
+<div id="imagen-modal" class="ui small modal" id="formulario">
+    <i class="close icon"></i>
+        <div class="header">
+            Imagen Publicidad/ Oferta
+        </div>
+        
+        <button id="nueva-imagen" class="positive fluid ui button">Oferta</button>
+		<div class="ui clearing divider"></div>
+        
+        <div class="content">
+        	<img id="imagenPublicidad" name="imagenPublicidad" class="ui centered medium image">
+        </div>
+</div>
+
 <script>
 	
 	var selectedId = null;
+	var imagenOf = null;
+	
+	$(".ui.shuffle.icon.button").click(function(){
+    	var imagen = $(this).parents("tr").find("td").eq(2).text();
+        imagenOf = imagen;
+
+		$('#imagen-modal').modal({
+        }).modal('show');
+    });
 	
 	$("#nuevoModal").click(function(){
         $('.ui.modal').modal({
             onShow    : function(){
             }
         }).modal('show');
+    });
+	
+	$("#nueva-imagen").click(function () {
+            $("#imagenPublicidad").attr("src", "../ofertas/" + imagenOf);
     }); 
 
 	$(".ui.delete.icon.button").click(function(){
@@ -103,11 +129,7 @@
             }
         }) 
     });
-
-    $(".ui.shuffle.icon.button").click(function(){
-    	var id = $(this).parent().parent().find("td:first").text();
-    	alert("Elegiste la fila: " + id);
-    });
+    
 </script>
 
 {{/partial}}

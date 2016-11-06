@@ -11,11 +11,6 @@ import javax.persistence.OneToOne;
 @Entity
 public class Ofertas {
 
-	@Override
-	public String toString() {
-		return "Ofertas [of_id=" + of_id + ", descripcion=" + descripcion + "]";
-	}
-
 	@Id
 	@GeneratedValue
 	private int of_id;
@@ -25,6 +20,14 @@ public class Ofertas {
 	@JoinColumn(name = "pub_id")
 	private Publicidades publicidades;
 
+	public Publicidades getPublicidades() {
+		return publicidades;
+	}
+	
+	public void setPublicidades(Publicidades publicidades) {
+		this.publicidades = publicidades;
+	}
+	
 	public Ofertas(){}
 	public Ofertas(String descripcion){
 		this.descripcion = descripcion;
@@ -46,12 +49,8 @@ public class Ofertas {
 		this.descripcion = descripcion;
 	}
 	
-	public Publicidades getPublicidades() {
-		return publicidades;
+	@Override
+	public String toString() {
+		return "Ofertas [of_id=" + of_id + ", descripcion=" + descripcion + "]";
 	}
-	
-	public void setPublicidades(Publicidades publicidades) {
-		this.publicidades = publicidades;
-	}
-	
 }

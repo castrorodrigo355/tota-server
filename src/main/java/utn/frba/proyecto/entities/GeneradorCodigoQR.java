@@ -14,7 +14,7 @@ public class GeneradorCodigoQR {
 	private static final int ancho = 200;
 	private static final int alto = 200;
 	private static final String formato = "png";
-	private static final String ruta = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/qrs/";
+	private static final String ruta = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/target/classes/public/qrs";
 	// private static final String ruta = "C:/Users/LaTota/workspace50/tota-server-master/tota-server/src/main/resources/public/qrs/";
 	// private static final String ruta = /img;
 	// private static final String ruta = /of;
