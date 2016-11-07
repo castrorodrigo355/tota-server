@@ -33,7 +33,7 @@ public class PublicidadController {
 			if (usuario != null || marca != null) {
 				map.put("usuario", usuario);
 				map.put("publicidades", marca.getPublicidades());
-				map.put("items", Arrays.asList(marca.getDescripcion().split("\\s*,\\s*")));
+				map.put("items", Arrays.asList(marca.getDescripcion().split(",")));
 				return new ModelAndView(map, "publicidades.hbs");
 			} else {
 				return null;
